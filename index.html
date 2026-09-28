@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maticlass Kids App 🎨🎈</title>
+
+    <!-- Configuration PWA (Mobile / App Native) -->
+    <meta name="theme-color" content="#FF4757">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Maticlass Kids">
+    
+    <style>
+        :root {
+            --primary: #FF4757;
+            --secondary: #2ED573;
+            --blue: #1E90FF;
+            --yellow: #FFA500;
+            --purple: #9B59B6;
+            --dark: #2F3542;
+            --light: #F1F2F6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none; /* Empeche la sélection de texte sur mobile */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
+            background-color: #ECCC68;
+            background-image: radial-gradient(#FFA500 15%, transparent 16%);
+            background-size: 28px 28px;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* HEADER TYPE APP MOBILE */
+        header {
+            background: linear-gradient(135deg, #FF4757, #FF6B81, #1E90FF);
+            color: white;
+            width: 100%;
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-bottom: 5px solid var(--dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); text-shadow: 2px 2px #000; }
+
+        /* BARRE INSTALLATION PWA */
+        .install-banner {
+            background: #2ED573;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--dark);
+        }
+
+        .btn-install {
+            background: white;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px 0 var(--dark);
+        }
+
+        main {
+            width: 95%;
+            max-width: 800px;
+            margin: 15px auto;
+            flex: 1;
+            padding-bottom: 20px;
+        }
+
+        /* BOUTONS NAVIGATION PRINCIPALE */
+        .app-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn-mode {
+            background: white;
+            border: 4px solid var(--dark);
+            padding: 15px 10px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.1s ease;
+        }
+
+        .btn-mode:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--dark);
+        }
+
+        .btn-mode.active-discovery { background: #1E90FF; color: white; }
+        .btn-mode.active-exercise { background: #2ED573; color: white; }
+
+        /* DEFILEMENT DES CATEGORIES EN BOUTONS */
+        .category-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 5px 5px 15px 5px;
+            margin-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .category-scroll::-webkit-scrollbar { display: none; }
+
+        .btn-category {
+            background: white;
+            border: 3px solid var(--dark);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 800;
+            white-space: nowrap;
+            cursor: pointer;
+            box-shadow: 0 4px 0 var(--dark);
+            transition: all 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-category:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 var(--dark);
+        }
+
+        .btn-category.active {
+            background: var(--yellow);
+            color: var(--dark);
+            transform: scale(1.05);
+        }
+
+        .btn-category.cat-colors.active { background: var(--purple); color: white; }
+
+        /* GRILLE DE BOUTONS CARTE (MOTS & COULEURS) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+        }
+
+        .btn-card {
+            background: white;
+            border: 4px solid var(--dark);
+            border-radius: 22px;
+            padding: 15px 8px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--dark);
+            transition: all 0.1s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-card:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 var(--dark);
+            background: #FFF9E6;
+        }
+
+        .card-icon { font-size: 3.5rem; line-height: 1.1; }
+        .card-word {
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-top: 8px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        /* BOUTON LECTURE AUDIO DANS LES EXERCICES */
+        .exercise-card {
+            background: white;
+            border: 4px solid var(--dark);
+            border-radius: 25px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 8px 0 var(--dark);
+        }
+
+        .btn-speaker {
+            background: #FFEAA7;
+            border: 4px dashed #FDCB6E;
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            font-size: 3.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #E1B12C;
+            animation: bounce 2s infinite;
+        }
+
+        .btn-speaker:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 0 #E1B12C;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* BARRE DE SCORE EN BOUTON */
+        .score-pill {
+            margin-top: 20px;
+            background: var(--secondary);
+            color: white;
+            border: 4px solid var(--dark);
+            border-radius: 30px;
+            padding: 12px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            box-shadow: 0 6px 0 var(--dark);
+            text-align: center;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 480px) {
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); }
+            .card-icon { font-size: 2.8rem; }
+            .card-word { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Maticlass Kids 🎨 App</h1>
+    </header>
+
+    <!-- BANNIERE D'INSTALLATION WEB APP -->
+    <div class="install-banner hidden" id="installBanner">
+        <span>📲 Installe l'application sur ton écran !</span>
+        <button class="btn-install" onclick="installApp()">Installer</button>
+    </div>
+
+    <main>
+        <!-- BOUTONS DE COMMANDE DE L'APP -->
+        <nav class="app-nav">
+            <button class="btn-mode active-discovery" id="btnModeDiscovery" onclick="setAppMode('discovery')">
+                👀 Découvrir
+            </button>
+            <button class="btn-mode" id="btnModeExercise" onclick="setAppMode('exercise')">
+                🎮 Jouer
+            </button>
+        </nav>
+
+        <!-- BOUTONS CATEGORIES SCROLLABLES -->
+        <div class="category-scroll" id="categoryBar">
+            <button class="btn-category cat-colors active" onclick="selectCategory('colors', this)">🎨 Couleurs</button>
+            <button class="btn-category" onclick="selectCategory('daily', this)">💬 Quotidien</button>
+            <button class="btn-category" onclick="selectCategory('december', this)">🎄 Noël</button>
+            <button class="btn-category" onclick="selectCategory('animals', this)">🐶 Animaux</button>
+            <button class="btn-category" onclick="selectCategory('food', this)">🍎 Nourriture</button>
+            <button class="btn-category" onclick="selectCategory('school', this)">🎒 École</button>
+            <button class="btn-category" onclick="selectCategory('body', this)">👀 Corps</button>
+        </div>
+
+        <!-- 1. SECTION BOUTONS DECOUVERTE -->
+        <section id="discoverySection">
+            <div class="cards-grid" id="discoveryGrid"></div>
+        </section>
+
+        <!-- 2. SECTION JEU / EXERCICES -->
+        <section class="hidden" id="exerciseSection">
+            <div class="exercise-card">
+                <div style="font-size: 1.2rem; font-weight: bold; color: var(--blue);">Écoute le mot mystère :</div>
+                
+                <button class="btn-speaker" onclick="playExerciseAudio()">🔊</button>
+
+                <div style="font-size: 1.1rem; font-weight: bold; color: #57606F; margin-bottom: 10px;">Touche la bonne image :</div>
+
+                <div class="cards-grid" id="exerciseGrid"></div>
+            </div>
+
+            <div class="score-pill">
+                Étoiles gagnées : <span id="starsCounter">⭐ 0</span>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let stars = 0;
+        let currentTarget = null;
+        let selectedCategory = 'colors';
+        let deferredPrompt;
+
+        // BDD MOTS & COULEURS
+        const vocabularyData = [
+            // 🎨 COULEURS
+            { emoji: "🔴", word: "Red", category: "colors" },
+            { emoji: "🔵", word: "Blue", category: "colors" },
+            { emoji: "🟡", word: "Yellow", category: "colors" },
+            { emoji: "🟢", word: "Green", category: "colors" },
+            { emoji: "🟠", word: "Orange", category: "colors" },
+            { emoji: "🟣", word: "Purple", category: "colors" },
+            { emoji: "🩷", word: "Pink", category: "colors" },
+            { emoji: "🟤", word: "Brown", category: "colors" },
+            { emoji: "⚫", word: "Black", category: "colors" },
+            { emoji: "⚪", word: "White", category: "colors" },
+
+            // 💬 MOTS IMPORTANTS
+            { emoji: "👋", word: "Hello", category: "daily" },
+            { emoji: "👋", word: "Goodbye", category: "daily" },
+            { emoji: "🙏", word: "Please", category: "daily" },
+            { emoji: "❤️", word: "Thank you", category: "daily" },
+            { emoji: "👍", word: "Yes", category: "daily" },
+            { emoji: "👎", word: "No", category: "daily" },
+            { emoji: "💧", word: "Water", category: "daily" },
+            { emoji: "☀️", word: "Sun", category: "daily" },
+
+            // 🎄 NOEL
+            { emoji: "🎁", word: "Gift", category: "december" },
+            { emoji: "🎄", word: "Christmas", category: "december" },
+            { emoji: "⭐", word: "Star", category: "december" },
+            { emoji: "🔔", word: "Bell", category: "december" },
+
+            // 🐶 ANIMAUX
+            { emoji: "🐶", word: "Dog", category: "animals" },
+            { emoji: "🐱", word: "Cat", category: "animals" },
+            { emoji: "🐮", word: "Cow", category: "animals" },
+            { emoji: "🦁", word: "Lion", category: "animals" },
+            { emoji: "🐵", word: "Monkey", category: "animals" },
+
+            // 🍎 NOURRITURE
+            { emoji: "🍎", word: "Apple", category: "food" },
+            { emoji: "🍌", word: "Banana", category: "food" },
+            { emoji: "🍞", word: "Bread", category: "food" },
+            { emoji: "🥛", word: "Milk", category: "food" },
+
+            // 🎒 ECOLE
+            { emoji: "📚", word: "Book", category: "school" },
+            { emoji: "✏️", word: "Pencil", category: "school" },
+            { emoji: "🎒", word: "Bag", category: "school" },
+
+            // 👀 CORPS
+            { emoji: "👁️", word: "Eyes", category: "body" },
+            { emoji: "👂", word: "Ears", category: "body" },
+            { emoji: "🖐️", word: "Hand", category: "body" }
+        ];
+
+        // SYNTHÈSE VOCALE ANGLAISE
+        function speakWord(text, callback) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance(text);
+                msg.lang = 'en-US';
+                msg.rate = 0.75;
+                msg.pitch = 1.2;
+                if(callback) msg.onend = callback;
+                window.speechSynthesis.speak(msg);
+            }
+        }
+
+        // CHANGER MODE APP (DECOUVRIR / JOUER)
+        function setAppMode(mode) {
+            const btnDiscovery = document.getElementById('btnModeDiscovery');
+            const btnExercise = document.getElementById('btnModeExercise');
+            const discoverySec = document.getElementById('discoverySection');
+            const exerciseSec = document.getElementById('exerciseSection');
+
+            if (mode === 'discovery') {
+                btnDiscovery.className = "btn-mode active-discovery";
+                btnExercise.className = "btn-mode";
+                discoverySec.classList.remove('hidden');
+                exerciseSec.classList.add('hidden');
+                renderDiscoveryGrid();
+            } else {
+                btnExercise.className = "btn-mode active-exercise";
+                btnDiscovery.className = "btn-mode";
+                exerciseSec.classList.remove('hidden');
+                discoverySec.classList.add('hidden');
+                loadNewQuestion();
+            }
+        }
+
+        // SELECTIONNER UNE CATEGORIE EN BOUTON
+        function selectCategory(category, element) {
+            selectedCategory = category;
+            document.querySelectorAll('.btn-category').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            if (!document.getElementById('discoverySection').classList.contains('hidden')) {
+                renderDiscoveryGrid();
+            } else {
+                loadNewQuestion();
+            }
+        }
+
+        function getFilteredWords() {
+            return vocabularyData.filter(item => item.category === selectedCategory);
+        }
+
+        // RENDU DES BOUTONS EN MODE DECOUVERTE
+        function renderDiscoveryGrid() {
+            const grid = document.getElementById('discoveryGrid');
+            grid.innerHTML = '';
+
+            getFilteredWords().forEach(item => {
+                const button = document.createElement('button');
+                button.className = 'btn-card';
+                button.onclick = () => speakWord(item.word);
+                button.innerHTML = `
+                    <span class="card-icon">${item.emoji}</span>
+                    <span class="card-word">${item.word}</span>
+                `;
+                grid.appendChild(button);
+            });
+        }
+
+        // RENDU JEU / EXERCICES
+        function loadNewQuestion() {
+            const list = getFilteredWords();
+            if (list.length < 2) return;
+
+            currentTarget = list[Math.floor(Math.random() * list.length)];
+
+            let wrongTarget = list[Math.floor(Math.random() * list.length)];
+            while (wrongTarget.word === currentTarget.word) {
+                wrongTarget = list[Math.floor(Math.random() * list.length)];
+            }
+
+            const options = [currentTarget, wrongTarget].sort(() => Math.random() - 0.5);
+
+            const grid = document.getElementById('exerciseGrid');
+            grid.innerHTML = '';
+
+            options.forEach(opt => {
+                const button = document.createElement('button');
+                button.className = 'btn-card';
+                button.onclick = () => checkAnswer(opt.word === currentTarget.word);
+                button.innerHTML = `
+                    <span class="card-icon">${opt.emoji}</span>
+                    <span class="card-word">${opt.word}</span>
+                `;
+                grid.appendChild(button);
+            });
+
+            setTimeout(playExerciseAudio, 300);
+        }
+
+        function playExerciseAudio() {
+            if (currentTarget) speakWord(currentTarget.word);
+        }
+
+        function checkAnswer(isCorrect) {
+            if (isCorrect) {
+                stars += 1;
+                document.getElementById('starsCounter').innerText = "⭐ " + stars;
+                speakWord("Great job! " + currentTarget.word, loadNewQuestion);
+            } else {
+                speakWord("Try again!", playExerciseAudio);
+            }
+        }
+
+        // GESTION INSTALLATION WEB APP (PWA)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').classList.remove('hidden');
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installBanner').classList.add('hidden');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        // INIT AU CHARGEMENT
+        renderDiscoveryGrid();
+    </script>
+</body>
+</html>
