@@ -1,518 +1,458 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Maticlass Kids App 🎨🎈</title>
-
-    <!-- Configuration PWA (Mobile / App Native) -->
-    <meta name="theme-color" content="#FF4757">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Maticlass Kids">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maticlass Academy • Professional Curriculum & Vocabulary Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fredoka', 'sans-serif'],
+                    },
+                    colors: {
+                        rdc: {
+                            blue: '#007FFF',
+                            yellow: '#FCD116',
+                            red: '#CE1126',
+                            green: '#00A86B',
+                            dark: '#1E293B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary: #FF4757;
-            --secondary: #2ED573;
-            --blue: #1E90FF;
-            --yellow: #FFA500;
-            --purple: #9B59B6;
-            --dark: #2F3542;
-            --light: #F1F2F6;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none; /* Empeche la sélection de texte sur mobile */
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, system-ui, sans-serif;
-            background-color: #ECCC68;
-            background-image: radial-gradient(#FFA500 15%, transparent 16%);
-            background-size: 28px 28px;
-            color: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        /* HEADER TYPE APP MOBILE */
-        header {
-            background: linear-gradient(135deg, #FF4757, #FF6B81, #1E90FF);
-            color: white;
-            width: 100%;
-            padding: 15px 10px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            border-bottom: 5px solid var(--dark);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        header h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); text-shadow: 2px 2px #000; }
-
-        /* BARRE INSTALLATION PWA */
-        .install-banner {
-            background: #2ED573;
-            color: white;
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--dark);
-        }
-
-        .btn-install {
-            background: white;
-            color: var(--dark);
-            border: 2px solid var(--dark);
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 3px 0 var(--dark);
-        }
-
-        main {
-            width: 95%;
-            max-width: 800px;
-            margin: 15px auto;
-            flex: 1;
-            padding-bottom: 20px;
-        }
-
-        /* BOUTONS NAVIGATION PRINCIPALE */
-        .app-nav {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .btn-mode {
-            background: white;
-            border: 4px solid var(--dark);
-            padding: 15px 10px;
-            border-radius: 20px;
-            font-size: 1.1rem;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 6px 0 var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.1s ease;
-        }
-
-        .btn-mode:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 var(--dark);
-        }
-
-        .btn-mode.active-discovery { background: #1E90FF; color: white; }
-        .btn-mode.active-exercise { background: #2ED573; color: white; }
-
-        /* DEFILEMENT DES CATEGORIES EN BOUTONS */
-        .category-scroll {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 5px 5px 15px 5px;
-            margin-bottom: 15px;
-            scrollbar-width: none;
-        }
-
-        .category-scroll::-webkit-scrollbar { display: none; }
-
-        .btn-category {
-            background: white;
-            border: 3px solid var(--dark);
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 800;
-            white-space: nowrap;
-            cursor: pointer;
-            box-shadow: 0 4px 0 var(--dark);
-            transition: all 0.1s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-category:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 var(--dark);
-        }
-
-        .btn-category.active {
-            background: var(--yellow);
-            color: var(--dark);
-            transform: scale(1.05);
-        }
-
-        .btn-category.cat-colors.active { background: var(--purple); color: white; }
-
-        /* GRILLE DE BOUTONS CARTE (MOTS & COULEURS) */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 15px;
-        }
-
-        .btn-card {
-            background: white;
-            border: 4px solid var(--dark);
-            border-radius: 22px;
-            padding: 15px 8px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 6px 0 var(--dark);
-            transition: all 0.1s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-card:active {
-            transform: translateY(5px);
-            box-shadow: 0 1px 0 var(--dark);
-            background: #FFF9E6;
-        }
-
-        .card-icon { font-size: 3.5rem; line-height: 1.1; }
-        .card-word {
-            font-size: 1.2rem;
-            font-weight: 900;
-            margin-top: 8px;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
-
-        /* BOUTON LECTURE AUDIO DANS LES EXERCICES */
-        .exercise-card {
-            background: white;
-            border: 4px solid var(--dark);
-            border-radius: 25px;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: 0 8px 0 var(--dark);
-        }
-
-        .btn-speaker {
-            background: #FFEAA7;
-            border: 4px dashed #FDCB6E;
-            border-radius: 50%;
-            width: 110px;
-            height: 110px;
-            font-size: 3.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 15px auto;
-            cursor: pointer;
-            box-shadow: 0 6px 0 #E1B12C;
-            animation: bounce 2s infinite;
-        }
-
-        .btn-speaker:active {
-            transform: scale(0.95);
-            box-shadow: 0 2px 0 #E1B12C;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* BARRE DE SCORE EN BOUTON */
-        .score-pill {
-            margin-top: 20px;
-            background: var(--secondary);
-            color: white;
-            border: 4px solid var(--dark);
-            border-radius: 30px;
-            padding: 12px;
-            font-size: 1.3rem;
-            font-weight: 900;
-            box-shadow: 0 6px 0 var(--dark);
-            text-align: center;
-        }
-
-        .hidden { display: none !important; }
-
-        @media (max-width: 480px) {
-            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); }
-            .card-icon { font-size: 2.8rem; }
-            .card-word { font-size: 1rem; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Fredoka', sans-serif; }
+        .hero-pattern {
+            background-color: #007FFF;
+            background-image: radial-gradient(#FCD116 1.5px, transparent 1.5px), radial-gradient(#CE1126 1.5px, #007FFF 1.5px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
         }
     </style>
-</head>
-<body>
 
-    <header>
-        <h1>Maticlass Kids 🎨 App</h1>
+<style>
+/* Canva-inspired visual refresh */
+:root { --brand:#2563eb; --brand2:#7c3aed; --ink:#172033; }
+body { background: #f7f8fc; }
+.canva-card { background:rgba(255,255,255,.94); border:1px solid rgba(226,232,240,.9); box-shadow:0 14px 40px rgba(30,41,59,.08); }
+.gradient-title { background:linear-gradient(90deg,#2563eb,#7c3aed,#db2777); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.vocab-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+@media(min-width:640px){.vocab-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(min-width:1024px){.vocab-grid{grid-template-columns:repeat(5,minmax(0,1fr));}}
+.vocab-word { position:relative; min-height:94px; padding:14px 10px 10px; border-radius:18px; background:linear-gradient(145deg,#fff,#f5f7ff); border:1px solid #e8ebf5; transition:.2s; }
+.vocab-word:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(37,99,235,.12); border-color:#bfdbfe; }
+.vocab-number { position:absolute; top:8px; left:9px; width:22px; height:22px; border-radius:8px; background:#eff6ff; color:#2563eb; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+.vocab-en { display:block; margin-top:17px; font-weight:800; color:#172033; font-size:14px; line-height:1.2; }
+.vocab-fr { display:block; margin-top:4px; color:#64748b; font-size:12px; line-height:1.2; }
+.speak-btn { margin-top:9px; display:inline-flex; align-items:center; gap:5px; border:0; border-radius:10px; padding:5px 8px; background:#eef2ff; color:#4f46e5; font-size:11px; font-weight:700; cursor:pointer; }
+.speak-btn:hover { background:#e0e7ff; }
+.audio-panel { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:linear-gradient(135deg,#eff6ff,#f5f3ff); border:1px solid #dbeafe; border-radius:20px; padding:14px 16px; margin-top:20px; }
+.audio-panel button { border:0; border-radius:12px; padding:9px 14px; background:#2563eb; color:white; font-weight:700; cursor:pointer; }
+.audio-panel button.secondary { background:white; color:#334155; border:1px solid #cbd5e1; }
+.badge-canva { background:linear-gradient(90deg,#dbeafe,#ede9fe); color:#4338ca; }
+@media print { .speak-btn,.audio-panel,#searchInput,nav,header button { display:none!important; } }
+</style>
+
+<style>
+.maticlass-logo { display:flex; align-items:center; gap:10px; }
+.maticlass-logo-mark { width:46px;height:46px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);color:white;box-shadow:0 8px 20px rgba(37,99,235,.25); }
+.theme-image { width:100%;height:170px;object-fit:cover;border-radius:22px;margin-bottom:22px;box-shadow:0 10px 28px rgba(15,23,42,.10); }
+.vocab-image { width:100%;height:105px;object-fit:cover;border-radius:14px;margin-bottom:8px; }
+.word-visual { background:#fff;border-radius:18px;padding:10px;border:1px solid #e8ebf5;box-shadow:0 7px 20px rgba(30,41,59,.05); }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rdc-blue via-rdc-yellow to-rdc-red flex items-center justify-center text-white shadow-md transform hover:rotate-6 transition-transform">
+                    <i class="fa-solid fa-child-reaching text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Maticlass <span class="text-rdc-blue">Academy</span></h1>
+                    <p class="text-xs text-slate-500 font-medium">Early Learning • English Vocabulary • DRC</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#programme" class="text-slate-600 hover:text-rdc-blue transition-colors">Curriculum / Programme</a>
+                <a href="#vocabulaire" class="text-slate-600 hover:text-rdc-blue transition-colors">Local Vocabulary / Lexique</a>
+                <a href="#conseils" class="text-slate-600 hover:text-rdc-blue transition-colors">Pedagogical Anchor</a>
+            </nav>
+
+            <div class="flex items-center space-x-2">
+                <button onclick="window.print()" class="hidden sm:inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors">
+                    <i class="fa-solid fa-print mr-2"></i> Print Guide
+                </button>
+            </div>
+        </div>
     </header>
 
-    <!-- BANNIERE D'INSTALLATION WEB APP -->
-    <div class="install-banner hidden" id="installBanner">
-        <span>📲 Installe l'application sur ton écran !</span>
-        <button class="btn-install" onclick="installApp()">Installer</button>
-    </div>
+    <section class="hero-pattern text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-slate-900/30 backdrop-blur-[2px]"></div>
+        <div class="max-w-5xl mx-auto relative z-10 text-center">
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold bg-white text-indigo-700 mb-4 shadow-lg">
+                <i class="fa-solid fa-graduation-cap mr-2"></i> MATICLASS ACADEMY
+            </span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rdc-yellow text-slate-900 mb-4 shadow-sm">
+                <i class="fa-solid fa-star mr-1.5"></i> République Démocratique du Congo (DRC)
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-white drop-shadow-sm">
+                Maticlass Preschool English Learning
+            </h2>
+            <p class="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto mb-8 font-normal">
+                Une plateforme moderne pour apprendre l’anglais à travers des thèmes, des images, du vocabulaire visible et la prononciation audio.
+            </p>
+            
+            <!-- Quick Search Bar -->
+            <div class="max-w-xl mx-auto bg-white p-2 rounded-2xl shadow-xl flex items-center">
+                <i class="fa-solid fa-magnifying-glass text-slate-400 ml-3 mr-2"></i>
+                <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Search theme, term (fufu, safou, rain...)" class="w-full bg-transparent text-slate-800 placeholder-slate-400 text-sm sm:text-base focus:outline-none">
+            </div>
+        </div>
+    </section>
 
-    <main>
-        <!-- BOUTONS DE COMMANDE DE L'APP -->
-        <nav class="app-nav">
-            <button class="btn-mode active-discovery" id="btnModeDiscovery" onclick="setAppMode('discovery')">
-                👀 Découvrir
-            </button>
-            <button class="btn-mode" id="btnModeExercise" onclick="setAppMode('exercise')">
-                🎮 Jouer
-            </button>
-        </nav>
-
-        <!-- BOUTONS CATEGORIES SCROLLABLES -->
-        <div class="category-scroll" id="categoryBar">
-            <button class="btn-category cat-colors active" onclick="selectCategory('colors', this)">🎨 Couleurs</button>
-            <button class="btn-category" onclick="selectCategory('daily', this)">💬 Quotidien</button>
-            <button class="btn-category" onclick="selectCategory('december', this)">🎄 Noël</button>
-            <button class="btn-category" onclick="selectCategory('animals', this)">🐶 Animaux</button>
-            <button class="btn-category" onclick="selectCategory('food', this)">🍎 Nourriture</button>
-            <button class="btn-category" onclick="selectCategory('school', this)">🎒 École</button>
-            <button class="btn-category" onclick="selectCategory('body', this)">👀 Corps</button>
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full" id="programme">
+        
+        <div class="text-center mb-10">
+            <h3 class="text-2xl sm:text-3xl font-bold text-slate-900">Monthly Curriculum (Septembre - Janvier)</h3>
+            <p class="text-slate-600 mt-1">Select a month to explore sub-themes, activities, and bilingual vocabulary.</p>
         </div>
 
-        <!-- 1. SECTION BOUTONS DECOUVERTE -->
-        <section id="discoverySection">
-            <div class="cards-grid" id="discoveryGrid"></div>
+        <!-- Month Navigation Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10" id="monthTabs">
+            <button onclick="switchMonth('septembre')" id="tab-septembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-rdc-blue text-white">
+                September
+            </button>
+            <button onclick="switchMonth('octobre')" id="tab-octobre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                October
+            </button>
+            <button onclick="switchMonth('novembre')" id="tab-novembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                November
+            </button>
+            <button onclick="switchMonth('decembre')" id="tab-decembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                December
+            </button>
+            <button onclick="switchMonth('janvier')" id="tab-janvier" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+                January
+            </button>
+        </div>
+
+        <!-- Content Container for Months -->
+        <div id="monthContentContainer" class="space-y-8">
+            <!-- Dynamically populated -->
+        </div>
+
+        <section id="vocabulaire" class="mt-20 pt-10 border-t border-slate-200">
+    <div class="canva-card rounded-3xl p-6 sm:p-10">
+        <div class="text-center mb-8">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold badge-canva mb-3">
+                <i class="fa-solid fa-volume-high mr-1"></i> English • Français • Audio
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold gradient-title">Visible Vocabulary Library</h3>
+            <p class="text-slate-600 mt-2 max-w-2xl mx-auto">Les 10 mots du thème sélectionné sont affichés sous forme de cartes pédagogiques. Cliquez sur <strong>Listen</strong> pour entendre la prononciation.</p>
+        </div>
+        <div id="globalVocab" class="vocab-grid"></div>
+        <div class="audio-panel">
+            <span class="font-bold text-slate-800"><i class="fa-solid fa-headphones text-indigo-600 mr-2"></i>Audio practice</span>
+            <button onclick="speakCurrentVocabulary()"><i class="fa-solid fa-play mr-1"></i> Listen to all</button>
+            <button class="secondary" onclick="speechSynthesis.cancel()"><i class="fa-solid fa-stop mr-1"></i> Stop</button>
+            <span class="text-xs text-slate-500">Audio anglais • fonctionne sur ordinateur, tablette et téléphone.</span>
+        </div>
+    </div>
+</section>
+
+<section id="conseils" class="mt-16 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 rounded-3xl p-6 sm:p-10 shadow-sm">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="flex items-center space-x-2 text-amber-800">
+                        <i class="fa-solid fa-lightbulb text-xl"></i>
+                        <h4 class="font-display font-bold text-xl">Pedagogical Anchor / Ancrage Pédagogique Local</h4>
+                    </div>
+                    <p class="text-slate-700 text-sm sm:text-base leading-relaxed max-w-3xl">
+                        To illustrate these themes, teachers should prioritize Congolese folklore songs (<span class="italic">chansons du folklore congolais</span>), direct outdoor observations in the school yard (observing anthills, mango trees, or rainfall impact on soil), and daily objects such as pagne textile fragments or local seeds for counting exercises.
+                    </p>
+                </div>
+                <div class="bg-white px-6 py-4 rounded-2xl shadow-sm border border-amber-100 text-center flex-shrink-0">
+                    <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Goal / Objectif</span>
+                    <span class="block text-lg font-bold text-slate-900">Awakening & Identity</span>
+                </div>
+            </div>
         </section>
 
-        <!-- 2. SECTION JEU / EXERCICES -->
-        <section class="hidden" id="exerciseSection">
-            <div class="exercise-card">
-                <div style="font-size: 1.2rem; font-weight: bold; color: var(--blue);">Écoute le mot mystère :</div>
-                
-                <button class="btn-speaker" onclick="playExerciseAudio()">🔊</button>
-
-                <div style="font-size: 1.1rem; font-weight: bold; color: #57606F; margin-bottom: 10px;">Touche la bonne image :</div>
-
-                <div class="cards-grid" id="exerciseGrid"></div>
-            </div>
-
-            <div class="score-pill">
-                Étoiles gagnées : <span id="starsCounter">⭐ 0</span>
-            </div>
-        </section>
     </main>
 
+    <footer class="bg-slate-900 text-slate-400 mt-20 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <p class="font-display font-bold text-white text-lg">Maticlass • Plateforme Éducative</p>
+                <p class="text-xs text-slate-500 mt-1">Designed for early childhood educators in the Democratic Republic of the Congo.</p>
+            </div>
+            <div class="text-xs text-slate-500">
+                <p>&copy; 2026 • Early Childhood Education & Development</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        let stars = 0;
-        let currentTarget = null;
-        let selectedCategory = 'colors';
-        let deferredPrompt;
-
-        // BDD MOTS & COULEURS
-        const vocabularyData = [
-            // 🎨 COULEURS
-            { emoji: "🔴", word: "Red", category: "colors" },
-            { emoji: "🔵", word: "Blue", category: "colors" },
-            { emoji: "🟡", word: "Yellow", category: "colors" },
-            { emoji: "🟢", word: "Green", category: "colors" },
-            { emoji: "🟠", word: "Orange", category: "colors" },
-            { emoji: "🟣", word: "Purple", category: "colors" },
-            { emoji: "🩷", word: "Pink", category: "colors" },
-            { emoji: "🟤", word: "Brown", category: "colors" },
-            { emoji: "⚫", word: "Black", category: "colors" },
-            { emoji: "⚪", word: "White", category: "colors" },
-
-            // 💬 MOTS IMPORTANTS
-            { emoji: "👋", word: "Hello", category: "daily" },
-            { emoji: "👋", word: "Goodbye", category: "daily" },
-            { emoji: "🙏", word: "Please", category: "daily" },
-            { emoji: "❤️", word: "Thank you", category: "daily" },
-            { emoji: "👍", word: "Yes", category: "daily" },
-            { emoji: "👎", word: "No", category: "daily" },
-            { emoji: "💧", word: "Water", category: "daily" },
-            { emoji: "☀️", word: "Sun", category: "daily" },
-
-            // 🎄 NOEL
-            { emoji: "🎁", word: "Gift", category: "december" },
-            { emoji: "🎄", word: "Christmas", category: "december" },
-            { emoji: "⭐", word: "Star", category: "december" },
-            { emoji: "🔔", word: "Bell", category: "december" },
-
-            // 🐶 ANIMAUX
-            { emoji: "🐶", word: "Dog", category: "animals" },
-            { emoji: "🐱", word: "Cat", category: "animals" },
-            { emoji: "🐮", word: "Cow", category: "animals" },
-            { emoji: "🦁", word: "Lion", category: "animals" },
-            { emoji: "🐵", word: "Monkey", category: "animals" },
-
-            // 🍎 NOURRITURE
-            { emoji: "🍎", word: "Apple", category: "food" },
-            { emoji: "🍌", word: "Banana", category: "food" },
-            { emoji: "🍞", word: "Bread", category: "food" },
-            { emoji: "🥛", word: "Milk", category: "food" },
-
-            // 🎒 ECOLE
-            { emoji: "📚", word: "Book", category: "school" },
-            { emoji: "✏️", word: "Pencil", category: "school" },
-            { emoji: "🎒", word: "Bag", category: "school" },
-
-            // 👀 CORPS
-            { emoji: "👁️", word: "Eyes", category: "body" },
-            { emoji: "👂", word: "Ears", category: "body" },
-            { emoji: "🖐️", word: "Hand", category: "body" }
-        ];
-
-        // SYNTHÈSE VOCALE ANGLAISE
-        function speakWord(text, callback) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const msg = new SpeechSynthesisUtterance(text);
-                msg.lang = 'en-US';
-                msg.rate = 0.75;
-                msg.pitch = 1.2;
-                if(callback) msg.onend = callback;
-                window.speechSynthesis.speak(msg);
-            }
-        }
-
-        // CHANGER MODE APP (DECOUVRIR / JOUER)
-        function setAppMode(mode) {
-            const btnDiscovery = document.getElementById('btnModeDiscovery');
-            const btnExercise = document.getElementById('btnModeExercise');
-            const discoverySec = document.getElementById('discoverySection');
-            const exerciseSec = document.getElementById('exerciseSection');
-
-            if (mode === 'discovery') {
-                btnDiscovery.className = "btn-mode active-discovery";
-                btnExercise.className = "btn-mode";
-                discoverySec.classList.remove('hidden');
-                exerciseSec.classList.add('hidden');
-                renderDiscoveryGrid();
-            } else {
-                btnExercise.className = "btn-mode active-exercise";
-                btnDiscovery.className = "btn-mode";
-                exerciseSec.classList.remove('hidden');
-                discoverySec.classList.add('hidden');
-                loadNewQuestion();
-            }
-        }
-
-        // SELECTIONNER UNE CATEGORIE EN BOUTON
-        function selectCategory(category, element) {
-            selectedCategory = category;
-            document.querySelectorAll('.btn-category').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-
-            if (!document.getElementById('discoverySection').classList.contains('hidden')) {
-                renderDiscoveryGrid();
-            } else {
-                loadNewQuestion();
-            }
-        }
-
-        function getFilteredWords() {
-            return vocabularyData.filter(item => item.category === selectedCategory);
-        }
-
-        // RENDU DES BOUTONS EN MODE DECOUVERTE
-        function renderDiscoveryGrid() {
-            const grid = document.getElementById('discoveryGrid');
-            grid.innerHTML = '';
-
-            getFilteredWords().forEach(item => {
-                const button = document.createElement('button');
-                button.className = 'btn-card';
-                button.onclick = () => speakWord(item.word);
-                button.innerHTML = `
-                    <span class="card-icon">${item.emoji}</span>
-                    <span class="card-word">${item.word}</span>
-                `;
-                grid.appendChild(button);
-            });
-        }
-
-        // RENDU JEU / EXERCICES
-        function loadNewQuestion() {
-            const list = getFilteredWords();
-            if (list.length < 2) return;
-
-            currentTarget = list[Math.floor(Math.random() * list.length)];
-
-            let wrongTarget = list[Math.floor(Math.random() * list.length)];
-            while (wrongTarget.word === currentTarget.word) {
-                wrongTarget = list[Math.floor(Math.random() * list.length)];
-            }
-
-            const options = [currentTarget, wrongTarget].sort(() => Math.random() - 0.5);
-
-            const grid = document.getElementById('exerciseGrid');
-            grid.innerHTML = '';
-
-            options.forEach(opt => {
-                const button = document.createElement('button');
-                button.className = 'btn-card';
-                button.onclick = () => checkAnswer(opt.word === currentTarget.word);
-                button.innerHTML = `
-                    <span class="card-icon">${opt.emoji}</span>
-                    <span class="card-word">${opt.word}</span>
-                `;
-                grid.appendChild(button);
-            });
-
-            setTimeout(playExerciseAudio, 300);
-        }
-
-        function playExerciseAudio() {
-            if (currentTarget) speakWord(currentTarget.word);
-        }
-
-        function checkAnswer(isCorrect) {
-            if (isCorrect) {
-                stars += 1;
-                document.getElementById('starsCounter').innerText = "⭐ " + stars;
-                speakWord("Great job! " + currentTarget.word, loadNewQuestion);
-            } else {
-                speakWord("Try again!", playExerciseAudio);
-            }
-        }
-
-        // GESTION INSTALLATION WEB APP (PWA)
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').classList.remove('hidden');
-        });
-
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        document.getElementById('installBanner').classList.add('hidden');
+        // Bilingual Curriculum Data (approx 80% English, 20% French mix)
+        const curriculumData = {
+            septembre: {
+                image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
+                title: "September: Welcome and the Congolese School",
+                badge: "Integration Period / Période d'intégration",
+                description: "Welcoming children, building confidence, discovering the school environment, rules of life (<span class='italic'>règles de vie</span>), and social bonding.",
+                subthemes: [
+                    {
+                        title: "My Classroom and New Friends",
+                        desc: "Learning to greet one another (<span class='italic'>apprendre à saluer</span>), integrating smoothly into the group, and memorizing classmates' names."
+                    },
+                    {
+                        title: "School Supplies & Classroom Rules",
+                        desc: "Discovering the schoolbag (<span class='italic'>le cartable</span>), notebooks, pencils, and fundamental discipline guidelines in class."
+                    },
+                    {
+                        title: "My Body and Personal Hygiene",
+                        desc: "Raising awareness about handwashing (<span class='italic'>se laver les mains</span>), wearing clean clothing, and maintaining good personal care."
                     }
-                    deferredPrompt = null;
-                });
+                ],
+                vocabulaire: ["Cartable / Schoolbag", "Crayon / Pencil", "Ami(e) / Friend", "Classe / Classroom", "Bonjour / Hello", "Au revoir / Goodbye", "Main / Hand", "Savon / Soap", "Propreté / Cleanliness", "Enseignant(e) / Teacher"]
+            },
+            octobre: {
+                image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80",
+                title: "October: Environment and Nature (Rainy Season)",
+                badge: "Rainy Season / Saison des pluies",
+                description: "Observing changes in nature, the onset of the tropical rainy season (<span class='italic'>la saison des pluies</span>), fruit trees, and local wildlife.",
+                subthemes: [
+                    {
+                        title: "Weather Patterns & Sky Changes",
+                        desc: "Observing the sky, initial tropical rain clouds (<span class='italic'>les nuages de pluie</span>), wind, and shifting atmospheric temperature."
+                    },
+                    {
+                        title: "Local Trees and Fruits",
+                        desc: "Studying the safou (African plum), mango trees (<span class='italic'>les manguiers</span>), banana plants, and tropical foliage."
+                    },
+                    {
+                        title: "Animals of Our Country",
+                        desc: "Discovering iconic savannah and forest animals: the okapi, monkeys (<span class='italic'>le singe</span>), and lions."
+                    }
+                ],
+                vocabulaire: ["Pluie / Rain", "Nuage / Cloud", "Safou / African plum", "Mangue / Mango", "Okapi / Okapi", "Vent / Wind", "Soleil / Sun", "Arbre / Tree", "Feuille / Leaf", "Singe / Monkey"]
+            },
+            novembre: {
+                image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+                title: "November: Nourishment and Growing in Congo",
+                badge: "Health & Nutrition / Santé",
+                description: "Exploring local dietary habits, the neighborhood market (<span class='italic'>le marché du quartier</span>), and the importance of healthy eating to grow strong.",
+                subthemes: [
+                    {
+                        title: "Traditional Foods We Eat",
+                        desc: "Discovering cassava (<span class='italic'>le manioc</span>), fufu, kwanga (cassava bread), plantains, and local market vegetables."
+                    },
+                    {
+                        title: "The Neighborhood Market",
+                        desc: "Understanding vendors' roles, identifying stalls, fresh produce, baskets, and simple trade concepts."
+                    },
+                    {
+                        title: "Health and Balanced Nutrition",
+                        desc: "Eating cleanly, maintaining hygiene before meals (<span class='italic'>manger propre</span>), and fueling the body for healthy growth."
+                    }
+                ],
+                vocabulaire: ["Fufu / Fufu", "Kwanga / Cassava bread", "Manioc / Cassava", "Marché / Market", "Plantain / Plantain", "Aliment / Food", "Banane / Banana", "Légume / Vegetable", "Panier / Basket", "Eau / Water"]
+            },
+            decembre: {
+                image: "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=1200&q=80",
+                title: "December: Clothing and Family Celebrations",
+                badge: "Solidarity & Festivities",
+                description: "Adapting clothing to the rainy season, fostering family solidarity (<span class='italic'>la solidarité familiale</span>), and preparing year-end joyful moments.",
+                subthemes: [
+                    {
+                        title: "Dressing for the Rains",
+                        desc: "Discovering rain gear, umbrellas (<span class='italic'>les parapluies</span>), boots, and protection against heavy tropical downpours."
+                    },
+                    {
+                        title: "Family and Community Support",
+                        desc: "Respecting parents (<span class='italic'>le respect des parents</span>), helping one another at home and at school, and sharing."
+                    },
+                    {
+                        title: "Year-End Festivities",
+                        desc: "Moments of sharing, family joy (<span class='italic'>la joie en famille</span>), and traditional holiday songs."
+                    }
+                ],
+                vocabulaire: ["Parapluie / Umbrella", "Pluie / Rain", "Famille / Family", "Fête / Celebration", "Solidarité / Solidarity", "Habit / Clothing", "Chaussure / Shoe", "Bottes / Boots", "Cadeau / Gift", "Chanson / Song"]
+            },
+            janvier: {
+                image: "https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&fit=crop&w=1200&q=80",
+                title: "January: New Year and Traditions",
+                badge: "Wishes & Tales / Vœux & Contes",
+                description: "Celebrating the New Year, learning to express best wishes (<span class='italic'>présenter ses vœux</span>), and discovering Congolese traditional folktales.",
+                subthemes: [
+                    {
+                        title: "Happy New Year! (Bonne année !)",
+                        desc: "Learning to present warm wishes to teachers, family members, and peers with politeness and grace."
+                    },
+                    {
+                        title: "Traditional Tales and Legends",
+                        desc: "Congolese folk stories featuring clever animals such as the turtle (<span class='italic'>la tortue</span>) or the hare."
+                    },
+                    {
+                        title: "Shapes and Small Constructions",
+                        desc: "Playing with sand, building small mud huts or block towers (<span class='italic'>bâtir des tours</span>) to develop fine motor skills."
+                    }
+                ],
+                vocabulaire: ["Vœux / Wishes", "Bonne année / Happy New Year", "Tortue / Turtle", "Lièvre / Hare", "Conte / Tale", "Case / Hut", "Sable / Sand", "Histoire / Story", "Tour / Tower", "Construire / Build"]
             }
+        };
+
+        // Render month content dynamically
+        function switchMonth(monthKey) {
+            document.querySelectorAll('.month-tab').forEach(tab => {
+                tab.className = "month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200";
+            });
+            const activeTab = document.getElementById(`tab-${monthKey}`);
+            activeTab.className = "month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-rdc-blue text-white";
+
+            const data = curriculumData[monthKey];
+            
+            let subthemesHtml = '';
+            data.subthemes.forEach((st, idx) => {
+                subthemesHtml += `
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 hover:border-blue-200 transition-colors">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-blue-100 text-rdc-blue flex items-center justify-center font-bold text-xs">${idx + 1}</span>
+                            <h5 class="font-display font-bold text-slate-900">${st.title}</h5>
+                        </div>
+                        <p class="text-sm text-slate-600 pl-10">${st.desc}</p>
+                    </div>
+                `;
+            });
+
+            let vocabHtml = '';
+            data.vocabulaire.forEach((v, i) => {
+                const parts = v.split(' / ');
+                const fr = parts[0] || v;
+                const en = parts[1] || parts[0] || v;
+                vocabHtml += `
+                    <div class="vocab-word">
+                        <span class="vocab-number">${i + 1}</span>
+                        <span class="vocab-en">${en}</span>
+                        <span class="vocab-fr">${fr}</span>
+                        <button class="speak-btn" onclick="speakWord('${String(en).replace(/'/g, "\\'")}')">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>`;
+            });
+
+            renderGlobalVocabulary(data);
+
+            const container = document.getElementById('monthContentContainer');
+            container.innerHTML = `
+                <div class="canva-card rounded-3xl p-6 sm:p-10 animate-fadeIn"><img src="${data.image}" alt="Theme illustration" class="theme-image">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                        <div>
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-rdc-blue mb-2">${data.badge}</span>
+                            <h4 class="text-2xl sm:text-3xl font-display font-bold text-slate-900">${data.title}</h4>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-base mb-8 leading-relaxed">${data.description}</p>
+                    
+                    <div class="mb-8">
+                        <h5 class="font-display font-bold text-slate-900 mb-4 flex items-center">
+                            <i class="fa-solid fa-layer-group text-rdc-blue mr-2"></i> Sub-themes / Sous-thèmes:
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            ${subthemesHtml}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5 class="font-display font-bold text-slate-900 mb-3 flex items-center">
+                            <i class="fa-solid fa-language text-rdc-blue mr-2"></i> Key Bilingual Vocabulary / Vocabulaire clé:
+                        </h5>
+                        <div class="flex flex-wrap gap-2">
+                            ${vocabHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        // INIT AU CHARGEMENT
-        renderDiscoveryGrid();
+
+        function renderGlobalVocabulary(data) {
+            const box = document.getElementById('globalVocab');
+            if (!box) return;
+            box.innerHTML = data.vocabulaire.map((v, i) => {
+                const parts = v.split(' / ');
+                const fr = parts[0] || v;
+                const en = parts[1] || parts[0] || v;
+                return `<div class="vocab-word">
+                    <span class="vocab-number">${i+1}</span>
+                    <span class="vocab-en">${en}</span>
+                    <span class="vocab-fr">${fr}</span>
+                    <button class="speak-btn" onclick="speakWord('${en.replace(/'/g, "\\'")}')">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>`;
+            }).join('');
+        }
+
+        function speakWord(word) {
+            if (!('speechSynthesis' in window)) {
+                alert('La synthèse vocale n’est pas disponible sur ce navigateur.');
+                return;
+            }
+            speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.78;
+            utterance.pitch = 1;
+            speechSynthesis.speak(utterance);
+        }
+
+        function speakCurrentVocabulary() {
+            const key = document.querySelector('.month-tab.bg-rdc-blue')?.id?.replace('tab-','') || 'septembre';
+            const words = curriculumData[key].vocabulaire.map(v => (v.split(' / ')[1] || v.split(' / ')[0] || v));
+            speechSynthesis.cancel();
+            words.forEach((word, i) => {
+                setTimeout(() => speakWord(word), i * 1200);
+            });
+        }
+
+        // Initialize with September on window load
+        window.onload = function() {
+            switchMonth('septembre');
+        };
+
+        // Filter / search function across months and vocabulary
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if(!query) return;
+            
+            for(let key in curriculumData) {
+                const item = curriculumData[key];
+                const matchTitle = item.title.toLowerCase().includes(query);
+                const matchDesc = item.description.toLowerCase().includes(query);
+                const matchVocab = item.vocabulaire.some(v => v.toLowerCase().includes(query));
+                
+                if(matchTitle || matchDesc || matchVocab) {
+                    switchMonth(key);
+                    break;
+                }
+            }
+        }
     </script>
 </body>
 </html>
