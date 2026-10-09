@@ -51,10 +51,10 @@ body { background: #f7f8fc; }
 .vocab-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
 @media(min-width:640px){.vocab-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
 @media(min-width:1024px){.vocab-grid{grid-template-columns:repeat(5,minmax(0,1fr));}}
-.vocab-word { position:relative; min-height:94px; padding:14px 10px 10px; border-radius:18px; background:linear-gradient(145deg,#fff,#f5f7ff); border:1px solid #e8ebf5; transition:.2s; }
+.vocab-word { position:relative; min-height:94px; padding:14px 10px 10px; border-radius:18px; background:linear-gradient(145deg,#fff,#f5f7ff); border:1px solid #e8ebf5; transition:.2s; cursor:pointer; }
 .vocab-word:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(37,99,235,.12); border-color:#bfdbfe; }
 .vocab-number { position:absolute; top:8px; left:9px; width:22px; height:22px; border-radius:8px; background:#eff6ff; color:#2563eb; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; }
-.vocab-en { display:block; margin-top:17px; font-weight:800; color:#172033; font-size:14px; line-height:1.2; }
+.vocab-en { display:block; margin-top:17px; font-weight:800; color:#172033; font-size:14px; line-height:1.2; text-decoration: underline dotted #2563eb; }
 .vocab-fr { display:block; margin-top:4px; color:#64748b; font-size:12px; line-height:1.2; }
 .speak-btn { margin-top:9px; display:inline-flex; align-items:center; gap:5px; border:0; border-radius:10px; padding:5px 8px; background:#eef2ff; color:#4f46e5; font-size:11px; font-weight:700; cursor:pointer; }
 .speak-btn:hover { background:#e0e7ff; }
@@ -73,152 +73,152 @@ body { background: #f7f8fc; }
 .word-visual { background:#fff;border-radius:18px;padding:10px;border:1px solid #e8ebf5;box-shadow:0 7px 20px rgba(30,41,59,.05); }
 </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between"[cite: 1]>
 
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rdc-blue via-rdc-yellow to-rdc-red flex items-center justify-center text-white shadow-md transform hover:rotate-6 transition-transform">
-                    <i class="fa-solid fa-child-reaching text-2xl"></i>
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100"[cite: 1]>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"[cite: 1]>
+            <div class="flex items-center space-x-3"[cite: 1]>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rdc-blue via-rdc-yellow to-rdc-red flex items-center justify-center text-white shadow-md transform hover:rotate-6 transition-transform"[cite: 1]>
+                    <i class="fa-solid fa-child-reaching text-2xl"[cite: 1]></i>
                 </div>
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">Maticlass <span class="text-rdc-blue">Academy</span></h1>
-                    <p class="text-xs text-slate-500 font-medium">Early Learning • English Vocabulary • DRC</p>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900"[cite: 1]>Maticlass <span class="text-rdc-blue"[cite: 1]>Academy</span></h1>
+                    <p class="text-xs text-slate-500 font-medium"[cite: 1]>Early Learning • English Vocabulary • DRC</p>
                 </div>
             </div>
             
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
-                <a href="#programme" class="text-slate-600 hover:text-rdc-blue transition-colors">Curriculum / Programme</a>
-                <a href="#vocabulaire" class="text-slate-600 hover:text-rdc-blue transition-colors">Local Vocabulary / Lexique</a>
-                <a href="#conseils" class="text-slate-600 hover:text-rdc-blue transition-colors">Pedagogical Anchor</a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium"[cite: 1]>
+                <a href="#programme" class="text-slate-600 hover:text-rdc-blue transition-colors"[cite: 1]>Curriculum / Programme</a>
+                <a href="#vocabulaire" class="text-slate-600 hover:text-rdc-blue transition-colors"[cite: 1]>Local Vocabulary / Lexique</a>
+                <a href="#conseils" class="text-slate-600 hover:text-rdc-blue transition-colors"[cite: 1]>Pedagogical Anchor</a>
             </nav>
 
-            <div class="flex items-center space-x-2">
-                <button onclick="window.print()" class="hidden sm:inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors">
-                    <i class="fa-solid fa-print mr-2"></i> Print Guide
+            <div class="flex items-center space-x-2"[cite: 1]>
+                <button onclick="window.print()" class="hidden sm:inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-xl transition-colors"[cite: 1]>
+                    <i class="fa-solid fa-print mr-2"[cite: 1]></i> Print Guide
                 </button>
             </div>
         </div>
     </header>
 
-    <section class="hero-pattern text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div class="absolute inset-0 bg-slate-900/30 backdrop-blur-[2px]"></div>
-        <div class="max-w-5xl mx-auto relative z-10 text-center">
-            <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold bg-white text-indigo-700 mb-4 shadow-lg">
-                <i class="fa-solid fa-graduation-cap mr-2"></i> MATICLASS ACADEMY
+    <section class="hero-pattern text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"[cite: 1]>
+        <div class="absolute inset-0 bg-slate-900/30 backdrop-blur-[2px]"[cite: 1]></div>
+        <div class="max-w-5xl mx-auto relative z-10 text-center"[cite: 1]>
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold bg-white text-indigo-700 mb-4 shadow-lg"[cite: 1]>
+                <i class="fa-solid fa-graduation-cap mr-2"[cite: 1]></i> MATICLASS ACADEMY
             </span>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rdc-yellow text-slate-900 mb-4 shadow-sm">
-                <i class="fa-solid fa-star mr-1.5"></i> République Démocratique du Congo (DRC)
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rdc-yellow text-slate-900 mb-4 shadow-sm"[cite: 1]>
+                <i class="fa-solid fa-star mr-1.5"[cite: 1]></i> République Démocratique du Congo (DRC)
             </span>
-            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-white drop-shadow-sm">
+            <h2 class="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-white drop-shadow-sm"[cite: 1]>
                 Maticlass Preschool English Learning
             </h2>
-            <p class="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto mb-8 font-normal">
+            <p class="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto mb-8 font-normal"[cite: 1]>
                 Une plateforme moderne pour apprendre l’anglais à travers des thèmes, des images, du vocabulaire visible et la prononciation audio.
             </p>
             
             <!-- Quick Search Bar -->
-            <div class="max-w-xl mx-auto bg-white p-2 rounded-2xl shadow-xl flex items-center">
-                <i class="fa-solid fa-magnifying-glass text-slate-400 ml-3 mr-2"></i>
-                <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Search theme, term (fufu, safou, rain...)" class="w-full bg-transparent text-slate-800 placeholder-slate-400 text-sm sm:text-base focus:outline-none">
+            <div class="max-w-xl mx-auto bg-white p-2 rounded-2xl shadow-xl flex items-center"[cite: 1]>
+                <i class="fa-solid fa-magnifying-glass text-slate-400 ml-3 mr-2"[cite: 1]></i>
+                <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Search theme, term (fufu, safou, rain...)" class="w-full bg-transparent text-slate-800 placeholder-slate-400 text-sm sm:text-base focus:outline-none"[cite: 1]>
             </div>
         </div>
     </section>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full" id="programme">
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full" id="programme"[cite: 1]>
         
-        <div class="text-center mb-10">
-            <h3 class="text-2xl sm:text-3xl font-bold text-slate-900">Monthly Curriculum (Septembre - Janvier)</h3>
-            <p class="text-slate-600 mt-1">Select a month to explore sub-themes, activities, and bilingual vocabulary.</p>
+        <div class="text-center mb-10"[cite: 1]>
+            <h3 class="text-2xl sm:text-3xl font-bold text-slate-900"[cite: 1]>Monthly Curriculum (Septembre - Janvier)</h3>
+            <p class="text-slate-600 mt-1"[cite: 1]>Select a month to explore sub-themes, activities, and bilingual vocabulary.</p>
         </div>
 
         <!-- Month Navigation Tabs -->
-        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10" id="monthTabs">
-            <button onclick="switchMonth('septembre')" id="tab-septembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-rdc-blue text-white">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10" id="monthTabs"[cite: 1]>
+            <button onclick="switchMonth('septembre')" id="tab-septembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-rdc-blue text-white"[cite: 1]>
                 September
             </button>
-            <button onclick="switchMonth('octobre')" id="tab-octobre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+            <button onclick="switchMonth('octobre')" id="tab-octobre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"[cite: 1]>
                 October
             </button>
-            <button onclick="switchMonth('novembre')" id="tab-novembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+            <button onclick="switchMonth('novembre')" id="tab-novembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"[cite: 1]>
                 November
             </button>
-            <button onclick="switchMonth('decembre')" id="tab-decembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+            <button onclick="switchMonth('decembre')" id="tab-decembre" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"[cite: 1]>
                 December
             </button>
-            <button onclick="switchMonth('janvier')" id="tab-janvier" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+            <button onclick="switchMonth('janvier')" id="tab-janvier" class="month-tab px-5 py-2.5 rounded-xl font-display font-semibold text-sm transition-all shadow-sm bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"[cite: 1]>
                 January
             </button>
         </div>
 
         <!-- Content Container for Months -->
-        <div id="monthContentContainer" class="space-y-8">
+        <div id="monthContentContainer" class="space-y-8"[cite: 1]>
             <!-- Dynamically populated -->
         </div>
 
-        <section id="vocabulaire" class="mt-20 pt-10 border-t border-slate-200">
-    <div class="canva-card rounded-3xl p-6 sm:p-10">
-        <div class="text-center mb-8">
-            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold badge-canva mb-3">
-                <i class="fa-solid fa-volume-high mr-1"></i> English • Français • Audio
+        <section id="vocabulaire" class="mt-20 pt-10 border-t border-slate-200"[cite: 1]>
+    <div class="canva-card rounded-3xl p-6 sm:p-10"[cite: 1]>
+        <div class="text-center mb-8"[cite: 1]>
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold badge-canva mb-3"[cite: 1]>
+                <i class="fa-solid fa-volume-high mr-1"[cite: 1]></i> English • Français • Audio
             </span>
-            <h3 class="text-2xl sm:text-3xl font-bold gradient-title">Visible Vocabulary Library</h3>
-            <p class="text-slate-600 mt-2 max-w-2xl mx-auto">Les 10 mots du thème sélectionné sont affichés sous forme de cartes pédagogiques. Cliquez sur <strong>Listen</strong> pour entendre la prononciation.</p>
+            <h3 class="text-2xl sm:text-3xl font-bold gradient-title"[cite: 1]>Visible Vocabulary Library</h3>
+            <p class="text-slate-600 mt-2 max-w-2xl mx-auto"[cite: 1]>Les mots du thème sélectionné sont affichés sous forme de cartes pédagogiques. <strong>Cliquez sur un mot en anglais</strong> pour afficher la traduction bilingue (Anglais / Français) ou sur <strong>Listen</strong> pour l'écouter.</p>
         </div>
-        <div id="globalVocab" class="vocab-grid"></div>
-        <div class="audio-panel">
-            <span class="font-bold text-slate-800"><i class="fa-solid fa-headphones text-indigo-600 mr-2"></i>Audio practice</span>
-            <button onclick="speakCurrentVocabulary()"><i class="fa-solid fa-play mr-1"></i> Listen to all</button>
-            <button class="secondary" onclick="speechSynthesis.cancel()"><i class="fa-solid fa-stop mr-1"></i> Stop</button>
-            <span class="text-xs text-slate-500">Audio anglais • fonctionne sur ordinateur, tablette et téléphone.</span>
+        <div id="globalVocab" class="vocab-grid"[cite: 1]></div>
+        <div class="audio-panel"[cite: 1]>
+            <span class="font-bold text-slate-800"[cite: 1]><i class="fa-solid fa-headphones text-indigo-600 mr-2"[cite: 1]></i>Audio practice</span>
+            <button onclick="speakCurrentVocabulary()"[cite: 1]><i class="fa-solid fa-play mr-1"[cite: 1]></i> Listen to all</button>
+            <button class="secondary" onclick="speechSynthesis.cancel()"[cite: 1]><i class="fa-solid fa-stop mr-1"[cite: 1]></i> Stop</button>
+            <span class="text-xs text-slate-500"[cite: 1]>Audio anglais • fonctionne sur ordinateur, tablette et téléphone.</span>
         </div>
     </div>
 </section>
 
-<section id="conseils" class="mt-16 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 rounded-3xl p-6 sm:p-10 shadow-sm">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div class="space-y-2">
-                    <div class="flex items-center space-x-2 text-amber-800">
-                        <i class="fa-solid fa-lightbulb text-xl"></i>
-                        <h4 class="font-display font-bold text-xl">Pedagogical Anchor / Ancrage Pédagogique Local</h4>
+<section id="conseils" class="mt-16 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 rounded-3xl p-6 sm:p-10 shadow-sm"[cite: 1]>
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6"[cite: 1]>
+                <div class="space-y-2"[cite: 1]>
+                    <div class="flex items-center space-x-2 text-amber-800"[cite: 1]>
+                        <i class="fa-solid fa-lightbulb text-xl"[cite: 1]></i>
+                        <h4 class="font-display font-bold text-xl"[cite: 1]>Pedagogical Anchor / Ancrage Pédagogique Local</h4>
                     </div>
-                    <p class="text-slate-700 text-sm sm:text-base leading-relaxed max-w-3xl">
-                        To illustrate these themes, teachers should prioritize Congolese folklore songs (<span class="italic">chansons du folklore congolais</span>), direct outdoor observations in the school yard (observing anthills, mango trees, or rainfall impact on soil), and daily objects such as pagne textile fragments or local seeds for counting exercises.
+                    <p class="text-slate-700 text-sm sm:text-base leading-relaxed max-w-3xl"[cite: 1]>
+                        To illustrate these themes in daily routine (<span class="italic"[cite: 1]>vie quotidienne / daily routine</span>), teachers should prioritize Congolese folklore songs (<span class="italic"[cite: 1]>chansons du folklore congolais</span>), direct outdoor observations in the school yard, and daily objects such as pagne textile fragments or local seeds for counting exercises.
                     </p>
                 </div>
-                <div class="bg-white px-6 py-4 rounded-2xl shadow-sm border border-amber-100 text-center flex-shrink-0">
-                    <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Goal / Objectif</span>
-                    <span class="block text-lg font-bold text-slate-900">Awakening & Identity</span>
+                <div class="bg-white px-6 py-4 rounded-2xl shadow-sm border border-amber-100 text-center flex-shrink-0"[cite: 1]>
+                    <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider"[cite: 1]>Goal / Objectif</span>
+                    <span class="block text-lg font-bold text-slate-900"[cite: 1]>Awakening & Identity</span>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 mt-20 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+    <footer class="bg-slate-900 text-slate-400 mt-20 py-12 border-t border-slate-800"[cite: 1]>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"[cite: 1]>
             <div>
-                <p class="font-display font-bold text-white text-lg">Maticlass • Plateforme Éducative</p>
-                <p class="text-xs text-slate-500 mt-1">Designed for early childhood educators in the Democratic Republic of the Congo.</p>
+                <p class="font-display font-bold text-white text-lg"[cite: 1]>Maticlass • Plateforme Éducative</p>
+                <p class="text-xs text-slate-500 mt-1"[cite: 1]>Designed for early childhood educators in the Democratic Republic of the Congo.</p>
             </div>
-            <div class="text-xs text-slate-500">
+            <div class="text-xs text-slate-500"[cite: 1]>
                 <p>&copy; 2026 • Early Childhood Education & Development</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Bilingual Curriculum Data (approx 80% English, 20% French mix)
+        // Curriculum Data with 20+ added words and "Quotidienne / Daily" included
         const curriculumData = {
             septembre: {
                 image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
                 title: "September: Welcome and the Congolese School",
                 badge: "Integration Period / Période d'intégration",
-                description: "Welcoming children, building confidence, discovering the school environment, rules of life (<span class='italic'>règles de vie</span>), and social bonding.",
+                description: "Welcoming children, building confidence, discovering the school environment, Quotidienne / Daily life rules, and social bonding.",
                 subthemes: [
                     {
                         title: "My Classroom and New Friends",
-                        desc: "Learning to greet one another (<span class='italic'>apprendre à saluer</span>), integrating smoothly into the group, and memorizing classmates' names."
+                        desc: "Learning Quotidienne / Daily greetings (<span class='italic'>apprendre à saluer</span>), integrating smoothly into the group, and memorizing classmates' names."
                     },
                     {
                         title: "School Supplies & Classroom Rules",
@@ -226,16 +226,32 @@ body { background: #f7f8fc; }
                     },
                     {
                         title: "My Body and Personal Hygiene",
-                        desc: "Raising awareness about handwashing (<span class='italic'>se laver les mains</span>), wearing clean clothing, and maintaining good personal care."
+                        desc: "Raising awareness about handwashing (<span class='italic'>se laver les mains</span>), Quotidienne / Daily care, and maintaining good personal hygiene."
                     }
                 ],
-                vocabulaire: ["Cartable / Schoolbag", "Crayon / Pencil", "Ami(e) / Friend", "Classe / Classroom", "Bonjour / Hello", "Au revoir / Goodbye", "Main / Hand", "Savon / Soap", "Propreté / Cleanliness", "Enseignant(e) / Teacher"]
+                vocabulaire: [
+                    "Quotidienne / Daily", 
+                    "Cartable / Schoolbag", 
+                    "Crayon / Pencil", 
+                    "Ami(e) / Friend", 
+                    "Classe / Classroom", 
+                    "Bonjour / Hello", 
+                    "Au revoir / Goodbye", 
+                    "Main / Hand", 
+                    "Savon / Soap", 
+                    "Propreté / Cleanliness", 
+                    "Enseignant(e) / Teacher",
+                    "Cahier / Notebook",
+                    "Gomme / Eraser",
+                    "Règle / Ruler",
+                    "Bureau / Desk"
+                ]
             },
             octobre: {
                 image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80",
                 title: "October: Environment and Nature (Rainy Season)",
                 badge: "Rainy Season / Saison des pluies",
-                description: "Observing changes in nature, the onset of the tropical rainy season (<span class='italic'>la saison des pluies</span>), fruit trees, and local wildlife.",
+                description: "Observing changes in nature during Quotidienne / Daily routine, the onset of the tropical rainy season (<span class='italic'>la saison des pluies</span>), fruit trees, and local wildlife.",
                 subthemes: [
                     {
                         title: "Weather Patterns & Sky Changes",
@@ -250,13 +266,29 @@ body { background: #f7f8fc; }
                         desc: "Discovering iconic savannah and forest animals: the okapi, monkeys (<span class='italic'>le singe</span>), and lions."
                     }
                 ],
-                vocabulaire: ["Pluie / Rain", "Nuage / Cloud", "Safou / African plum", "Mangue / Mango", "Okapi / Okapi", "Vent / Wind", "Soleil / Sun", "Arbre / Tree", "Feuille / Leaf", "Singe / Monkey"]
+                vocabulaire: [
+                    "Quotidienne / Daily", 
+                    "Pluie / Rain", 
+                    "Nuage / Cloud", 
+                    "Safou / African plum", 
+                    "Mangue / Mango", 
+                    "Okapi / Okapi", 
+                    "Vent / Wind", 
+                    "Soleil / Sun", 
+                    "Arbre / Tree", 
+                    "Feuille / Leaf", 
+                    "Singe / Monkey",
+                    "Fleur / Flower",
+                    "Terre / Earth",
+                    "Oiseau / Bird",
+                    "Rivière / River"
+                ]
             },
             novembre: {
                 image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
                 title: "November: Nourishment and Growing in Congo",
                 badge: "Health & Nutrition / Santé",
-                description: "Exploring local dietary habits, the neighborhood market (<span class='italic'>le marché du quartier</span>), and the importance of healthy eating to grow strong.",
+                description: "Exploring local dietary habits in Quotidienne / Daily life, the neighborhood market (<span class='italic'>le marché du quartier</span>), and the importance of healthy eating to grow strong.",
                 subthemes: [
                     {
                         title: "Traditional Foods We Eat",
@@ -271,13 +303,29 @@ body { background: #f7f8fc; }
                         desc: "Eating cleanly, maintaining hygiene before meals (<span class='italic'>manger propre</span>), and fueling the body for healthy growth."
                     }
                 ],
-                vocabulaire: ["Fufu / Fufu", "Kwanga / Cassava bread", "Manioc / Cassava", "Marché / Market", "Plantain / Plantain", "Aliment / Food", "Banane / Banana", "Légume / Vegetable", "Panier / Basket", "Eau / Water"]
+                vocabulaire: [
+                    "Quotidienne / Daily", 
+                    "Fufu / Fufu", 
+                    "Kwanga / Cassava bread", 
+                    "Manioc / Cassava", 
+                    "Marché / Market", 
+                    "Plantain / Plantain", 
+                    "Aliment / Food", 
+                    "Banane / Banana", 
+                    "Légume / Vegetable", 
+                    "Panier / Basket", 
+                    "Eau / Water",
+                    "Tomate / Tomato",
+                    "Oignon / Onion",
+                    "Poisson / Fish",
+                    "Viande / Meat"
+                ]
             },
             decembre: {
                 image: "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=1200&q=80",
                 title: "December: Clothing and Family Celebrations",
                 badge: "Solidarity & Festivities",
-                description: "Adapting clothing to the rainy season, fostering family solidarity (<span class='italic'>la solidarité familiale</span>), and preparing year-end joyful moments.",
+                description: "Adapting clothing in Quotidienne / Daily habits, fostering family solidarity (<span class='italic'>la solidarité familiale</span>), and preparing year-end joyful moments.",
                 subthemes: [
                     {
                         title: "Dressing for the Rains",
@@ -292,13 +340,29 @@ body { background: #f7f8fc; }
                         desc: "Moments of sharing, family joy (<span class='italic'>la joie en famille</span>), and traditional holiday songs."
                     }
                 ],
-                vocabulaire: ["Parapluie / Umbrella", "Pluie / Rain", "Famille / Family", "Fête / Celebration", "Solidarité / Solidarity", "Habit / Clothing", "Chaussure / Shoe", "Bottes / Boots", "Cadeau / Gift", "Chanson / Song"]
+                vocabulaire: [
+                    "Quotidienne / Daily", 
+                    "Parapluie / Umbrella", 
+                    "Pluie / Rain", 
+                    "Famille / Family", 
+                    "Fête / Celebration", 
+                    "Solidarité / Solidarity", 
+                    "Habit / Clothing", 
+                    "Chaussure / Shoe", 
+                    "Bottes / Boots", 
+                    "Cadeau / Gift", 
+                    "Chanson / Song",
+                    "Chemise / Shirt",
+                    "Robe / Dress",
+                    "Chapeau / Hat",
+                    "Frère / Brother"
+                ]
             },
             janvier: {
                 image: "https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&fit=crop&w=1200&q=80",
                 title: "January: New Year and Traditions",
                 badge: "Wishes & Tales / Vœux & Contes",
-                description: "Celebrating the New Year, learning to express best wishes (<span class='italic'>présenter ses vœux</span>), and discovering Congolese traditional folktales.",
+                description: "Celebrating the New Year in Quotidienne / Daily routines, learning to express best wishes (<span class='italic'>présenter ses vœux</span>), and discovering Congolese traditional folktales.",
                 subthemes: [
                     {
                         title: "Happy New Year! (Bonne année !)",
@@ -313,7 +377,23 @@ body { background: #f7f8fc; }
                         desc: "Playing with sand, building small mud huts or block towers (<span class='italic'>bâtir des tours</span>) to develop fine motor skills."
                     }
                 ],
-                vocabulaire: ["Vœux / Wishes", "Bonne année / Happy New Year", "Tortue / Turtle", "Lièvre / Hare", "Conte / Tale", "Case / Hut", "Sable / Sand", "Histoire / Story", "Tour / Tower", "Construire / Build"]
+                vocabulaire: [
+                    "Quotidienne / Daily", 
+                    "Vœux / Wishes", 
+                    "Bonne année / Happy New Year", 
+                    "Tortue / Turtle", 
+                    "Lièvre / Hare", 
+                    "Conte / Tale", 
+                    "Case / Hut", 
+                    "Sable / Sand", 
+                    "Histoire / Story", 
+                    "Tour / Tower", 
+                    "Construire / Build",
+                    "Étoile / Star",
+                    "Lune / Moon",
+                    "Maison / House",
+                    "Porte / Door"
+                ]
             }
         };
 
@@ -338,22 +418,6 @@ body { background: #f7f8fc; }
                         <p class="text-sm text-slate-600 pl-10">${st.desc}</p>
                     </div>
                 `;
-            });
-
-            let vocabHtml = '';
-            data.vocabulaire.forEach((v, i) => {
-                const parts = v.split(' / ');
-                const fr = parts[0] || v;
-                const en = parts[1] || parts[0] || v;
-                vocabHtml += `
-                    <div class="vocab-word">
-                        <span class="vocab-number">${i + 1}</span>
-                        <span class="vocab-en">${en}</span>
-                        <span class="vocab-fr">${fr}</span>
-                        <button class="speak-btn" onclick="speakWord('${String(en).replace(/'/g, "\\'")}')">
-                            <i class="fa-solid fa-volume-high"></i> Listen
-                        </button>
-                    </div>`;
             });
 
             renderGlobalVocabulary(data);
@@ -382,8 +446,8 @@ body { background: #f7f8fc; }
                         <h5 class="font-display font-bold text-slate-900 mb-3 flex items-center">
                             <i class="fa-solid fa-language text-rdc-blue mr-2"></i> Key Bilingual Vocabulary / Vocabulaire clé:
                         </h5>
-                        <div class="flex flex-wrap gap-2">
-                            ${vocabHtml}
+                        <div class="vocab-grid">
+                            ${generateVocabCards(data.vocabulaire)}
                         </div>
                     </div>
                 </div>
@@ -394,19 +458,29 @@ body { background: #f7f8fc; }
         function renderGlobalVocabulary(data) {
             const box = document.getElementById('globalVocab');
             if (!box) return;
-            box.innerHTML = data.vocabulaire.map((v, i) => {
+            box.innerHTML = generateVocabCards(data.vocabulaire);
+        }
+
+        function generateVocabCards(vocabArray) {
+            return vocabArray.map((v, i) => {
                 const parts = v.split(' / ');
                 const fr = parts[0] || v;
                 const en = parts[1] || parts[0] || v;
-                return `<div class="vocab-word">
+                return `<div class="vocab-word" onclick="showTranslation('${en.replace(/'/g, "\\'")}', '${fr.replace(/'/g, "\\'")}')">
                     <span class="vocab-number">${i+1}</span>
-                    <span class="vocab-en">${en}</span>
+                    <span class="vocab-en" title="Cliquez pour afficher en Anglais et Français">${en}</span>
                     <span class="vocab-fr">${fr}</span>
-                    <button class="speak-btn" onclick="speakWord('${en.replace(/'/g, "\\'")}')">
+                    <button class="speak-btn" onclick="event.stopPropagation(); speakWord('${en.replace(/'/g, "\\'")}')">
                         <i class="fa-solid fa-volume-high"></i> Listen
                     </button>
                 </div>`;
             }).join('');
+        }
+
+        // Pop-up interactif bilingue lors de l'appui sur le mot
+        function showTranslation(enWord, frWord) {
+            speakWord(enWord);
+            alert("Traduction bilingue :\n\n🇬🇧 Anglais : " + enWord + "\n🇫🇷 Français : " + frWord);
         }
 
         function speakWord(word) {
