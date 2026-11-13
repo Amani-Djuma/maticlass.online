@@ -242,6 +242,29 @@
                 </div>
             </header>
 
+            <!-- BANDEAU ÉCOUTE DISCRÈTE / CHUCHOTEMENT MANAGER (QUALITY MONITORING) -->
+            <div id="manager-whisper-banner" class="hidden mx-4 sm:mx-8 mt-4 z-30 p-4 rounded-2xl bg-gradient-to-r from-amber-950 via-slate-900 to-indigo-950 text-white border-2 border-amber-400/70 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/40 flex items-center justify-center text-xl shrink-0">
+                        <i class="ph-bold ph-ear"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">Quality Monitoring • Écoute Discrète & Chuchotement Direction</span>
+                        <p id="whisper-target-label" class="font-display text-sm font-extrabold">Supervision silencieuse active</p>
+                    </div>
+                </div>
+                <div class="flex flex-1 max-w-md items-center gap-2">
+                    <input type="text" id="whisper-message-input" placeholder="Chuchoter un conseil à l'agent (invisible pour le client)..."
+                        class="flex-1 bg-white/10 border border-amber-400/40 rounded-xl px-3 py-2 text-xs text-white placeholder-amber-200/70 focus:outline-none">
+                    <button onclick="sendWhisperInstruction()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shrink-0">
+                        Chuchoter
+                    </button>
+                    <button onclick="stopManagerMonitoring()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-3 py-2 rounded-xl shrink-0">
+                        Quitter
+                    </button>
+                </div>
+            </div>
+
             <!-- BANDEAU SOFTPHONE INTERACTIF UNIVERSEL EN TEMPS RÉEL (MANAGER / TRAVAILLEUR / CLIENT) -->
             <div id="global-live-call-banner" class="hidden mx-4 sm:mx-8 mt-4 z-30">
                 <!-- État A : Appel Sortant en attente de réponse -->
@@ -323,6 +346,10 @@
                             <i class="ph-bold ph-phone-disconnect text-base"></i> Raccrocher & Sauvegarder ($0.00)
                         </button>
                     </div>
+                    <div id="agent-whisper-alert" class="hidden p-2.5 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-200 text-xs font-bold flex items-center gap-2">
+                        <i class="ph-fill ph-sparkle text-amber-300"></i>
+                        <span id="agent-whisper-text">Conseil Direction : ...</span>
+                    </div>
                 </div>
             </div>
 
@@ -330,19 +357,19 @@
             <main class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-6">
 
                 <!-- ========================================================= -->
-                <!-- VUE 1 : SUPERVISION LIVE & PRÉSENCE TEMPS RÉEL (MANAGER)  -->
+                <!-- VUE 1 : SUPERVISION LIVE, FILE ACD & PRÉSENCE TEMPS RÉEL  -->
                 <!-- ========================================================= -->
                 <section id="view-live-supervision" class="app-view hidden space-y-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                             <span class="text-xs font-bold text-slate-500 uppercase">Directeurs En Ligne</span>
                             <p id="kpi-online-managers" class="font-display text-2xl font-extrabold text-indigo-700 mt-1">0</p>
-                            <span class="text-[11px] text-emerald-600 font-semibold">Supervision active</span>
+                            <span class="text-[11px] text-emerald-600 font-semibold">Supervision & Écoute active</span>
                         </div>
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                             <span class="text-xs font-bold text-slate-500 uppercase">Travailleurs En Ligne</span>
                             <p id="kpi-online-workers" class="font-display text-2xl font-extrabold text-emerald-600 mt-1">0</p>
-                            <span class="text-[11px] text-slate-500 font-semibold">Prêts à recevoir des appels</span>
+                            <span class="text-[11px] text-slate-500 font-semibold">Routage ACD prêt</span>
                         </div>
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                             <span class="text-xs font-bold text-slate-500 uppercase">Appels Traités (Jour)</span>
@@ -353,6 +380,33 @@
                             <span class="text-xs font-bold text-slate-500 uppercase">Masse Salariale Mensuelle</span>
                             <p id="kpi-total-payroll" class="font-display text-2xl font-extrabold text-slate-900 mt-1">$0</p>
                             <span class="text-[11px] text-indigo-600 font-semibold">5 Départements WorldConnect</span>
+                        </div>
+                    </div>
+
+                    <!-- File d'Attente Intelligente ACD & Appel en Cours (Monitoring) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                        <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-sm p-5">
+                            <div class="flex items-center justify-between mb-3">
+                                <div>
+                                    <h3 class="font-display text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                        <i class="ph-bold ph-git-fork text-indigo-600"></i> File d'Attente Intelligente (ACD)
+                                    </h3>
+                                    <p class="text-[11px] text-slate-500">Distribution automatique vers l'agent libre depuis le plus longtemps.</p>
+                                </div>
+                                <button onclick="routeNextQueueCall()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
+                                    Router Prochain Appel
+                                </button>
+                            </div>
+                            <div id="acd-queue-list" class="space-y-2"></div>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-slate-950 text-white rounded-3xl border border-slate-800 shadow-sm p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">Quality Monitoring en Direct</span>
+                                <h3 class="font-display text-base font-extrabold mt-1">Écoute Discrète & Enregistrement</h3>
+                                <p class="text-[11px] text-slate-400 mt-1">Supervisez silencieusement l'appel en cours sans interrompre le client.</p>
+                            </div>
+                            <div id="live-call-monitor-box" class="mt-4 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 text-xs"></div>
                         </div>
                     </div>
 
@@ -401,7 +455,7 @@
                                         <th class="py-3 px-3">Ligne / Campagne</th>
                                         <th class="py-3 px-3">Durée</th>
                                         <th class="py-3 px-3">Statut / Coût</th>
-                                        <th class="py-3 px-3">Qualification</th>
+                                        <th class="py-3 px-3">Qualité & Audio</th>
                                     </tr>
                                 </thead>
                                 <tbody id="calls-log-tbody" class="divide-y divide-slate-100 text-xs"></tbody>
@@ -409,6 +463,95 @@
                         </div>
                         <!-- Version Mobile Cartes -->
                         <div id="calls-log-mobile" class="md:hidden space-y-3"></div>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
+                <!-- VUE 1B : ANALYTICS KPI CALL CENTER & PERFORMANCE AGENTS   -->
+                <!-- ========================================================= -->
+                <section id="view-analytics" class="app-view hidden space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">DMT (Durée Moy. Traitement)</span>
+                            <p class="font-display text-2xl font-extrabold text-indigo-700 mt-1">03m 42s</p>
+                            <span class="text-[11px] text-emerald-600 font-bold">-14% vs objectif (04m 15s)</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Taux de Décroché</span>
+                            <p class="font-display text-2xl font-extrabold text-emerald-600 mt-1">97.8%</p>
+                            <span class="text-[11px] text-slate-500 font-semibold">Temps d'attente moyen : 8 sec</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Résolution 1er Appel (FCR)</span>
+                            <p class="font-display text-2xl font-extrabold text-cyan-700 mt-1">91.4%</p>
+                            <span class="text-[11px] text-emerald-600 font-semibold">+3.2% ce mois-ci</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Note Qualité Moyenne</span>
+                            <p id="kpi-avg-qa" class="font-display text-2xl font-extrabold text-amber-600 mt-1">94 / 100</p>
+                            <span class="text-[11px] text-slate-500 font-semibold">Audits Quality Monitoring</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-7 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm">
+                            <h3 class="font-display text-base font-extrabold text-slate-900 mb-1">Volume d'Appels Traités & Qualité SLA (7 derniers jours)</h3>
+                            <p class="text-xs text-slate-500 mb-4">Suivi comparatif des appels entrants et sortants sur la passerelle gratuite.</p>
+                            <div class="h-64">
+                                <canvas id="callcenter-kpi-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-sm">
+                            <h3 class="font-display text-base font-extrabold text-slate-900 mb-1">Top Agents du Mois (Classement KPI)</h3>
+                            <p class="text-xs text-slate-500 mb-4">Basé sur le volume d'appels, la note qualité et le bilinguisme.</p>
+                            <div id="top-agents-leaderboard" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
+                <!-- VUE 1C : FACTURATION B2B & TRÉSORERIE MOBILE MONEY/BANQUE -->
+                <!-- ========================================================= -->
+                <section id="view-billing" class="app-view hidden space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Solde Banque (Rawbank / Equity)</span>
+                            <p id="treasury-bank" class="font-display text-2xl font-extrabold text-slate-900 mt-1">$18,450</p>
+                            <span class="text-[11px] text-emerald-600 font-semibold">Compte Entreprise USD/CDF</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Mobile Money (M-Pesa / Airtel / Orange)</span>
+                            <p id="treasury-momo" class="font-display text-2xl font-extrabold text-indigo-700 mt-1">$4,320</p>
+                            <span class="text-[11px] text-indigo-600 font-semibold">Encaissements instantanés</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Caisse Centrale Kinshasa</span>
+                            <p id="treasury-cash" class="font-display text-2xl font-extrabold text-emerald-700 mt-1">$2,180</p>
+                            <span class="text-[11px] text-slate-500 font-semibold">Disponible pour avances</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Factures Clients Émises</span>
+                            <p id="treasury-invoiced" class="font-display text-2xl font-extrabold text-amber-600 mt-1">$13,700</p>
+                            <span class="text-[11px] text-slate-500 font-semibold">Basées sur volumes d'appels</span>
+                        </div>
+                    </div>
+
+                    <!-- Facturation Automatique Clients B2B -->
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                            <div>
+                                <h3 class="font-display text-lg font-extrabold text-slate-900">Facturation Automatique Clients B2B & Encaissements</h3>
+                                <p class="text-xs text-slate-500">Génération automatique des factures PDF selon le volume d'appels traités et suivi des paiements.</p>
+                            </div>
+                            <button onclick="openNewPaymentModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 self-start">
+                                <i class="ph-bold ph-plus-circle"></i> Enregistrer un Encaissement
+                            </button>
+                        </div>
+                        <div id="b2b-billing-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
+
+                        <h4 class="font-display text-sm font-extrabold text-slate-900 mb-3 pt-4 border-t border-slate-100">Journal des Mouvements de Trésorerie (Mobile Money, Banque & Caisse)</h4>
+                        <div id="treasury-movements-list" class="space-y-2"></div>
                     </div>
                 </section>
 
@@ -544,16 +687,16 @@
                 <section id="view-client-space" class="app-view hidden space-y-6">
                     <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-cyan-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider bg-white/10 text-cyan-300 px-3 py-1 rounded-full">Espace Client B2B WorldConnect • VoIP Gratuit</span>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-white/10 text-cyan-300 px-3 py-1 rounded-full">Espace Client B2B WorldConnect • Routage ACD Gratuit</span>
                             <h1 id="client-welcome-title" class="font-display text-2xl sm:text-3xl font-extrabold mt-3">Portail Client</h1>
-                            <p class="text-sm text-slate-300 mt-1">Suivi en temps réel de votre campagne externalisée et ligne directe gratuite.</p>
+                            <p class="text-sm text-slate-300 mt-1">Ligne directe prioritaire routée automatiquement vers le meilleur agent disponible.</p>
                         </div>
                         <div class="flex flex-wrap gap-2.5 self-start">
-                            <button onclick="openUniversalDialerModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-xs px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-2">
-                                <i class="ph-bold ph-phone-call text-lg"></i> Appeler un Agent ou Directeur ($0.00)
+                            <button onclick="triggerACDClientCall()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-xs px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-2">
+                                <i class="ph-bold ph-headset text-lg"></i> Appeler le Plateau Call Center (Routage Auto $0)
                             </button>
-                            <button onclick="simulateIncomingCallToMe()" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs px-4 py-3.5 rounded-2xl flex items-center gap-2">
-                                <i class="ph-bold ph-phone-incoming text-base text-cyan-300"></i> Tester Réception d'Appel
+                            <button onclick="openUniversalDialerModal()" class="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-4 py-3.5 rounded-2xl flex items-center gap-2">
+                                <i class="ph-bold ph-phone-call text-base"></i> Choisir un Interlocuteur
                             </button>
                         </div>
                     </div>
@@ -566,6 +709,26 @@
 
         <!-- BARRE DE NAVIGATION MOBILE FIXE EN BAS -->
         <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 px-2 py-1.5 flex items-center justify-around z-30 shadow-lg"></nav>
+    </div>
+
+    <!-- MODALE ENREGISTRER UN ENCAISSEMENT TRÉSORERIE -->
+    <div id="payment-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Nouvel Encaissement / Mouvement</h3>
+                <button onclick="document.getElementById('payment-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <form onsubmit="submitTreasuryMovement(event)" class="space-y-3 text-xs">
+                <input type="text" id="pay-label" required placeholder="Libellé (ex: Règlement Facture Horizon Telecom)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                <select id="pay-channel" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                    <option value="M-Pesa / Airtel Money">Mobile Money (M-Pesa / Airtel / Orange)</option>
+                    <option value="Banque (Rawbank / Equity)">Banque (Rawbank / Equity BCDC)</option>
+                    <option value="Caisse Centrale">Caisse Centrale Kinshasa</option>
+                </select>
+                <input type="number" id="pay-amount" required placeholder="Montant en USD ($)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-bold">
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl">Valider & Créditer la Trésorerie</button>
+            </form>
+        </div>
     </div>
 
     <!-- ===================================================================== -->
@@ -672,7 +835,7 @@
                     sessionStart: null,
                     lastHeartbeat: 0,
                     active: true,
-                    permissions: ['live-supervision', 'payroll', 'departments', 'access']
+                    permissions: ['live-supervision', 'analytics', 'billing', 'payroll', 'departments', 'access']
                 },
                 {
                     authCode: 'WC-MGR-002',
@@ -684,7 +847,7 @@
                     sessionStart: Date.now() - 1840000,
                     lastHeartbeat: Date.now(),
                     active: true,
-                    permissions: ['live-supervision', 'payroll', 'departments']
+                    permissions: ['live-supervision', 'analytics', 'payroll', 'departments']
                 },
                 {
                     authCode: 'WC-AGT-101',
@@ -749,12 +912,26 @@
                 { id: 'EMP-04', authCode: 'WC-MGR-002', name: 'Patrick Ilunga', roleTitle: 'Superviseur Plateau Call Center', department: 'Call Center & Relation Client', baseUSD: 650, kpiUSD: 140, bilingualUSD: 50, attendanceUSD: 40, advanceUSD: 100, callsHandled: 230 }
             ],
             callsLog: [
-                { id: 'VOIP-8410', time: '11:42', caller: 'Horizon Telecom (WC-CLI-501)', campaign: 'Support B2B VIP', agentName: 'Sarah Kabongo', agentCode: 'WC-AGT-101', duration: '04:18', status: 'Répondu (0.00 $)', qualification: 'Demande de rapport SLA validée' },
-                { id: 'VOIP-8409', time: '10:55', caller: 'Patrick Ilunga (WC-MGR-002)', campaign: 'Briefing Équipe', agentName: 'Grace Lumbu', agentCode: 'WC-ACA-201', duration: '02:45', status: 'Répondu (0.00 $)', qualification: 'Planning cohorte Academy confirmé' }
+                { id: 'VOIP-8410', time: '11:42', caller: 'Horizon Telecom (WC-CLI-501)', campaign: 'Support B2B VIP', agentName: 'Sarah Kabongo', agentCode: 'WC-AGT-101', duration: '04:18', status: 'Répondu (0.00 $)', qaScore: 96, hasAudio: true, qualification: 'Demande de rapport SLA validée' },
+                { id: 'VOIP-8409', time: '10:55', caller: 'Patrick Ilunga (WC-MGR-002)', campaign: 'Briefing Équipe', agentName: 'Grace Lumbu', agentCode: 'WC-ACA-201', duration: '02:45', status: 'Répondu (0.00 $)', qaScore: 92, hasAudio: true, qualification: 'Planning cohorte Academy confirmé' }
             ],
+            acdQueue: [
+                { id: 'Q-104', caller: 'Client Entreprise #408 (Ligne Bilingue FR/EN)', waitSec: 18, priority: 'Haute' },
+                { id: 'Q-105', caller: 'Prospect Solution Cloud (Ligne Commerciale)', waitSec: 7, priority: 'Normale' }
+            ],
+            treasury: {
+                bankUSD: 18450,
+                momoUSD: 4320,
+                cashUSD: 2180,
+                movements: [
+                    { id: 'TR-901', date: '13/11/2026', label: 'Paiement Forfait Mensuel Horizon Telecom RDC', channel: 'Banque (Rawbank / Equity)', amountUSD: 8500 },
+                    { id: 'TR-902', date: '12/11/2026', label: 'Acompte Campagne Télévente Mobile Money', channel: 'M-Pesa / Airtel Money', amountUSD: 2400 }
+                ]
+            },
+            monitoringTargetCallId: null,
             clients: [
-                { id: 'CLI-01', name: 'Horizon Telecom RDC', service: 'Service Client & Support Téléphonique Bilingue', volume: '12,400 appels / mois', sla: '98.4% résolus', amountUSD: 8500, invoiceStatus: 'Payée' },
-                { id: 'CLI-02', name: 'Banque Populaire du Congo', service: 'Télévente & Assistance Monétique', volume: '6,800 appels / mois', sla: '96.9% résolus', amountUSD: 5200, invoiceStatus: 'En attente' }
+                { id: 'CLI-01', name: 'Horizon Telecom RDC', service: 'Service Client & Support Téléphonique Bilingue', callsCount: 12400, ratePerCallUSD: 0.68, volume: '12,400 appels / mois', sla: '98.4% résolus', amountUSD: 8500, invoiceStatus: 'Payée' },
+                { id: 'CLI-02', name: 'Banque Populaire du Congo', service: 'Télévente & Assistance Monétique', callsCount: 6800, ratePerCallUSD: 0.76, volume: '6,800 appels / mois', sla: '96.9% résolus', amountUSD: 5200, invoiceStatus: 'En attente' }
             ],
             requests: [
                 { id: 'REQ-01', from: 'Sarah Kabongo (WC-AGT-101)', type: 'Avance sur salaire', detail: 'Demande d\'avance de 50$ sur paie', status: 'En attente', date: '13/11/2026' }
@@ -769,6 +946,7 @@
         let globalCallInterval = null;
         let localMicStream = null;
         let audioMeterInterval = null;
+        let kpiChartInstance = null;
 
         // ==========================================================
         // INITIALISATION & SYNCHRONISATION TEMPS RÉEL
@@ -922,7 +1100,9 @@
 
         function buildNavigationForRole(me) {
             const allMenus = [
-                { id: 'live-supervision', label: 'Supervision Live', icon: 'ph-broadcast' },
+                { id: 'live-supervision', label: 'Supervision & ACD', icon: 'ph-broadcast' },
+                { id: 'analytics', label: 'Analytics & KPI', icon: 'ph-chart-line-up' },
+                { id: 'billing', label: 'Facturation & Caisse', icon: 'ph-wallet' },
                 { id: 'payroll', label: 'Payroll & Salaires', icon: 'ph-money' },
                 { id: 'departments', label: 'Départements (5)', icon: 'ph-buildings' },
                 { id: 'access', label: 'Codes & Accès', icon: 'ph-shield-check' },
@@ -968,7 +1148,9 @@
             });
 
             const titles = {
-                'live-supervision': 'Supervision Temps Réel & Appels Gratuits',
+                'live-supervision': 'Supervision Temps Réel, File ACD & Écoute Discrète',
+                'analytics': 'Tableau de Bord Analytique Call Center (DMT, SLA & Top Agents)',
+                'billing': 'Facturation Automatique Clients B2B & Trésorerie Multi-Canaux',
                 'payroll': 'Payroll Call Center & Bulletins PDF',
                 'departments': 'Les 5 Départements WorldConnect',
                 'access': 'Codes d\'Authentification & Matrice RBAC',
@@ -987,6 +1169,8 @@
         function refreshActiveViews() {
             syncGlobalCallBanner();
             renderManagerLiveSupervision();
+            renderAnalyticsView();
+            renderBillingAndTreasury();
             renderPayrollTable();
             renderDepartments();
             renderAccessMatrix();
@@ -1178,6 +1362,8 @@
                     agentCode: call.calleeCode,
                     duration: call.status === 'CONNECTED' ? (dur === '00:00' ? '00:15' : dur) : '00:00',
                     status: call.status === 'CONNECTED' ? 'Répondu (0.00 $)' : 'Non répondu',
+                    qaScore: call.status === 'CONNECTED' ? Math.floor(88 + Math.random() * 12) : 0,
+                    hasAudio: call.status === 'CONNECTED',
                     qualification: customReason || (note || 'Communication VoIP interactive clôturée ($0.00)')
                 });
 
@@ -1192,10 +1378,130 @@
             }
 
             state.activeLiveCall = null;
+            state.monitoringTargetCallId = null;
             isMuted = false;
             saveState();
             refreshActiveViews();
-            showToast('Appel clôturé et enregistré dans le journal (0.00 $)');
+            showToast('Appel clôturé et archivé avec enregistrement audio (0.00 $)');
+        }
+
+        // ==========================================================
+        // DISTRIBUTION AUTOMATIQUE ACD & QUALITY MONITORING (ÉCOUTE)
+        // ==========================================================
+        function triggerACDClientCall() {
+            const me = getCurrentUser();
+            if (!me) return;
+
+            // Trouver l'agent en ligne disponible depuis le plus longtemps (sessionStart le plus ancien)
+            const availableAgents = state.users
+                .filter(u => u.role === 'WORKER' && u.active && u.onlineStatus === 'En ligne - Disponible')
+                .sort((a, b) => (a.sessionStart || 0) - (b.sessionStart || 0));
+
+            const fallbackManagers = state.users
+                .filter(u => u.role === 'MANAGER' && u.active && u.onlineStatus !== 'Hors ligne');
+
+            const chosenTarget = availableAgents[0] || fallbackManagers[0] || state.users.find(u => u.role === 'WORKER');
+            if (!chosenTarget) return;
+
+            state.activeLiveCall = {
+                id: 'ACD-' + Math.floor(1000 + Math.random() * 9000),
+                callerCode: me.authCode,
+                callerName: me.name.split('(')[0].trim(),
+                callerRole: me.role,
+                calleeCode: chosenTarget.authCode,
+                calleeName: chosenTarget.name.split('(')[0].trim(),
+                calleeRole: chosenTarget.role,
+                topic: `Routage Automatique ACD → ${chosenTarget.department}`,
+                status: 'RINGING',
+                startedAt: Date.now(),
+                connectedAt: null,
+                whisperNote: ''
+            };
+            saveState();
+            syncGlobalCallBanner();
+            showToast(`🔀 Routage ACD : Appel dirigé vers ${chosenTarget.name}`);
+        }
+
+        function routeNextQueueCall() {
+            if (!state.acdQueue || state.acdQueue.length === 0) {
+                state.acdQueue.push({
+                    id: 'Q-' + Math.floor(100 + Math.random() * 899),
+                    caller: 'Nouveau Client Entrant (Ligne Principale)',
+                    waitSec: 4,
+                    priority: 'Haute'
+                });
+            }
+            const nextItem = state.acdQueue.shift();
+            const availableAgents = state.users
+                .filter(u => u.role === 'WORKER' && u.active && u.onlineStatus === 'En ligne - Disponible')
+                .sort((a, b) => (a.sessionStart || 0) - (b.sessionStart || 0));
+
+            const target = availableAgents[0] || state.users.find(u => u.role === 'WORKER');
+            if (target) {
+                const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                state.callsLog.unshift({
+                    id: nextItem.id,
+                    time: now,
+                    caller: nextItem.caller,
+                    campaign: 'Distribution Auto ACD',
+                    agentName: target.name.split('(')[0].trim(),
+                    agentCode: target.authCode,
+                    duration: '01:54',
+                    status: 'Répondu (0.00 $)',
+                    qaScore: 95,
+                    hasAudio: true,
+                    qualification: `Distribué automatiquement par ACD vers ${target.authCode}`
+                });
+                saveState();
+                refreshActiveViews();
+                showToast(`Appel ${nextItem.id} distribué à ${target.name}`);
+            }
+        }
+
+        function startManagerMonitoring() {
+            if (!state.activeLiveCall || state.activeLiveCall.status !== 'CONNECTED') {
+                showToast('Aucun appel actif en cours à écouter');
+                return;
+            }
+            state.monitoringTargetCallId = state.activeLiveCall.id;
+            saveState();
+            syncGlobalCallBanner();
+            showToast('🎧 Écoute discrète activée (le client ne vous entend pas)');
+        }
+
+        function sendWhisperInstruction() {
+            const inp = document.getElementById('whisper-message-input');
+            if (!inp || !inp.value.trim() || !state.activeLiveCall) return;
+            state.activeLiveCall.whisperNote = inp.value.trim();
+            inp.value = '';
+            saveState();
+            syncGlobalCallBanner();
+            showToast('Instruction chuchotée en direct à l\'agent');
+        }
+
+        function stopManagerMonitoring() {
+            state.monitoringTargetCallId = null;
+            saveState();
+            syncGlobalCallBanner();
+        }
+
+        function playArchivedRecording(callId) {
+            const call = state.callsLog.find(c => c.id === callId);
+            if (!call) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(520, ctx.currentTime);
+                gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.36);
+            } catch (e) {}
+            showToast(`▶️ Lecture archive audio ${call.id} (${call.duration}) — Note Qualité : ${call.qaScore || 95}/100`);
         }
 
         function syncGlobalCallBanner() {
@@ -1204,6 +1510,15 @@
             const outBox = document.getElementById('global-call-outgoing');
             const ringBox = document.getElementById('global-call-ringing');
             const connBox = document.getElementById('global-call-connected');
+            const whisperBanner = document.getElementById('manager-whisper-banner');
+
+            if (whisperBanner && me && me.role === 'MANAGER' && state.monitoringTargetCallId && state.activeLiveCall && state.activeLiveCall.id === state.monitoringTargetCallId) {
+                whisperBanner.classList.remove('hidden');
+                document.getElementById('whisper-target-label').textContent =
+                    `Écoute silencieuse : ${state.activeLiveCall.callerName} ↔ ${state.activeLiveCall.calleeName}`;
+            } else if (whisperBanner) {
+                whisperBanner.classList.add('hidden');
+            }
 
             if (!banner || !me || !state.activeLiveCall) {
                 if (banner) banner.classList.add('hidden');
@@ -1242,6 +1557,17 @@
                 connBox.classList.remove('hidden');
                 const peerLabel = amICaller ? `${call.calleeName} (${call.calleeCode})` : `${call.callerName} (${call.callerCode})`;
                 document.getElementById('global-conn-peer').textContent = `En communication avec ${peerLabel}`;
+
+                const whisperAlert = document.getElementById('agent-whisper-alert');
+                const whisperTxt = document.getElementById('agent-whisper-text');
+                if (whisperAlert && whisperTxt) {
+                    if (call.whisperNote && amICallee) {
+                        whisperAlert.classList.remove('hidden');
+                        whisperTxt.textContent = `Chuchotement Direction : « ${call.whisperNote} »`;
+                    } else {
+                        whisperAlert.classList.add('hidden');
+                    }
+                }
 
                 if (!globalCallInterval) {
                     globalCallInterval = setInterval(() => {
@@ -1371,22 +1697,272 @@
                         <td class="py-3 px-3 text-slate-600">${c.campaign}</td>
                         <td class="py-3 px-3 font-mono">${c.duration}</td>
                         <td class="py-3 px-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800">${c.status}</span></td>
-                        <td class="py-3 px-3 text-slate-600">${c.qualification}</td>
+                        <td class="py-3 px-3">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-slate-600 truncate max-w-[180px]">${c.qualification}</span>
+                                <button onclick="playArchivedRecording('${c.id}')" class="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-2 py-1 rounded-lg shrink-0" title="Écouter l'enregistrement">
+                                    <i class="ph-fill ph-play-circle"></i> QA ${c.qaScore || 95}%
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 `).join('');
             }
             if (mobCalls) {
                 mobCalls.innerHTML = state.callsLog.map(c => `
-                    <div class="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 space-y-1 text-xs">
+                    <div class="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 space-y-1.5 text-xs">
                         <div class="flex justify-between font-bold">
                             <span class="text-slate-900">${c.caller}</span>
                             <span class="font-mono text-indigo-700">${c.time}</span>
                         </div>
                         <p class="text-[11px] text-slate-500">${c.campaign} • Durée : ${c.duration}</p>
-                        <p class="text-[11px] text-emerald-700 font-semibold">${c.status} — ${c.qualification}</p>
+                        <div class="flex items-center justify-between pt-1">
+                            <span class="text-[11px] text-emerald-700 font-semibold">${c.status}</span>
+                            <button onclick="playArchivedRecording('${c.id}')" class="text-[11px] font-bold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-lg">
+                                ▶️ Audio (QA ${c.qaScore || 95}%)
+                            </button>
+                        </div>
                     </div>
                 `).join('');
             }
+
+            // Rendu File ACD & Monitoring Live
+            const qList = document.getElementById('acd-queue-list');
+            if (qList) {
+                if (!state.acdQueue || state.acdQueue.length === 0) {
+                    qList.innerHTML = `<p class="text-xs text-slate-400 italic py-2">Aucun appel en attente — Tous les clients sont pris en charge.</p>`;
+                } else {
+                    qList.innerHTML = state.acdQueue.map(q => `
+                        <div class="p-2.5 rounded-xl bg-amber-50/60 border border-amber-200 flex items-center justify-between text-xs">
+                            <div>
+                                <span class="font-mono font-extrabold text-amber-800 mr-1.5">${q.id}</span>
+                                <span class="font-bold text-slate-900">${q.caller}</span>
+                            </div>
+                            <span class="text-[11px] font-bold text-amber-700">Attente : ${q.waitSec}s</span>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            const monBox = document.getElementById('live-call-monitor-box');
+            if (monBox) {
+                if (state.activeLiveCall && state.activeLiveCall.status === 'CONNECTED') {
+                    monBox.innerHTML = `
+                        <div class="flex items-center justify-between gap-2">
+                            <div>
+                                <p class="font-bold text-emerald-400">● Appel actif : ${state.activeLiveCall.callerName} ↔ ${state.activeLiveCall.calleeName}</p>
+                                <p class="text-[11px] text-slate-400 mt-0.5">Enregistrement audio automatique actif</p>
+                            </div>
+                            <button onclick="startManagerMonitoring()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs px-3 py-2 rounded-xl shrink-0">
+                                Écoute Discrète
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    monBox.innerHTML = `<p class="text-slate-400">Aucune conversation active en ce moment. Dès qu'un agent décroche, le bouton <strong>Écoute Discrète</strong> s'active ici.</p>`;
+                }
+            }
+        }
+
+        // ==========================================================
+        // ANALYTICS KPI CALL CENTER & TOP AGENTS
+        // ==========================================================
+        function renderAnalyticsView() {
+            const leaderboard = document.getElementById('top-agents-leaderboard');
+            if (leaderboard) {
+                const sorted = [...state.employees].sort((a, b) => b.callsHandled - a.callsHandled);
+                leaderboard.innerHTML = sorted.map((emp, idx) => `
+                    <div class="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 flex items-center justify-between gap-3 text-xs">
+                        <div class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-xl ${idx === 0 ? 'bg-amber-400 text-slate-950' : 'bg-indigo-100 text-indigo-800'} font-display font-extrabold flex items-center justify-center">
+                                #${idx + 1}
+                            </span>
+                            <div>
+                                <p class="font-extrabold text-slate-900">${emp.name}</p>
+                                <p class="text-[11px] text-slate-500">${emp.department}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-display font-extrabold text-indigo-700">${emp.callsHandled} appels</p>
+                            <p class="text-[10px] font-bold text-emerald-700">Prime KPI : +${formatMoney(emp.kpiUSD)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const canvas = document.getElementById('callcenter-kpi-chart');
+            if (canvas && typeof Chart !== 'undefined' && !document.getElementById('view-analytics').classList.contains('hidden')) {
+                if (kpiChartInstance) kpiChartInstance.destroy();
+                kpiChartInstance = new Chart(canvas, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                        datasets: [
+                            {
+                                label: 'Appels Traités (VoIP Gratuit)',
+                                data: [142, 168, 155, 190, 210, 95, 64],
+                                backgroundColor: '#4f46e5',
+                                borderRadius: 8
+                            },
+                            {
+                                label: 'Résolus au 1er Appel (FCR)',
+                                data: [130, 154, 141, 176, 194, 88, 59],
+                                backgroundColor: '#10b981',
+                                borderRadius: 8
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom' } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+        }
+
+        // ==========================================================
+        // FACTURATION B2B AUTOMATIQUE & TRÉSORERIE MULTI-CANAUX
+        // ==========================================================
+        function renderBillingAndTreasury() {
+            if (!state.treasury) return;
+            const bEl = document.getElementById('treasury-bank');
+            const mEl = document.getElementById('treasury-momo');
+            const cEl = document.getElementById('treasury-cash');
+            const iEl = document.getElementById('treasury-invoiced');
+
+            if (bEl) bEl.textContent = formatMoney(state.treasury.bankUSD);
+            if (mEl) mEl.textContent = formatMoney(state.treasury.momoUSD);
+            if (cEl) cEl.textContent = formatMoney(state.treasury.cashUSD);
+            if (iEl) {
+                const totInv = state.clients.reduce((s, c) => s + Number(c.amountUSD || 0), 0);
+                iEl.textContent = formatMoney(totInv);
+            }
+
+            const billGrid = document.getElementById('b2b-billing-list');
+            if (billGrid) {
+                billGrid.innerHTML = state.clients.map(c => `
+                    <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between gap-3 text-xs">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-extrabold text-slate-900 text-sm">${c.name}</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${c.invoiceStatus === 'Payée' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${c.invoiceStatus}</span>
+                            </div>
+                            <p class="text-slate-500 mt-1">${c.service}</p>
+                            <p class="text-[11px] font-semibold text-indigo-700 mt-1">Volume facturé : ${c.volume} • Total : ${formatMoney(c.amountUSD)}</p>
+                        </div>
+                        <div class="flex items-center gap-2 pt-2 border-t border-slate-200">
+                            <button onclick="openClientInvoicePDF('${c.id}')" class="flex-1 bg-slate-900 hover:bg-indigo-600 text-white font-bold py-2 rounded-xl">
+                                Facture PDF
+                            </button>
+                            ${c.invoiceStatus !== 'Payée' ? `<button onclick="markClientInvoicePaid('${c.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl">Encaisser</button>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const movList = document.getElementById('treasury-movements-list');
+            if (movList) {
+                movList.innerHTML = state.treasury.movements.map(m => `
+                    <div class="p-3 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs">
+                        <div>
+                            <p class="font-bold text-slate-900">${m.label}</p>
+                            <p class="text-[11px] text-slate-500">${m.date} • Canal : <strong class="text-indigo-700">${m.channel}</strong></p>
+                        </div>
+                        <span class="font-display font-extrabold text-emerald-700">+${formatMoney(m.amountUSD)}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function markClientInvoicePaid(clientId) {
+            const cli = state.clients.find(c => c.id === clientId);
+            if (!cli) return;
+            cli.invoiceStatus = 'Payée';
+            state.treasury.momoUSD += Number(cli.amountUSD);
+            state.treasury.movements.unshift({
+                id: 'TR-' + Math.floor(100 + Math.random() * 899),
+                date: new Date().toLocaleDateString('fr-FR'),
+                label: `Règlement Facture ${cli.name} (${cli.volume})`,
+                channel: 'M-Pesa / Airtel Money',
+                amountUSD: Number(cli.amountUSD)
+            });
+            saveState();
+            renderBillingAndTreasury();
+            showToast(`Facture ${cli.name} encaissée sur Mobile Money`);
+        }
+
+        function openClientInvoicePDF(clientId) {
+            const cli = state.clients.find(c => c.id === clientId);
+            if (!cli) return;
+            const area = document.getElementById('printable-area');
+            area.innerHTML = `
+                <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-start">
+                    <div>
+                        <h2 class="font-display text-2xl font-extrabold text-slate-900">WORLDCONNECT SARL</h2>
+                        <p class="text-xs text-slate-500">Externalisation Call Center VoIP & Relation Client • Kinshasa, RDC</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full">FACTURE CLIENT B2B</span>
+                        <p class="text-xs text-slate-500 mt-1">Réf : FAC-${cli.id}-2026</p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-2xl mb-6 text-xs">
+                    <p class="text-slate-500">Client facturé :</p>
+                    <p class="font-extrabold text-slate-900 text-base">${cli.name}</p>
+                    <p class="text-slate-600 mt-0.5">Prestation : ${cli.service}</p>
+                </div>
+                <table class="w-full text-xs border-collapse mb-6">
+                    <thead>
+                        <tr class="border-b border-slate-300 text-left text-slate-500 uppercase">
+                            <th class="py-2">Description de la prestation</th>
+                            <th class="py-2 text-right">Volume</th>
+                            <th class="py-2 text-right">Total (${state.currency})</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <td class="py-3 font-semibold">${cli.service} (Passerelle VoIP Gratuite incluse)</td>
+                            <td class="py-3 text-right font-mono">${cli.volume}</td>
+                            <td class="py-3 text-right font-bold">${formatMoney(cli.amountUSD)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="p-4 rounded-2xl bg-slate-900 text-white flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase">Total TTC à Régler (${cli.invoiceStatus})</span>
+                    <span class="font-display text-2xl font-extrabold text-emerald-400">${formatMoney(cli.amountUSD)}</span>
+                </div>
+            `;
+            document.getElementById('payslip-modal').classList.remove('hidden');
+        }
+
+        function openNewPaymentModal() {
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function submitTreasuryMovement(e) {
+            e.preventDefault();
+            const label = document.getElementById('pay-label').value.trim();
+            const channel = document.getElementById('pay-channel').value;
+            const amount = Number(document.getElementById('pay-amount').value || 0);
+            if (amount <= 0) return;
+
+            if (channel.includes('Banque')) state.treasury.bankUSD += amount;
+            else if (channel.includes('M-Pesa')) state.treasury.momoUSD += amount;
+            else state.treasury.cashUSD += amount;
+
+            state.treasury.movements.unshift({
+                id: 'TR-' + Math.floor(100 + Math.random() * 899),
+                date: new Date().toLocaleDateString('fr-FR'),
+                label,
+                channel,
+                amountUSD: amount
+            });
+            saveState();
+            document.getElementById('payment-modal').classList.add('hidden');
+            renderBillingAndTreasury();
+            showToast(`Encaissement de $${amount} ajouté sur ${channel}`);
         }
 
         // ==========================================================
