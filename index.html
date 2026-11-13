@@ -76,20 +76,9 @@
                     <p class="text-sm text-slate-300 leading-relaxed">
                         L'accès à la plateforme nécessite votre <strong class="text-white">Code d'Authentification Personnel</strong> attribué par la Direction WorldConnect.
                     </p>
-                </div>
-
-                <div class="relative z-10 mt-8 pt-6 border-t border-white/10 space-y-3 text-xs text-slate-300">
-                    <div class="flex items-start gap-2.5">
-                        <i class="ph-bold ph-headset text-emerald-400 text-base mt-0.5"></i>
-                        <span><strong class="text-white">Travailleur / Agent :</strong> Connexion par code → Mise en ligne automatique pour recevoir vos appels & consulter votre paie.</span>
-                    </div>
-                    <div class="flex items-start gap-2.5">
-                        <i class="ph-bold ph-broadcast text-indigo-400 text-base mt-0.5"></i>
-                        <span><strong class="text-white">Manager / Supervision :</strong> Connexion par code → Visualisation en direct des agents connectés, appels reçus & gestion Payroll.</span>
-                    </div>
-                    <div class="flex items-start gap-2.5">
-                        <i class="ph-bold ph-buildings text-cyan-400 text-base mt-0.5"></i>
-                        <span><strong class="text-white">Client B2B :</strong> Suivi de campagne, SLA & factures PDF.</span>
+                    <div class="mt-4 inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 px-3.5 py-2 rounded-xl text-xs font-extrabold">
+                        <i class="ph-bold ph-phone-call text-base"></i>
+                        <span>APPELS 100% GRATUITS • VoIP ILLIMITÉ ($0.00 / min)</span>
                     </div>
                 </div>
             </div>
@@ -229,8 +218,21 @@
 
                     <!-- Sélecteur Multi-Devises USD / CDF / EUR -->
                     <div class="flex items-center gap-3">
+                        <!-- Compteur Présence Temps Réel (Directeurs & Travailleurs) -->
+                        <div class="hidden xl:flex items-center gap-2.5 bg-slate-900 text-white px-3.5 py-1.5 rounded-full text-[11px] font-bold shadow-sm border border-slate-800">
+                            <span class="inline-flex items-center gap-1 text-emerald-400">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> LIVE SYNC
+                            </span>
+                            <span class="text-slate-600">|</span>
+                            <span id="header-live-directors" class="text-indigo-300">0 Directeur(s) en ligne</span>
+                            <span class="text-slate-600">•</span>
+                            <span id="header-live-workers" class="text-emerald-300">0 Travailleur(s) en ligne</span>
+                            <span class="text-slate-600">|</span>
+                            <span class="text-amber-300">VoIP $0.00/min</span>
+                        </div>
+
                         <span class="hidden md:inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Données sauvegardées
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Sauvegardé
                         </span>
 
                         <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
@@ -251,51 +253,61 @@
                 <section id="view-mgr-live" class="view-section hidden space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Supervision Temps Réel</span>
-                            <h1 class="font-display text-2xl font-extrabold text-slate-900 mt-2">Agents en Ligne & Appels Reçus en Direct</h1>
-                            <p class="text-xs sm:text-sm text-slate-500">Contrôlez qui est authentifié sur le plateau Call Center et suivez chaque appel entrant.</p>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Présence Temps Réel Actif
+                                </span>
+                                <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">Appels VoIP 100% Gratuits ($0.00/min)</span>
+                            </div>
+                            <h1 class="font-display text-2xl font-extrabold text-slate-900 mt-2">Directeurs & Travailleurs en Ligne en Direct</h1>
+                            <p class="text-xs sm:text-sm text-slate-500">Synchronisation instantanée multi-onglets (Heartbeat 2s) : suivez chaque Directeur et Travailleur connecté.</p>
                         </div>
-                        <button onclick="simulateIncomingCallForManager()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center gap-2 self-start">
-                            <i class="ph-bold ph-phone-incoming text-base"></i> Simuler un Appel Entrant Client
-                        </button>
+                        <div class="flex flex-wrap gap-2 self-start">
+                            <button onclick="toggleSimulatedPresence()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl shadow-md flex items-center gap-1.5">
+                                <i class="ph-bold ph-user-switch text-base"></i> Tester Connexion / Déconnexion Live
+                            </button>
+                            <button onclick="simulateIncomingCallForManager()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl shadow-md flex items-center gap-1.5">
+                                <i class="ph-bold ph-phone-incoming text-base"></i> Simuler Appel Gratuit
+                            </button>
+                        </div>
                     </div>
 
                     <!-- KPIs Live Supervision -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <div class="flex items-center justify-between text-xs font-bold uppercase text-slate-400">
-                                <span>Agents En Ligne (Online)</span>
-                                <i class="ph-bold ph-broadcast text-xl text-emerald-600"></i>
+                        <div class="bg-white p-5 rounded-2xl border border-indigo-200 shadow-sm">
+                            <div class="flex items-center justify-between text-xs font-bold uppercase text-indigo-600">
+                                <span>Directeurs En Ligne</span>
+                                <i class="ph-bold ph-crown text-xl text-indigo-600"></i>
+                            </div>
+                            <p id="live-kpi-directors" class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">0 / 0</p>
+                            <p class="text-xs text-indigo-600 font-semibold mt-1">Supervision Direction active</p>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-emerald-200 shadow-sm">
+                            <div class="flex items-center justify-between text-xs font-bold uppercase text-emerald-600">
+                                <span>Travailleurs En Ligne</span>
+                                <i class="ph-bold ph-headset text-xl text-emerald-600"></i>
                             </div>
                             <p id="live-kpi-online" class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">0 / 0</p>
-                            <p class="text-xs text-emerald-600 font-semibold mt-1">Authentifiés avec code valide</p>
+                            <p class="text-xs text-emerald-600 font-semibold mt-1">Prêts à recevoir des appels VoIP</p>
                         </div>
 
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                             <div class="flex items-center justify-between text-xs font-bold uppercase text-slate-400">
-                                <span>Appels Reçus Aujourd'hui</span>
-                                <i class="ph-bold ph-phone-call text-xl text-indigo-600"></i>
+                                <span>Appels VoIP Gratuits</span>
+                                <i class="ph-bold ph-phone-call text-xl text-cyan-600"></i>
                             </div>
                             <p id="live-kpi-calls" class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">0</p>
-                            <p class="text-xs text-indigo-600 font-semibold mt-1">Toutes campagnes B2B confondues</p>
+                            <p class="text-xs text-cyan-700 font-semibold mt-1">Coût total : $0.00 (Illimité)</p>
                         </div>
 
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                             <div class="flex items-center justify-between text-xs font-bold uppercase text-slate-400">
-                                <span>Masse Salariale Mensuelle</span>
-                                <i class="ph-bold ph-money text-xl text-blue-600"></i>
+                                <span>Masse Salariale & Demandes</span>
+                                <i class="ph-bold ph-money text-xl text-amber-600"></i>
                             </div>
                             <p id="live-kpi-payroll" class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">$0</p>
-                            <p class="text-xs text-slate-500 font-medium mt-1">Primes Call Center incluses</p>
-                        </div>
-
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <div class="flex items-center justify-between text-xs font-bold uppercase text-slate-400">
-                                <span>Demandes RH & Tickets</span>
-                                <i class="ph-bold ph-bell-ringing text-xl text-amber-600"></i>
-                            </div>
-                            <p id="live-kpi-requests" class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">0</p>
-                            <p class="text-xs text-amber-600 font-semibold mt-1">À traiter par la direction</p>
+                            <p class="text-xs text-amber-600 font-semibold mt-1"><span id="live-kpi-requests">0</span> demande(s) en attente</p>
                         </div>
                     </div>
 
@@ -304,14 +316,18 @@
                         
                         <!-- Qui est en ligne (5 colonnes) -->
                         <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                            <div class="p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
                                 <div>
-                                    <h3 class="font-display font-bold text-slate-900 text-base">Qui est en ligne (Plateau & Staff)</h3>
-                                    <p class="text-xs text-slate-500">Statut en direct par code d'authentification</p>
+                                    <h3 class="font-display font-bold text-slate-900 text-base">Présence Temps Réel (Directeurs & Travailleurs)</h3>
+                                    <p class="text-xs text-slate-500">Durée de connexion live & appel VoIP direct gratuit</p>
                                 </div>
-                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                                <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg text-[10px] font-bold">
+                                    <button onclick="setPresenceFilter('ALL')" id="pf-ALL" class="px-2 py-1 rounded bg-white text-slate-900 shadow-sm">Tous</button>
+                                    <button onclick="setPresenceFilter('MANAGER')" id="pf-MANAGER" class="px-2 py-1 rounded text-slate-600">Directeurs</button>
+                                    <button onclick="setPresenceFilter('WORKER')" id="pf-WORKER" class="px-2 py-1 rounded text-slate-600">Travailleurs</button>
+                                </div>
                             </div>
-                            <div id="live-online-staff-list" class="p-4 space-y-3 max-h-96 overflow-y-auto">
+                            <div id="live-online-staff-list" class="p-4 space-y-3 max-h-[28rem] overflow-y-auto">
                                 <!-- Injecté par JS -->
                             </div>
                         </div>
@@ -320,19 +336,19 @@
                         <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
                             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
                                 <div>
-                                    <h3 class="font-display font-bold text-slate-900 text-base">Journal des Appels Reçus en Direct</h3>
-                                    <p class="text-xs text-slate-500">Appels pris, qualifiés ou en cours par les agents</p>
+                                    <h3 class="font-display font-bold text-slate-900 text-base">Journal des Appels Gratuits Reçus en Direct</h3>
+                                    <p class="text-xs text-slate-500">VoIP WebRTC Interne — Facturation télécom : 0.00 $ (Illimité)</p>
                                 </div>
-                                <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg">Temps réel</span>
+                                <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">0.00 $ / Gratuit</span>
                             </div>
                             <div class="overflow-x-auto max-h-96">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
                                         <tr class="bg-slate-50 text-slate-500 text-[10px] uppercase tracking-wider border-b border-slate-200">
                                             <th class="py-3 px-4">Heure / Appelant</th>
-                                            <th class="py-3 px-4">Campagne Client</th>
+                                            <th class="py-3 px-4">Campagne / Canal</th>
                                             <th class="py-3 px-4">Agent (Code)</th>
-                                            <th class="py-3 px-4">Statut & Qualification</th>
+                                            <th class="py-3 px-4">Statut & Coût</th>
                                         </tr>
                                     </thead>
                                     <tbody id="live-calls-table-body" class="divide-y divide-slate-100 text-xs">
@@ -467,7 +483,7 @@
                         <div>
                             <div class="flex flex-wrap items-center gap-2">
                                 <span class="inline-flex items-center gap-1.5 text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-3 py-1 rounded-full">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> EN LIGNE — PRÊT À RECEVOIR DES APPELS
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> EN LIGNE — APPELS 100% GRATUITS ($0.00/min)
                                 </span>
                                 <span id="wrk-code-tag" class="font-mono text-xs font-bold bg-white/10 text-indigo-200 px-3 py-1 rounded-full">WC-AGT-101</span>
                             </div>
@@ -491,39 +507,52 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                         <!-- Boîte Softphone Réception d'Appels (7 colonnes) -->
                         <div class="lg:col-span-7 bg-white rounded-2xl border-2 border-indigo-100 p-6 shadow-sm">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-5">
                                 <div class="flex items-center gap-2.5">
                                     <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
                                         <i class="ph-bold ph-headset"></i>
                                     </div>
                                     <div>
-                                        <h3 class="font-display font-extrabold text-slate-900 text-base">Console de Réception d'Appels WorldConnect</h3>
-                                        <p class="text-xs text-slate-500">Votre code est connecté à la file d'attente entrante</p>
+                                        <h3 class="font-display font-extrabold text-slate-900 text-base">Softphone VoIP Gratuit ($0.00/min)</h3>
+                                        <p class="text-xs text-slate-500">Votre code est en ligne et visible en temps réel par la Direction</p>
                                     </div>
                                 </div>
                                 <button onclick="triggerIncomingCallForAgent()" id="btn-sim-call" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm flex items-center gap-1.5">
-                                    <i class="ph-bold ph-phone-incoming"></i> Recevoir un Appel Test
+                                    <i class="ph-bold ph-phone-incoming"></i> Recevoir un Appel Gratuit
                                 </button>
                             </div>
 
+                            <!-- Bandeau Temps Réel : Qui est en ligne (Directeurs & Collègues) -->
+                            <div class="mb-5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Directeurs & Collègues en Ligne (Appel Interne Gratuit)
+                                    </span>
+                                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Temps réel</span>
+                                </div>
+                                <div id="worker-live-peers-list" class="flex flex-wrap gap-2">
+                                    <!-- Injecté en temps réel par JS -->
+                                </div>
+                            </div>
+
                             <!-- État 1 : En attente d'appel -->
-                            <div id="call-state-idle" class="py-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-                                <i class="ph-duotone ph-phone-call text-4xl text-indigo-500 mb-2"></i>
-                                <p class="text-sm font-bold text-slate-800">En attente d'un appel entrant...</p>
-                                <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">Votre poste est authentifié et visible en ligne par le Manager. Cliquez sur « Recevoir un Appel Test » pour simuler un client.</p>
+                            <div id="call-state-idle" class="py-7 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                                <i class="ph-duotone ph-phone-call text-4xl text-emerald-500 mb-2"></i>
+                                <p class="text-sm font-bold text-slate-800">Ligne VoIP Gratuite Active — En attente d'appel...</p>
+                                <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">Tous les appels entrants clients et internes sont 100% gratuits ($0.00/min) et visibles en direct par le Manager.</p>
                             </div>
 
                             <!-- État 2 : Appel Entrant qui sonne -->
                             <div id="call-state-ringing" class="hidden ringing-card p-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-xl">
                                 <div class="flex items-center justify-between mb-4">
-                                    <span class="text-xs font-extrabold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full animate-pulse">📞 Appel Entrant...</span>
+                                    <span class="text-xs font-extrabold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full animate-pulse">📞 Appel Gratuit Entrant (0.00 $)...</span>
                                     <span id="ringing-campaign" class="text-xs font-bold">Campagne Horizon Telecom</span>
                                 </div>
                                 <p id="ringing-caller" class="font-display text-xl font-extrabold">+243 81 904 55 12 — Client Entreprise</p>
                                 <p id="ringing-topic" class="text-xs text-emerald-100 mt-1">Motif : Assistance facturation & activation ligne</p>
                                 <div class="mt-5 flex gap-3">
                                     <button onclick="answerIncomingCall()" class="flex-1 bg-white text-emerald-800 hover:bg-emerald-50 font-extrabold text-xs py-3 rounded-xl shadow flex items-center justify-center gap-2">
-                                        <i class="ph-bold ph-phone-call text-base"></i> Décrocher & Prendre l'appel
+                                        <i class="ph-bold ph-phone-call text-base"></i> Décrocher (Appel Gratuit)
                                     </button>
                                     <button onclick="declineIncomingCall()" class="px-4 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs">
                                         Refuser
@@ -535,10 +564,15 @@
                             <div id="call-state-active" class="hidden p-5 rounded-2xl bg-indigo-950 text-white space-y-4">
                                 <div class="flex items-center justify-between border-b border-indigo-800 pb-3">
                                     <div>
-                                        <span class="text-[11px] font-bold uppercase text-emerald-400">● Communication en cours</span>
+                                        <span class="text-[11px] font-bold uppercase text-emerald-400">● Appel VoIP Gratuit en cours • Coût : 0.00 $</span>
                                         <p id="active-caller-info" class="font-bold text-sm mt-0.5">+243 81 904 55 12</p>
                                     </div>
-                                    <span id="call-timer-display" class="font-mono text-lg font-extrabold bg-indigo-900 px-3 py-1 rounded-lg">00:00</span>
+                                    <div class="flex items-center gap-2">
+                                        <button type="button" id="btn-mute-call" onclick="toggleMuteCall()" class="bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1">
+                                            <i class="ph-bold ph-microphone"></i> <span id="mute-label">Micro actif</span>
+                                        </button>
+                                        <span id="call-timer-display" class="font-mono text-lg font-extrabold bg-indigo-900 px-3 py-1 rounded-lg">00:00</span>
+                                    </div>
                                 </div>
                                 <div class="space-y-2.5 text-xs">
                                     <label class="block font-bold text-indigo-200">Qualification & Résumé de l'appel (visible par le Manager) :</label>
@@ -546,12 +580,12 @@
                                         <option value="Résolu au 1er appel (FCR)">✅ Résolu au 1er appel (FCR)</option>
                                         <option value="Vente / Souscription confirmée">💰 Vente / Souscription confirmée</option>
                                         <option value="Escaladé au support technique N2">🛠️ Escaladé au support technique N2</option>
-                                        <option value="Information générale fournie">ℹ️ Information générale fournie</option>
+                                        <option value="Coordination interne WorldConnect">🤝 Coordination interne WorldConnect</option>
                                     </select>
-                                    <input type="text" id="call-notes-input" placeholder="Note rapide sur la demande du client..." class="w-full bg-indigo-900 border border-indigo-700 rounded-xl px-3 py-2 text-white placeholder-indigo-400">
+                                    <input type="text" id="call-notes-input" placeholder="Note rapide sur la demande..." class="w-full bg-indigo-900 border border-indigo-700 rounded-xl px-3 py-2 text-white placeholder-indigo-400">
                                 </div>
                                 <button onclick="completeAndLogCall()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs py-3 rounded-xl flex items-center justify-center gap-2">
-                                    <i class="ph-bold ph-phone-disconnect text-base"></i> Clôturer & Enregistrer l'appel (Transmettre au Manager)
+                                    <i class="ph-bold ph-phone-disconnect text-base"></i> Clôturer & Enregistrer (Facturation : 0.00 $)
                                 </button>
                             </div>
                         </div>
@@ -603,10 +637,35 @@
                 <!-- VUE CLIENT : PORTAIL PARTENAIRE B2B                            -->
                 <!-- ============================================================== -->
                 <section id="view-client-home" class="view-section hidden space-y-6">
-                    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-cyan-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg">
-                        <span class="text-xs font-bold uppercase tracking-wider bg-white/10 text-cyan-300 px-3 py-1 rounded-full">Espace Client B2B WorldConnect</span>
-                        <h1 id="client-welcome-title" class="font-display text-2xl sm:text-3xl font-extrabold mt-3">Portail Client</h1>
-                        <p class="text-sm text-slate-300 mt-1">Suivi en temps réel des appels de votre campagne externalisée, SLA et facturation.</p>
+                    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-cyan-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider bg-white/10 text-cyan-300 px-3 py-1 rounded-full">Espace Client B2B WorldConnect • VoIP Gratuit</span>
+                            <h1 id="client-welcome-title" class="font-display text-2xl sm:text-3xl font-extrabold mt-3">Portail Client</h1>
+                            <p class="text-sm text-slate-300 mt-1">Suivi en temps réel des appels de votre campagne externalisée, SLA et facturation.</p>
+                        </div>
+                        <button onclick="startFreeClientCall()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-xs px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-2 self-start">
+                            <i class="ph-bold ph-phone-call text-lg"></i> Appeler le Call Center Gratuitement ($0.00)
+                        </button>
+                    </div>
+
+                    <!-- Box Appel Gratuit en Direct côté Client -->
+                    <div id="client-active-call-box" class="hidden p-6 rounded-2xl bg-emerald-950 text-white border border-emerald-500/40 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl animate-pulse">
+                                <i class="ph-bold ph-phone-call"></i>
+                            </div>
+                            <div>
+                                <span class="text-[11px] font-extrabold uppercase text-emerald-400">● Appel Vocal VoIP Gratuit en Cours — Coût : 0.00 $</span>
+                                <p class="font-display text-lg font-extrabold">Connecté au Plateau Call Center WorldConnect</p>
+                                <p class="text-xs text-emerald-200">Communication illimitée sans frais télécom</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span id="client-call-timer" class="font-mono text-xl font-extrabold bg-emerald-900 px-4 py-2 rounded-xl">00:00</span>
+                            <button onclick="endFreeClientCall()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-4 py-3 rounded-xl flex items-center gap-1.5">
+                                <i class="ph-bold ph-phone-disconnect text-base"></i> Raccrocher
+                            </button>
+                        </div>
                     </div>
 
                     <div id="client-campaign-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
@@ -776,89 +835,73 @@
     <!-- ===================================================================== -->
     <script>
         const STORAGE_KEY = 'worldconnect_erp_v3';
+        const REALTIME_CHANNEL_NAME = 'worldconnect_realtime_v1';
+        let realtimeChannel = null;
+        try { realtimeChannel = new BroadcastChannel(REALTIME_CHANNEL_NAME); } catch (e) {}
 
         const WORLDCONNECT_DEPARTMENTS = [
-            {
-                name: 'Call Center & Relation Client',
-                icon: 'ph-headset',
-                color: 'text-indigo-600 bg-indigo-50',
-                desc: 'Téléconseillers Bilingues FR/EN, Superviseurs de plateau, Service Desk & Télévente.'
-            },
-            {
-                name: 'WorldConnect Academy',
-                icon: 'ph-graduation-cap',
-                color: 'text-cyan-600 bg-cyan-50',
-                desc: 'Formateurs en langues (Anglais/Français), Coordination pédagogique & Suivi apprenants.'
-            },
-            {
-                name: 'Administration & Finances',
-                icon: 'ph-bank',
-                color: 'text-blue-600 bg-blue-50',
-                desc: 'Direction Générale, Comptabilité, Gestion Payroll & Ressources Humaines.'
-            },
-            {
-                name: 'IT, Développement & Systèmes',
-                icon: 'ph-code',
-                color: 'text-purple-600 bg-purple-50',
-                desc: 'Ingénieurs logiciels, Téléphonie IP / VoIP Call Center & Infrastructure Cloud.'
-            },
-            {
-                name: 'Commercial, Marketing & Partenariats',
-                icon: 'ph-handshake',
-                color: 'text-emerald-600 bg-emerald-50',
-                desc: 'Acquisition clients B2B, Gestion des comptes grands groupes & Communication.'
-            }
+            { name: 'Call Center & Relation Client', icon: 'ph-headset', color: 'bg-indigo-100 text-indigo-700', desc: 'Gestion des appels entrants/sortants bilingues, support technique et télévente B2B.' },
+            { name: 'WorldConnect Academy', icon: 'ph-graduation-cap', color: 'bg-cyan-100 text-cyan-700', desc: 'Formation professionnelle en langues (Anglais/Français), bureautique et relation client.' },
+            { name: 'Administration & Finances', icon: 'ph-bank', color: 'bg-blue-100 text-blue-700', desc: 'Comptabilité, facturation clients, trésorerie multi-devises et gestion du Payroll.' },
+            { name: 'IT, Développement & Systèmes', icon: 'ph-cpu', color: 'bg-purple-100 text-purple-700', desc: 'Infrastructure télécom VoIP, développement logiciel, maintenance réseau et cybersécurité.' },
+            { name: 'Commercial, Marketing & Partenariats', icon: 'ph-trend-up', color: 'bg-emerald-100 text-emerald-700', desc: 'Acquisition de contrats B2B, communication digitale et suivi des comptes partenaires.' }
         ];
 
         const DEFAULT_STATE = {
             currency: 'USD',
             cdfRate: 2850,
             eurRate: 0.92,
-            currentAuthCode: null,
             deptFilter: 'ALL',
+            currentAuthCode: null,
             users: [
                 {
                     authCode: 'WC-MGR-001',
                     pin: '1234',
-                    name: 'Amani Directeur Général',
+                    name: 'Amani Djuma (Directeur Général)',
                     role: 'MANAGER',
                     department: 'Administration & Finances',
                     linkedEmpId: 'EMP-01',
                     linkedClientId: null,
                     active: true,
-                    onlineStatus: 'En ligne - Disponible',
+                    onlineStatus: 'Directeur En Ligne (Supervision Active)',
+                    sessionStart: Date.now() - 5400000,
+                    lastHeartbeat: Date.now(),
                     lastLogin: '13/11/2026 08:00',
                     permissions: { manager: true, worker: true, client: true }
                 },
                 {
-                    authCode: 'WC-SUP-002',
-                    pin: '1234',
-                    name: 'Grace Mbuyi (Chef de Plateau)',
+                    authCode: 'WC-MGR-002',
+                    pin: '2026',
+                    name: 'Patrick (Secrétaire Académique & Dir. Academy)',
                     role: 'MANAGER',
-                    department: 'Call Center & Relation Client',
+                    department: 'WorldConnect Academy',
                     linkedEmpId: 'EMP-02',
                     linkedClientId: null,
                     active: true,
-                    onlineStatus: 'En ligne - Disponible',
+                    onlineStatus: 'Directeur En Ligne (Supervision Active)',
+                    sessionStart: Date.now() - 3200000,
+                    lastHeartbeat: Date.now(),
                     lastLogin: '13/11/2026 08:15',
                     permissions: { manager: true, worker: true, client: false }
                 },
                 {
                     authCode: 'WC-AGT-101',
-                    pin: '1234',
-                    name: 'Sarah Kabongo (Agent Bilingue)',
+                    pin: '1111',
+                    name: 'Sarah Kabongo (Agent Bilingue FR/EN)',
                     role: 'WORKER',
                     department: 'Call Center & Relation Client',
                     linkedEmpId: 'EMP-03',
                     linkedClientId: null,
                     active: true,
                     onlineStatus: 'En ligne - Disponible',
+                    sessionStart: Date.now() - 2700000,
+                    lastHeartbeat: Date.now(),
                     lastLogin: '13/11/2026 08:25',
                     permissions: { manager: false, worker: true, client: false }
                 },
                 {
                     authCode: 'WC-AGT-102',
-                    pin: '1234',
+                    pin: '2222',
                     name: 'Jean-Marc Kabila (Téléconseiller)',
                     role: 'WORKER',
                     department: 'Call Center & Relation Client',
@@ -866,12 +909,14 @@
                     linkedClientId: null,
                     active: true,
                     onlineStatus: 'Hors ligne',
+                    sessionStart: null,
+                    lastHeartbeat: 0,
                     lastLogin: 'Hier 17:10',
                     permissions: { manager: false, worker: true, client: false }
                 },
                 {
                     authCode: 'WC-ACA-201',
-                    pin: '1234',
+                    pin: '3333',
                     name: 'David Mukendi (Formateur Academy)',
                     role: 'WORKER',
                     department: 'WorldConnect Academy',
@@ -879,12 +924,44 @@
                     linkedClientId: null,
                     active: true,
                     onlineStatus: 'En ligne - Disponible',
+                    sessionStart: Date.now() - 1800000,
+                    lastHeartbeat: Date.now(),
                     lastLogin: '13/11/2026 09:00',
                     permissions: { manager: false, worker: true, client: false }
                 },
                 {
+                    authCode: 'WC-IT-301',
+                    pin: '4444',
+                    name: 'Kevin Tshibangu (Ingénieur VoIP & IT)',
+                    role: 'WORKER',
+                    department: 'IT, Développement & Systèmes',
+                    linkedEmpId: 'EMP-05',
+                    linkedClientId: null,
+                    active: true,
+                    onlineStatus: 'En ligne - Disponible',
+                    sessionStart: Date.now() - 1200000,
+                    lastHeartbeat: Date.now(),
+                    lastLogin: '13/11/2026 09:30',
+                    permissions: { manager: false, worker: true, client: false }
+                },
+                {
+                    authCode: 'WC-COM-401',
+                    pin: '5555',
+                    name: 'Nadine Ilunga (Chargée d\'Affaires B2B)',
+                    role: 'WORKER',
+                    department: 'Commercial, Marketing & Partenariats',
+                    linkedEmpId: 'EMP-06',
+                    linkedClientId: null,
+                    active: true,
+                    onlineStatus: 'Hors ligne',
+                    sessionStart: null,
+                    lastHeartbeat: 0,
+                    lastLogin: '12/11/2026 16:45',
+                    permissions: { manager: false, worker: true, client: false }
+                },
+                {
                     authCode: 'WC-CLI-501',
-                    pin: '1234',
+                    pin: '9999',
                     name: 'Horizon Telecom RDC (Client B2B)',
                     role: 'CLIENT',
                     department: 'Partenaire B2B Externalisé',
@@ -892,13 +969,15 @@
                     linkedClientId: 'CLI-01',
                     active: true,
                     onlineStatus: 'Hors ligne',
+                    sessionStart: null,
+                    lastHeartbeat: 0,
                     lastLogin: '12/11/2026 14:20',
                     permissions: { manager: false, worker: false, client: true }
                 }
             ],
             employees: [
-                { id: 'EMP-01', authCode: 'WC-MGR-001', name: 'Amani Directeur', role: 'Directeur Général', department: 'Administration & Finances', baseUSD: 2500, kpiUSD: 300, bilingualUSD: 150, attendanceUSD: 100, advanceUSD: 0 },
-                { id: 'EMP-02', authCode: 'WC-SUP-002', name: 'Grace Mbuyi', role: 'Superviseur Plateau Call Center', department: 'Call Center & Relation Client', baseUSD: 1100, kpiUSD: 220, bilingualUSD: 150, attendanceUSD: 80, advanceUSD: 100 },
+                { id: 'EMP-01', authCode: 'WC-MGR-001', name: 'Amani Djuma', role: 'Directeur Général', department: 'Administration & Finances', baseUSD: 2500, kpiUSD: 300, bilingualUSD: 150, attendanceUSD: 100, advanceUSD: 0 },
+                { id: 'EMP-02', authCode: 'WC-MGR-002', name: 'Patrick', role: 'Secrétaire Académique & Directeur Academy', department: 'WorldConnect Academy', baseUSD: 1300, kpiUSD: 220, bilingualUSD: 150, attendanceUSD: 80, advanceUSD: 100 },
                 { id: 'EMP-03', authCode: 'WC-AGT-101', name: 'Sarah Kabongo', role: 'Téléconseillère Bilingue FR/EN', department: 'Call Center & Relation Client', baseUSD: 550, kpiUSD: 145, bilingualUSD: 100, attendanceUSD: 50, advanceUSD: 50 },
                 { id: 'EMP-07', authCode: 'WC-AGT-102', name: 'Jean-Marc Kabila', role: 'Téléconseiller Service Client', department: 'Call Center & Relation Client', baseUSD: 500, kpiUSD: 110, bilingualUSD: 50, attendanceUSD: 50, advanceUSD: 0 },
                 { id: 'EMP-04', authCode: 'WC-ACA-201', name: 'David Mukendi', role: 'Formateur Senior Anglais / Français', department: 'WorldConnect Academy', baseUSD: 750, kpiUSD: 120, bilingualUSD: 100, attendanceUSD: 50, advanceUSD: 0 },
@@ -950,21 +1029,95 @@
         };
 
         let state = {};
+        let presenceRoleFilter = 'ALL';
         let deptChartInstance = null;
         let currentRingingCall = null;
         let callTimerInterval = null;
         let callSeconds = 0;
+        let clientCallInterval = null;
+        let clientCallSeconds = 0;
+        let livePresenceTicker = null;
+        let ringtoneInterval = null;
+        let isMuted = false;
 
         // ==========================================================
-        // INITIALISATION & PERSISTANCE LOCALSTORAGE
+        // INITIALISATION & MOTEUR TEMPS RÉEL (BROADCAST + STORAGE)
         // ==========================================================
         window.onload = function() {
             loadState();
             renderDemoCodeButtons();
+            startRealtimePresenceEngine();
             if (state.currentAuthCode) {
                 enterApplication();
             }
         };
+
+        function startRealtimePresenceEngine() {
+            // 1. Écoute instantanée des changements depuis d'autres onglets (BroadcastChannel)
+            if (realtimeChannel) {
+                realtimeChannel.onmessage = (event) => {
+                    if (event.data && event.data.type === 'STATE_SYNC') {
+                        const myAuth = state.currentAuthCode;
+                        loadState();
+                        state.currentAuthCode = myAuth; // Préserve la session locale de l'onglet actif
+                        if (state.currentAuthCode) refreshActiveViews();
+                        else renderDemoCodeButtons();
+                    }
+                };
+            }
+
+            // 2. Écoute native localStorage entre onglets
+            window.addEventListener('storage', (e) => {
+                if (e.key === STORAGE_KEY) {
+                    const myAuth = state.currentAuthCode;
+                    loadState();
+                    state.currentAuthCode = myAuth;
+                    if (state.currentAuthCode) refreshActiveViews();
+                    else renderDemoCodeButtons();
+                }
+            });
+
+            // 3. Heartbeat toutes les 2 secondes + mise à jour en direct des chronomètres en ligne
+            if (livePresenceTicker) clearInterval(livePresenceTicker);
+            livePresenceTicker = setInterval(() => {
+                const me = getCurrentUser();
+                if (me) {
+                    me.lastHeartbeat = Date.now();
+                    if (!me.sessionStart) me.sessionStart = Date.now();
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                    updateHeaderLiveCounters();
+                    updateLiveSessionTimersDOM();
+                }
+            }, 2000);
+
+            // Mise à jour fluide chaque seconde des compteurs de durée en ligne (HH:MM:SS)
+            setInterval(updateLiveSessionTimersDOM, 1000);
+        }
+
+        function formatElapsedLive(startTimestamp) {
+            if (!startTimestamp) return '00:00:00';
+            const diffSec = Math.max(0, Math.floor((Date.now() - startTimestamp) / 1000));
+            const h = String(Math.floor(diffSec / 3600)).padStart(2, '0');
+            const m = String(Math.floor((diffSec % 3600) / 60)).padStart(2, '0');
+            const s = String(diffSec % 60).padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        function updateLiveSessionTimersDOM() {
+            document.querySelectorAll('[data-session-start]').forEach(el => {
+                const ts = parseInt(el.getAttribute('data-session-start'), 10);
+                if (ts > 0) el.textContent = formatElapsedLive(ts);
+            });
+        }
+
+        function updateHeaderLiveCounters() {
+            const dirsOnline = state.users.filter(u => u.role === 'MANAGER' && u.onlineStatus && u.onlineStatus !== 'Hors ligne').length;
+            const wrksOnline = state.users.filter(u => u.role === 'WORKER' && u.onlineStatus && u.onlineStatus !== 'Hors ligne').length;
+            const dEl = document.getElementById('header-live-directors');
+            const wEl = document.getElementById('header-live-workers');
+            if (dEl) dEl.textContent = `${dirsOnline} Directeur(s) en ligne`;
+            if (wEl) wEl.textContent = `${wrksOnline} Travailleur(s) en ligne`;
+        }
 
         function loadState() {
             const raw = localStorage.getItem(STORAGE_KEY);
@@ -979,6 +1132,10 @@
 
         function saveState() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            if (realtimeChannel) {
+                try { realtimeChannel.postMessage({ type: 'STATE_SYNC', timestamp: Date.now() }); } catch (e) {}
+            }
+            updateHeaderLiveCounters();
         }
 
         function resetAllData() {
@@ -1075,30 +1232,36 @@
                 return;
             }
             if (user.pin !== pin) {
-                errText.textContent = `Code PIN incorrect pour l'identifiant ${code}.`;
+                errText.textContent = `Code PIN incorrect pour l'identifiant "${code}".`;
                 errBox.classList.remove('hidden');
                 return;
             }
 
             errBox.classList.add('hidden');
-
-            // Marquer automatiquement l'utilisateur comme EN LIGNE avec horodatage
+            // Marquer automatiquement l'utilisateur comme EN LIGNE avec horodatage temps réel
             const now = new Date();
-            const timeStr = `${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
-            user.onlineStatus = 'En ligne - Disponible';
+            const timeStr = `${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
+            user.onlineStatus = user.role === 'MANAGER'
+                ? 'Directeur En Ligne (Supervision Active)'
+                : 'En ligne - Disponible';
+            user.sessionStart = Date.now();
+            user.lastHeartbeat = Date.now();
             user.lastLogin = timeStr;
             state.currentAuthCode = user.authCode;
             saveState();
 
             enterApplication();
-            showToast(`Code ${user.authCode} vérifié — Session ouverte`);
+            showToast(`Code ${user.authCode} vérifié — Présence en ligne diffusée en temps réel`);
         }
 
         function logout() {
             const user = getCurrentUser();
             if (user) {
                 user.onlineStatus = 'Hors ligne';
+                user.sessionStart = null;
+                user.lastHeartbeat = 0;
             }
+            stopRingtone();
             if (callTimerInterval) clearInterval(callTimerInterval);
             state.currentAuthCode = null;
             saveState();
@@ -1214,21 +1377,75 @@
         // ==========================================================
         // SUPERVISION MANAGER EN DIRECT (QUI EST ONLINE + APPELS)
         // ==========================================================
+        function setPresenceFilter(roleFilter) {
+            presenceRoleFilter = roleFilter;
+            ['ALL', 'MANAGER', 'WORKER'].forEach(f => {
+                const btn = document.getElementById(`pf-${f}`);
+                if (btn) {
+                    btn.className = f === roleFilter
+                        ? 'px-2 py-1 rounded bg-white text-slate-900 shadow-sm'
+                        : 'px-2 py-1 rounded text-slate-600 hover:text-slate-900';
+                }
+            });
+            renderManagerLiveSupervision();
+        }
+
+        function toggleSimulatedPresence() {
+            const candidates = state.users.filter(u => (u.role === 'WORKER' || u.role === 'MANAGER') && u.authCode !== state.currentAuthCode);
+            if (candidates.length === 0) return;
+            const target = candidates[Math.floor(Math.random() * candidates.length)];
+            const wasOnline = target.onlineStatus && target.onlineStatus !== 'Hors ligne';
+
+            if (wasOnline) {
+                target.onlineStatus = 'Hors ligne';
+                target.sessionStart = null;
+                showToast(`🔴 ${target.name} est passé Hors ligne`);
+            } else {
+                const now = new Date();
+                target.onlineStatus = target.role === 'MANAGER' ? 'Directeur En Ligne (Supervision Active)' : 'En ligne - Disponible';
+                target.sessionStart = Date.now();
+                target.lastHeartbeat = Date.now();
+                target.lastLogin = `${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+                showToast(`🟢 ${target.name} vient de se connecter en ligne !`);
+            }
+            saveState();
+            refreshActiveViews();
+        }
+
         function renderManagerLiveSupervision() {
-            const staffUsers = state.users.filter(u => u.role === 'WORKER' || u.role === 'MANAGER');
-            const onlineUsers = staffUsers.filter(u => u.onlineStatus && u.onlineStatus !== 'Hors ligne');
+            updateHeaderLiveCounters();
+            const allDirectors = state.users.filter(u => u.role === 'MANAGER');
+            const onlineDirectors = allDirectors.filter(u => u.onlineStatus && u.onlineStatus !== 'Hors ligne');
+
+            const allWorkers = state.users.filter(u => u.role === 'WORKER');
+            const onlineWorkers = allWorkers.filter(u => u.onlineStatus && u.onlineStatus !== 'Hors ligne');
+
+            let staffUsers = state.users.filter(u => u.role === 'WORKER' || u.role === 'MANAGER');
+            if (presenceRoleFilter !== 'ALL') {
+                staffUsers = staffUsers.filter(u => u.role === presenceRoleFilter);
+            }
+            // Trier pour afficher les membres EN LIGNE en premier
+            staffUsers.sort((a, b) => {
+                const aOn = a.onlineStatus && a.onlineStatus !== 'Hors ligne' ? 1 : 0;
+                const bOn = b.onlineStatus && b.onlineStatus !== 'Hors ligne' ? 1 : 0;
+                return bOn - aOn;
+            });
+
             const totalPayroll = state.employees.reduce((s, e) => s + computeNetSalaryUSD(e), 0);
             const pendingReqs = state.requests.filter(r => r.status !== 'Validé').length;
 
-            document.getElementById('live-kpi-online').textContent = `${onlineUsers.length} / ${staffUsers.length}`;
+            const dirEl = document.getElementById('live-kpi-directors');
+            if (dirEl) dirEl.textContent = `${onlineDirectors.length} / ${allDirectors.length}`;
+            document.getElementById('live-kpi-online').textContent = `${onlineWorkers.length} / ${allWorkers.length}`;
             document.getElementById('live-kpi-calls').textContent = state.callsLog.length;
             document.getElementById('live-kpi-payroll').textContent = money(totalPayroll);
             document.getElementById('live-kpi-requests').textContent = pendingReqs;
 
-            // Liste "Qui est en ligne"
+            // Liste "Qui est en ligne" (Directeurs & Travailleurs en temps réel)
             document.getElementById('live-online-staff-list').innerHTML = staffUsers.map(u => {
                 const isOnline = u.onlineStatus && u.onlineStatus !== 'Hors ligne';
-                const isInCall = u.onlineStatus === 'En appel actif';
+                const isInCall = u.onlineStatus && u.onlineStatus.includes('En appel');
+                const isDirector = u.role === 'MANAGER';
                 const callsCount = state.callsLog.filter(c => c.agentCode === u.authCode).length;
 
                 let dotColor = 'bg-slate-300';
@@ -1237,22 +1454,35 @@
                     dotColor = 'bg-amber-500 animate-ping';
                     badgeClass = 'bg-amber-100 text-amber-800';
                 } else if (isOnline) {
-                    dotColor = 'bg-emerald-500';
-                    badgeClass = 'bg-emerald-100 text-emerald-800';
+                    dotColor = 'bg-emerald-500 animate-pulse';
+                    badgeClass = isDirector ? 'bg-indigo-100 text-indigo-800' : 'bg-emerald-100 text-emerald-800';
                 }
 
+                const roleTag = isDirector
+                    ? `<span class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-900 text-white">Directeur</span>`
+                    : `<span class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">Travailleur</span>`;
+
+                const callBtn = (isOnline && u.authCode !== state.currentAuthCode)
+                    ? `<button onclick="startFreeInternalCall('${u.authCode}')" title="Appel VoIP gratuit ($0.00)" class="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 hover:text-white bg-emerald-50 hover:bg-emerald-600 border border-emerald-200 px-2 py-0.5 rounded-lg transition-colors"><i class="ph-bold ph-phone-call"></i> Appeler ($0.00)</button>`
+                    : '';
+
                 return `
-                    <div class="p-3 rounded-xl border ${isOnline ? 'border-emerald-200 bg-emerald-50/20' : 'border-slate-200 bg-slate-50/50'} flex items-center justify-between gap-2">
+                    <div class="p-3 rounded-xl border ${isOnline ? (isDirector ? 'border-indigo-200 bg-indigo-50/30' : 'border-emerald-200 bg-emerald-50/25') : 'border-slate-200 bg-slate-50/50 opacity-75'} flex items-center justify-between gap-2 transition-all">
                         <div class="flex items-center gap-3 overflow-hidden">
                             <span class="w-2.5 h-2.5 rounded-full shrink-0 ${dotColor}"></span>
                             <div class="overflow-hidden">
-                                <p class="text-xs font-extrabold text-slate-900 truncate">${u.name}</p>
-                                <p class="text-[11px] text-slate-500 truncate">Code: <span class="font-mono font-bold text-indigo-700">${u.authCode}</span> • ${u.department}</p>
+                                <div class="flex items-center gap-1.5">
+                                    ${roleTag}
+                                    <p class="text-xs font-extrabold text-slate-900 truncate">${u.name}</p>
+                                </div>
+                                <p class="text-[11px] text-slate-500 truncate mt-0.5">Code: <span class="font-mono font-bold text-indigo-700">${u.authCode}</span> • ${u.department}</p>
+                                ${isOnline ? `<p class="text-[10px] font-mono font-bold text-emerald-700 mt-0.5">⏱ En ligne depuis : <span data-session-start="${u.sessionStart || Date.now()}">${formatElapsedLive(u.sessionStart)}</span></p>` : ''}
                             </div>
                         </div>
-                        <div class="text-right shrink-0">
+                        <div class="text-right shrink-0 flex flex-col items-end">
                             <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${u.onlineStatus}</span>
                             <span class="block text-[10px] text-slate-400 mt-0.5">${callsCount} appel(s) • ${u.lastLogin}</span>
+                            ${callBtn}
                         </div>
                     </div>
                 `;
@@ -1271,7 +1501,10 @@
                         <span class="font-mono text-[10px] text-slate-500">${c.agentCode}</span>
                     </td>
                     <td class="py-3 px-4">
-                        <span class="inline-block bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded text-[10px]">${c.status} (${c.duration})</span>
+                        <div class="flex flex-wrap items-center gap-1">
+                            <span class="inline-block bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded text-[10px]">${c.status} (${c.duration})</span>
+                            <span class="inline-block bg-indigo-50 text-indigo-700 font-extrabold px-2 py-0.5 rounded text-[10px]">0.00 $ Gratuit</span>
+                        </div>
                         <p class="text-[11px] text-slate-600 mt-0.5">${c.qualification}</p>
                     </td>
                 </tr>
@@ -1334,12 +1567,37 @@
             document.getElementById('worker-welcome-name').textContent = `Bonjour, ${emp.name}`;
             document.getElementById('worker-welcome-role').textContent = `${emp.role} • ${emp.department}`;
 
+            // Afficher en temps réel quels Directeurs et collègues Travailleurs sont en ligne
+            const peersContainer = document.getElementById('worker-live-peers-list');
+            if (peersContainer) {
+                const onlinePeers = state.users.filter(u =>
+                    (u.role === 'MANAGER' || u.role === 'WORKER') &&
+                    u.authCode !== user.authCode &&
+                    u.onlineStatus && u.onlineStatus !== 'Hors ligne'
+                );
+                if (onlinePeers.length === 0) {
+                    peersContainer.innerHTML = `<span class="text-xs text-slate-400 italic">Aucun autre membre connecté pour le moment.</span>`;
+                } else {
+                    peersContainer.innerHTML = onlinePeers.map(p => {
+                        const isDir = p.role === 'MANAGER';
+                        return `
+                            <button type="button" onclick="startFreeInternalCall('${p.authCode}')"
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${isDir ? 'bg-indigo-50 border-indigo-200 text-indigo-900 hover:bg-indigo-600 hover:text-white' : 'bg-white border-emerald-200 text-slate-800 hover:bg-emerald-600 hover:text-white'}">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span>${isDir ? '👑 Dir.' : '🎧'} ${p.name.split('(')[0].trim()}</span>
+                                <span class="text-[10px] opacity-75 font-mono">($0.00)</span>
+                            </button>
+                        `;
+                    }).join('');
+                }
+            }
+
             const statusSel = document.getElementById('worker-status-select');
             if (statusSel && (user.onlineStatus === 'En ligne - Disponible' || user.onlineStatus === 'En pause')) {
                 statusSel.value = user.onlineStatus;
             }
 
-            // Salaire & Primes
+            // Mise à jour des cartes salaire agent
             const primes = emp.kpiUSD + emp.bilingualUSD + emp.attendanceUSD;
             const net = computeNetSalaryUSD(emp);
             document.getElementById('wrk-base').textContent = money(emp.baseUSD);
@@ -1347,17 +1605,17 @@
             document.getElementById('wrk-avances').textContent = '-' + money(emp.advanceUSD);
             document.getElementById('wrk-net').textContent = money(net);
 
-            // Mes appels récents
+            // Liste des appels récents de l'agent
             const myCalls = state.callsLog.filter(c => c.agentCode === user.authCode);
-            const callsList = document.getElementById('worker-recent-calls');
+            const callsContainer = document.getElementById('worker-recent-calls');
             if (myCalls.length === 0) {
-                callsList.innerHTML = `<p class="text-slate-400 italic py-4 text-center">Aucun appel enregistré sur cette session.</p>`;
+                callsContainer.innerHTML = `<p class="text-slate-400 italic">Aucun appel enregistré aujourd'hui.</p>`;
             } else {
-                callsList.innerHTML = myCalls.map(c => `
+                callsContainer.innerHTML = myCalls.map(c => `
                     <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
-                        <div class="flex justify-between font-bold text-slate-900">
-                            <span>${c.caller}</span>
-                            <span class="font-mono text-indigo-600">${c.time} (${c.duration})</span>
+                        <div class="flex items-center justify-between font-bold text-slate-800">
+                            <span>${c.time} • ${c.caller}</span>
+                            <span class="text-emerald-700">${c.duration}</span>
                         </div>
                         <p class="text-[11px] text-slate-600 mt-0.5">${c.qualification}</p>
                     </div>
@@ -1370,14 +1628,103 @@
             if (!user) return;
             user.onlineStatus = newStatus;
             saveState();
-            showToast(`Statut mis à jour : ${newStatus}`);
+            refreshActiveViews();
+            showToast(`Statut plateau mis à jour : ${newStatus}`);
+        }
+
+        function toggleMuteCall() {
+            isMuted = !isMuted;
+            const label = document.getElementById('mute-label');
+            const btn = document.getElementById('btn-mute-call');
+            if (label) label.textContent = isMuted ? 'Micro coupé' : 'Micro actif';
+            if (btn) {
+                btn.className = isMuted
+                    ? 'bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1'
+                    : 'bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1';
+            }
+        }
+
+        function playRingtone() {
+            stopRingtone();
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioCtx();
+                const beep = () => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, ctx.currentTime);
+                    osc.frequency.setValueAtTime(660, ctx.currentTime + 0.18);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.45);
+                };
+                beep();
+                ringtoneInterval = setInterval(beep, 1800);
+            } catch (e) {}
+        }
+
+        function stopRingtone() {
+            if (ringtoneInterval) {
+                clearInterval(ringtoneInterval);
+                ringtoneInterval = null;
+            }
+        }
+
+        function startFreeInternalCall(targetAuthCode) {
+            const me = getCurrentUser();
+            const target = state.users.find(u => u.authCode === targetAuthCode);
+            if (!me || !target) return;
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            state.callsLog.unshift({
+                id: 'VOIP-' + Math.floor(Math.random() * 900 + 100),
+                time: timeStr,
+                caller: `${me.name.split('(')[0].trim()} (${me.authCode}) → ${target.name.split('(')[0].trim()}`,
+                campaign: 'Ligne Interne VoIP Gratuite ($0.00)',
+                agentName: target.name.split('(')[0].trim(),
+                agentCode: target.authCode,
+                duration: '01:24',
+                status: 'Gratuit ($0.00)',
+                qualification: `Appel interne VoIP gratuit (${target.role === 'MANAGER' ? 'Direction' : 'Plateau'})`
+            });
+            saveState();
+            refreshActiveViews();
+            showToast(`📞 Appel VoIP gratuit ($0.00) établi avec ${target.name}`);
+        }
+
+        function clientFreeCallCenter() {
+            const client = getCurrentUser();
+            const onlineAgent = state.users.find(u => u.role === 'WORKER' && u.onlineStatus && u.onlineStatus !== 'Hors ligne')
+                || state.users.find(u => u.role === 'WORKER');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+            state.callsLog.unshift({
+                id: 'CALL-' + Math.floor(Math.random() * 900 + 100),
+                time: timeStr,
+                caller: `${client ? client.name : 'Client B2B'} (Ligne Web VoIP)`,
+                campaign: 'Horizon Telecom RDC',
+                agentName: onlineAgent ? onlineAgent.name.split('(')[0].trim() : 'Sarah Kabongo',
+                agentCode: onlineAgent ? onlineAgent.authCode : 'WC-AGT-101',
+                duration: '02:45',
+                status: 'Gratuit ($0.00)',
+                qualification: 'Appel client gratuit reçu en direct via le portail Web'
+            });
+            saveState();
+            refreshActiveViews();
+            showToast(`📞 Appel VoIP gratuit ($0.00) connecté à ${onlineAgent ? onlineAgent.name : 'un agent en ligne'}`);
         }
 
         function triggerIncomingCallForAgent() {
             const callers = [
-                { num: '+243 81 554 98 20 — Société Congo Logistics', camp: 'Horizon Telecom RDC', topic: 'Demande d\'extension de flotte mobile B2B' },
-                { num: '+243 97 220 14 09 — Mme Clarisse Nzuzi', camp: 'Banque Populaire du Congo', topic: 'Vérification virement international & plafond carte' },
-                { num: '+243 89 610 44 31 — Institut Supérieur Gombe', camp: 'WorldConnect Academy', topic: 'Inscription de 20 étudiants en Anglais intensif' }
+                { num: '+243 81 554 98 20 — Société Congo Logistics', camp: 'Horizon Telecom RDC (VoIP Gratuit $0.00)', topic: 'Demande d\'extension de flotte mobile B2B' },
+                { num: '+243 97 220 14 09 — Mme Clarisse Nzuzi', camp: 'Banque Populaire du Congo (VoIP Gratuit $0.00)', topic: 'Vérification virement international & plafond carte' },
+                { num: '+243 89 610 44 31 — Institut Supérieur Gombe', camp: 'WorldConnect Academy (VoIP Gratuit $0.00)', topic: 'Inscription de 20 étudiants en Anglais intensif' }
             ];
             currentRingingCall = callers[Math.floor(Math.random() * callers.length)];
 
@@ -1388,15 +1735,18 @@
             document.getElementById('call-state-idle').classList.add('hidden');
             document.getElementById('call-state-active').classList.add('hidden');
             document.getElementById('call-state-ringing').classList.remove('hidden');
+            playRingtone();
         }
 
         function answerIncomingCall() {
             if (!currentRingingCall) return;
+            stopRingtone();
             const user = getCurrentUser();
             if (user) {
-                user.onlineStatus = 'En appel actif';
+                user.onlineStatus = 'En appel VoIP gratuit ($0.00)';
                 saveState();
             }
+            isMuted = false;
 
             document.getElementById('call-state-ringing').classList.add('hidden');
             document.getElementById('call-state-active').classList.remove('hidden');
@@ -1414,6 +1764,7 @@
         }
 
         function declineIncomingCall() {
+            stopRingtone();
             currentRingingCall = null;
             document.getElementById('call-state-ringing').classList.add('hidden');
             document.getElementById('call-state-idle').classList.remove('hidden');
@@ -1727,6 +2078,43 @@
         // ==========================================================
         // ESPACE CLIENT & IMPRESSIONS PDF / EXPORTS
         // ==========================================================
+        function startFreeClientCall() {
+            document.getElementById('client-active-call-box').classList.remove('hidden');
+            clientCallSeconds = 0;
+            document.getElementById('client-call-timer').textContent = '00:00';
+            if (clientCallInterval) clearInterval(clientCallInterval);
+            clientCallInterval = setInterval(() => {
+                clientCallSeconds++;
+                const m = String(Math.floor(clientCallSeconds / 60)).padStart(2, '0');
+                const s = String(clientCallSeconds % 60).padStart(2, '0');
+                document.getElementById('client-call-timer').textContent = `${m}:${s}`;
+            }, 1000);
+            showToast('Appel vocal gratuit connecté au Call Center WorldConnect (0.00 $)');
+        }
+
+        function endFreeClientCall() {
+            if (clientCallInterval) clearInterval(clientCallInterval);
+            const user = getCurrentUser();
+            const dur = document.getElementById('client-call-timer').textContent || '00:35';
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+            state.callsLog.unshift({
+                id: 'CALL-' + Math.floor(Math.random() * 900 + 100),
+                time: timeStr,
+                caller: `${user ? user.name : 'Client B2B'} (Ligne Directe Gratuite)`,
+                campaign: 'Support Client B2B Gratuit',
+                agentName: 'Sarah Kabongo',
+                agentCode: 'WC-AGT-101',
+                duration: dur === '00:00' ? '00:25' : dur,
+                status: 'Répondu',
+                qualification: 'Appel entrant depuis Portail Client B2B (VoIP 0.00 $)'
+            });
+            saveState();
+            document.getElementById('client-active-call-box').classList.add('hidden');
+            showToast('Appel gratuit clôturé et enregistré (Facturation : 0.00 $)');
+        }
+
         function renderClientSpace() {
             const client = state.clients[0];
             if (!client) return;
