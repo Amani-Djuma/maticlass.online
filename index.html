@@ -194,9 +194,19 @@
             </div>
 
             <div class="p-4 border-t border-slate-800/80 space-y-2">
-                <button onclick="exportFullBackupJSON()" class="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-slate-300 flex items-center justify-center gap-2 border border-slate-800">
-                    <i class="ph-bold ph-download-simple text-cyan-400"></i> Sauvegarde JSON
-                </button>
+                <div id="cloud-sync-indicator" class="px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-bold text-emerald-300 flex items-center justify-between">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sauvegarde Cloud</span>
+                    <span id="cloud-sync-time" class="font-mono text-[10px] text-emerald-200">Active</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <button onclick="exportFullBackupJSON()" class="py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 flex items-center justify-center gap-1.5 border border-slate-800">
+                        <i class="ph-bold ph-download-simple text-cyan-400"></i> Exporter
+                    </button>
+                    <label class="cursor-pointer py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 flex items-center justify-center gap-1.5 border border-slate-800">
+                        <i class="ph-bold ph-upload-simple text-emerald-400"></i> Restaurer
+                        <input type="file" accept=".json" onchange="importFullBackupJSON(event)" class="hidden">
+                    </label>
+                </div>
                 <button onclick="logoutUser()" class="w-full py-2.5 px-3 rounded-xl bg-rose-600/15 hover:bg-rose-600 text-rose-300 hover:text-white text-xs font-bold flex items-center justify-center gap-2 transition">
                     <i class="ph-bold ph-sign-out text-base"></i> Déconnexion & Passer Hors Ligne
                 </button>
@@ -231,6 +241,12 @@
                     <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                         <span id="header-online-count">0 en ligne</span>
+                    </div>
+
+                    <!-- Badge Sauvegarde Cloud En Direct -->
+                    <div id="header-cloud-badge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800" title="Toutes les actions sont enregistrées automatiquement">
+                        <i class="ph-fill ph-cloud-check text-emerald-600 text-sm"></i>
+                        <span id="header-cloud-status">Sauvegardé</span>
                     </div>
 
                     <!-- Sélecteur Multi-Devises -->
@@ -544,9 +560,20 @@
                                 <h3 class="font-display text-lg font-extrabold text-slate-900">Facturation Automatique Clients B2B & Encaissements</h3>
                                 <p class="text-xs text-slate-500">Génération automatique des factures PDF selon le volume d'appels traités et suivi des paiements.</p>
                             </div>
-                            <button onclick="openNewPaymentModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 self-start">
-                                <i class="ph-bold ph-plus-circle"></i> Enregistrer un Encaissement
-                            </button>
+                            <div class="flex flex-wrap gap-2 self-start">
+                                <button onclick="syncBillingFromCallLogs()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold px-3.5 py-2.5 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-arrows-clockwise"></i> Calculer depuis les Appels
+                                </button>
+                                <button onclick="openNewInvoiceModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-file-plus"></i> Nouvelle Facture B2B
+                                </button>
+                                <button onclick="openNewPaymentModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-plus-circle"></i> Encaissement
+                                </button>
+                                <button onclick="exportBillingCSV()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-file-xls"></i> Excel (.CSV)
+                                </button>
+                            </div>
                         </div>
                         <div id="b2b-billing-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"></div>
 
@@ -633,6 +660,22 @@
                         </div>
                         <div id="access-matrix-container" class="space-y-3"></div>
                     </div>
+
+                    <!-- Journal d'Audit & Historique Complet des Sauvegardes -->
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                            <div>
+                                <h3 class="font-display text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                    <i class="ph-bold ph-clock-counter-clockwise text-indigo-600"></i> Journal d'Audit & Historique Permanent des Opérations
+                                </h3>
+                                <p class="text-xs text-slate-500">Chaque connexion, appel, facture, avance et encaissement est horodaté et sauvegardé.</p>
+                            </div>
+                            <button onclick="forceManualCloudSave()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 self-start">
+                                <i class="ph-bold ph-cloud-arrow-up"></i> Forcer Sauvegarde Maintenant
+                            </button>
+                        </div>
+                        <div id="audit-trail-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
+                    </div>
                 </section>
 
                 <!-- ========================================================= -->
@@ -677,7 +720,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div id="worker-salary-cards" class="grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+                        <div id="worker-salary-breakdown" class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs"></div>
                     </div>
                 </section>
 
@@ -685,30 +728,140 @@
                 <!-- VUE 6 : ESPACE CLIENT B2B PARTENAIRE                      -->
                 <!-- ========================================================= -->
                 <section id="view-client-space" class="app-view hidden space-y-6">
-                    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-cyan-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-cyan-950 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider bg-white/10 text-cyan-300 px-3 py-1 rounded-full">Espace Client B2B WorldConnect • Routage ACD Gratuit</span>
-                            <h1 id="client-welcome-title" class="font-display text-2xl sm:text-3xl font-extrabold mt-3">Portail Client</h1>
-                            <p class="text-sm text-slate-300 mt-1">Ligne directe prioritaire routée automatiquement vers le meilleur agent disponible.</p>
+                            <span class="text-[11px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full">Portail Partenaire Externalisation B2B</span>
+                            <h2 id="client-welcome-title" class="font-display text-2xl font-extrabold mt-2">Espace Client B2B</h2>
+                            <p class="text-xs text-slate-300 mt-0.5">Suivi de campagne en temps réel & ligne directe gratuite vers le plateau WorldConnect.</p>
                         </div>
-                        <div class="flex flex-wrap gap-2.5 self-start">
-                            <button onclick="triggerACDClientCall()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-xs px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-2">
-                                <i class="ph-bold ph-headset text-lg"></i> Appeler le Plateau Call Center (Routage Auto $0)
-                            </button>
-                            <button onclick="openUniversalDialerModal()" class="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-4 py-3.5 rounded-2xl flex items-center gap-2">
-                                <i class="ph-bold ph-phone-call text-base"></i> Choisir un Interlocuteur
-                            </button>
-                        </div>
+                        <button onclick="triggerACDClientCall()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-2 self-start md:self-center">
+                            <i class="ph-bold ph-phone-call text-lg"></i> Appeler le Plateau Call Center (Routage Auto $0)
+                        </button>
                     </div>
 
                     <div id="client-campaigns-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </section>
-
             </main>
         </div>
 
-        <!-- BARRE DE NAVIGATION MOBILE FIXE EN BAS -->
-        <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 px-2 py-1.5 flex items-center justify-around z-30 shadow-lg"></nav>
+        <!-- BARRE NAVIGATION MOBILE -->
+        <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-slate-200 px-2 py-1.5 flex items-center justify-around shadow-lg"></nav>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODALES & TOAST                                                       -->
+    <!-- ===================================================================== -->
+    <!-- Annuaire d'appel universel -->
+    <div id="universal-dialer-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Annuaire VoIP Gratuit ($0.00/min)</h3>
+                <button onclick="closeUniversalDialerModal()" class="text-slate-400 hover:text-slate-700"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <div id="dialer-recipients-list" class="space-y-2.5 max-h-80 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- Modale Nouvel Agent -->
+    <div id="add-employee-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Ajouter un Travailleur & Code</h3>
+                <button onclick="document.getElementById('add-employee-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <form onsubmit="submitNewEmployee(event)" class="space-y-3 text-xs">
+                <input type="text" id="new-emp-name" required placeholder="Nom complet (ex: Esther Mbuyi)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="new-emp-code" required placeholder="Code (WC-AGT-103)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono uppercase font-bold">
+                    <input type="text" id="new-emp-pin" required placeholder="PIN (4444)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono font-bold">
+                </div>
+                <select id="new-emp-dept" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                    <option value="Call Center & Relation Client">Call Center & Relation Client</option>
+                    <option value="WorldConnect Academy">WorldConnect Academy</option>
+                    <option value="Administration & Finances">Administration & Finances</option>
+                    <option value="IT, Développement & Systèmes">IT, Développement & Systèmes</option>
+                    <option value="Commercial, Marketing & Partenariats">Commercial, Marketing & Partenariats</option>
+                </select>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="number" id="new-emp-base" required value="400" placeholder="Salaire Base ($)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-bold">
+                    <input type="number" id="new-emp-kpi" required value="90" placeholder="Prime KPI ($)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-bold">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl">Créer l'Agent & Activer le Code</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale Créer Code d'Accès -->
+    <div id="new-code-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Nouveau Code d'Authentification</h3>
+                <button onclick="document.getElementById('new-code-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <form onsubmit="submitNewAccessCode(event)" class="space-y-3 text-xs">
+                <input type="text" id="acc-name" required placeholder="Nom du titulaire" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="acc-code" required placeholder="WC-MGR-003" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono uppercase font-bold">
+                    <input type="text" id="acc-pin" required placeholder="PIN" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono font-bold">
+                </div>
+                <select id="acc-role" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                    <option value="WORKER">Travailleur / Agent</option>
+                    <option value="MANAGER">Directeur / Manager</option>
+                    <option value="CLIENT">Client B2B</option>
+                </select>
+                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">Enregistrer le Code</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale Aperçu PDF (Bulletin Paie / Facture) -->
+    <div id="payslip-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-4">
+            <div id="printable-area"></div>
+            <div class="flex justify-end gap-2 pt-3 border-t border-slate-200">
+                <button onclick="document.getElementById('payslip-modal').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">Fermer</button>
+                <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold flex items-center gap-1.5">
+                    <i class="ph-bold ph-printer"></i> Imprimer / Sauvegarder PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE NOUVELLE FACTURE CLIENT B2B -->
+    <div id="invoice-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Émettre une Facture Client B2B</h3>
+                <button onclick="document.getElementById('invoice-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <form onsubmit="submitNewClientInvoice(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nom de la Société Cliente *</label>
+                    <input type="text" id="inv-client-name" required placeholder="Ex: Vodacom Business RDC" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Campagne / Prestation Call Center *</label>
+                    <input type="text" id="inv-service" required placeholder="Ex: Ligne Service Client & Télévente B2B" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Volume d'Appels *</label>
+                        <input type="number" id="inv-calls" required value="5000" min="1" oninput="updateInvoicePreviewTotal()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono font-bold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Tarif / Appel (USD) *</label>
+                        <input type="number" id="inv-rate" required value="0.65" step="0.01" min="0.01" oninput="updateInvoicePreviewTotal()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono font-bold">
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-between">
+                    <span class="font-bold text-indigo-900">Montant Total Calculé :</span>
+                    <span id="inv-preview-total" class="font-display text-base font-extrabold text-indigo-700">$3,250</span>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-md">
+                    Générer & Enregistrer la Facture
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- MODALE ENREGISTRER UN ENCAISSEMENT TRÉSORERIE -->
@@ -732,88 +885,93 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- MODALE 1 : ANNUAIRE VOCAL TEMPS RÉEL (APPELER MANAGER/AGENT/CLIENT)   -->
+    <!-- LOGIQUE JAVASCRIPT COMPLÈTE & SAUVEGARDE CLOUD TEMPS RÉEL (FIRESTORE) -->
     <!-- ===================================================================== -->
-    <div id="universal-dialer-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">VoIP WebRTC Illimité • 0.00 $/min</span>
-                    <h3 class="font-display text-lg font-extrabold text-slate-900 mt-1">Appeler un Membre en Temps Réel</h3>
-                </div>
-                <button onclick="closeUniversalDialerModal()" class="text-slate-400 hover:text-slate-700 p-1"><i class="ph-bold ph-x text-xl"></i></button>
-            </div>
-            <p class="text-xs text-slate-500">Sélectionnez un <strong>Directeur</strong>, un <strong>Travailleur</strong> ou un <strong>Client</strong> pour déclencher une sonnerie interactive en direct :</p>
-            <div id="dialer-recipients-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
-            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
-                <button onclick="closeUniversalDialerModal(); simulateIncomingCallToMe();" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
-                    <i class="ph-bold ph-phone-incoming"></i> Simuler un appel entrant sur mon poste
-                </button>
-                <button onclick="closeUniversalDialerModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Fermer</button>
-            </div>
-        </div>
-    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    <!-- ===================================================================== -->
-    <!-- MODALE 2 : AJOUTER UN AGENT / EMPLOYÉ PAYROLL                         -->
-    <!-- ===================================================================== -->
-    <div id="add-employee-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="font-display text-lg font-extrabold text-slate-900">Ajouter un Travailleur & Code d'Accès</h3>
-                <button onclick="document.getElementById('add-employee-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
-            </div>
-            <form onsubmit="submitNewEmployee(event)" class="space-y-3 text-xs">
-                <input type="text" id="new-emp-name" required placeholder="Nom complet (ex: Chantal Mbuyi)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
-                <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="new-emp-code" required placeholder="Code (ex: WC-AGT-105)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono uppercase">
-                    <input type="text" id="new-emp-pin" required placeholder="PIN (ex: 4444)" class="px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono">
-                </div>
-                <select id="new-emp-dept" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
-                    <option value="Call Center & Relation Client">Call Center & Relation Client</option>
-                    <option value="WorldConnect Academy">WorldConnect Academy</option>
-                    <option value="Administration & Finances">Administration & Finances</option>
-                    <option value="IT, Développement & Systèmes">IT, Développement & Systèmes</option>
-                    <option value="Commercial, Marketing & Partenariats">Commercial, Marketing & Partenariats</option>
-                </select>
-                <div class="grid grid-cols-2 gap-2">
-                    <input type="number" id="new-emp-base" required value="350" placeholder="Base USD" class="px-3.5 py-2.5 rounded-xl border border-slate-300">
-                    <input type="number" id="new-emp-kpi" required value="80" placeholder="Prime KPI USD" class="px-3.5 py-2.5 rounded-xl border border-slate-300">
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl">Créer & Sauvegarder</button>
-            </form>
-        </div>
-    </div>
+        let cloudDb = null;
+        let cloudUser = null;
+        let cloudDocRef = null;
+        let isApplyingRemoteSnapshot = false;
 
-    <!-- ===================================================================== -->
-    <!-- MODALE 3 : APERÇU BULLETIN DE PAIE PDF IMPRIMABLE                     -->
-    <!-- ===================================================================== -->
-    <div id="payslip-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl">
-            <div class="p-4 bg-slate-900 text-white flex items-center justify-between">
-                <span class="text-xs font-extrabold uppercase tracking-wider">Bulletin de Paie Officiel WorldConnect</span>
-                <div class="flex items-center gap-2">
-                    <button onclick="window.print()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold px-3.5 py-1.5 rounded-xl flex items-center gap-1">
-                        <i class="ph-bold ph-printer"></i> Imprimer / PDF
-                    </button>
-                    <button onclick="document.getElementById('payslip-modal').classList.add('hidden')" class="text-slate-300 hover:text-white p-1">
-                        <i class="ph-bold ph-x text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            <div id="printable-area" class="p-6 sm:p-8 bg-white text-slate-800"></div>
-        </div>
-    </div>
+        async function initCloudPersistence() {
+            try {
+                if (typeof __firebase_config === 'undefined') return;
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'worldconnect-erp-default';
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                cloudDb = getFirestore(app);
 
-    <!-- TOAST -->
-    <div id="toast" class="fixed bottom-20 lg:bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs font-bold flex items-center gap-2.5 border border-slate-700">
-        <i class="ph-bold ph-check-circle text-emerald-400 text-lg"></i>
-        <span id="toast-msg">Sauvegardé</span>
-    </div>
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    const cred = await signInWithCustomToken(auth, __initial_auth_token);
+                    cloudUser = cred.user;
+                } else {
+                    const cred = await signInAnonymously(auth);
+                    cloudUser = cred.user;
+                }
 
-    <!-- ===================================================================== -->
-    <!-- LOGIQUE JAVASCRIPT COMPLÈTE & SANS ERREUR DE SYNTAXE                  -->
-    <!-- ===================================================================== -->
+                if (!cloudUser) return;
+
+                // Respect strict de la règle de chemin public partagé multi-postes
+                cloudDocRef = doc(cloudDb, 'artifacts', appId, 'public', 'data', 'worldconnect_state', 'main_workspace');
+
+                onSnapshot(cloudDocRef, (snap) => {
+                    if (snap.exists()) {
+                        const remoteData = snap.data();
+                        if (remoteData && remoteData.payloadJson) {
+                            try {
+                                const parsed = JSON.parse(remoteData.payloadJson);
+                                isApplyingRemoteSnapshot = true;
+                                window.applyRemoteCloudState(parsed, remoteData.updatedAt);
+                                isApplyingRemoteSnapshot = false;
+                            } catch (err) {
+                                console.warn('Erreur lecture snapshot Cloud:', err);
+                            }
+                        }
+                    } else {
+                        // Initialiser le document Cloud avec l'état courant
+                        window.pushStateToCloud();
+                    }
+                }, (error) => {
+                    console.warn('Erreur synchronisation temps réel:', error);
+                    window.updateCloudIndicator('Hors-ligne', false);
+                });
+
+                window.updateCloudIndicator('Synchronisé', true);
+            } catch (e) {
+                console.warn('Basculé sur sauvegarde locale:', e);
+            }
+        }
+
+        window.pushStateToCloud = async function () {
+            if (!cloudDb || !cloudUser || !cloudDocRef || isApplyingRemoteSnapshot) return;
+            try {
+                window.updateCloudIndicator('Enregistrement...', true);
+                const sanitized = { ...window.getSerializableState() };
+                delete sanitized.currentAuthCode;
+                delete sanitized.activeView;
+                const nowStr = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                await setDoc(cloudDocRef, {
+                    payloadJson: JSON.stringify(sanitized),
+                    updatedAt: nowStr,
+                    updatedBy: cloudUser.uid
+                }, { merge: true });
+                window.updateCloudIndicator(nowStr, true);
+            } catch (err) {
+                console.warn('Échec écriture Cloud:', err);
+                window.updateCloudIndicator('Erreur Sync', false);
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initCloudPersistence();
+        });
+    </script>
+
     <script>
         const STORAGE_KEY = 'worldconnect_voip_erp_v5';
         const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('worldconnect_live_channel') : null;
@@ -936,45 +1094,109 @@
             requests: [
                 { id: 'REQ-01', from: 'Sarah Kabongo (WC-AGT-101)', type: 'Avance sur salaire', detail: 'Demande d\'avance de 50$ sur paie', status: 'En attente', date: '13/11/2026' }
             ],
+            auditLogs: [
+                { id: 'AUD-101', time: '12:00', actor: 'Système WorldConnect', action: 'Initialisation de l\'espace de travail et activation de la sauvegarde permanente' }
+            ],
             activeLiveCall: null
         };
 
-        let state = {};
+        let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
         let presenceRoleFilter = 'ALL';
         let ringtoneInterval = null;
-        let isMuted = false;
         let globalCallInterval = null;
-        let localMicStream = null;
         let audioMeterInterval = null;
+        let localMicStream = null;
+        let isMuted = false;
         let kpiChartInstance = null;
 
-        // ==========================================================
-        // INITIALISATION & SYNCHRONISATION TEMPS RÉEL
-        // ==========================================================
         function loadState() {
             try {
                 const raw = localStorage.getItem(STORAGE_KEY);
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     state = { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...parsed };
-                } else {
-                    state = JSON.parse(JSON.stringify(DEFAULT_STATE));
-                    saveState(false);
                 }
             } catch (e) {
                 state = JSON.parse(JSON.stringify(DEFAULT_STATE));
             }
         }
 
-        function saveState(broadcast = true) {
+        function saveState(broadcast = true, auditAction = null) {
             try {
+                if (auditAction) {
+                    const me = getCurrentUser();
+                    const actorName = me ? `${me.name} (${me.authCode})` : 'Système';
+                    const timeStr = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    if (!Array.isArray(state.auditLogs)) state.auditLogs = [];
+                    state.auditLogs.unshift({
+                        id: 'AUD-' + Math.floor(100 + Math.random() * 899),
+                        time: timeStr,
+                        actor: actorName,
+                        action: auditAction
+                    });
+                    if (state.auditLogs.length > 80) state.auditLogs = state.auditLogs.slice(0, 80);
+                }
+
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
                 if (broadcast && bc) {
                     bc.postMessage({ type: 'SYNC_STATE', timestamp: Date.now() });
                 }
+                if (typeof window.pushStateToCloud === 'function') {
+                    window.pushStateToCloud();
+                }
             } catch (e) {
-                console.warn('Erreur sauvegarde locale:', e);
+                console.warn('Erreur sauvegarde:', e);
             }
+        }
+
+        window.getSerializableState = function () {
+            return state;
+        };
+
+        window.applyRemoteCloudState = function (remoteParsed, updatedAt) {
+            const currentCode = state.currentAuthCode;
+            const currentView = state.activeView;
+            state = { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...remoteParsed };
+            state.currentAuthCode = currentCode;
+            state.activeView = currentView;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            window.updateCloudIndicator(updatedAt || 'À jour', true);
+            refreshActiveViews();
+        };
+
+        window.updateCloudIndicator = function (label, ok) {
+            const tEl = document.getElementById('cloud-sync-time');
+            const hEl = document.getElementById('header-cloud-status');
+            if (tEl) tEl.textContent = label;
+            if (hEl) hEl.textContent = ok ? `Sauvegardé (${label})` : label;
+        };
+
+        function forceManualCloudSave() {
+            saveState(true, 'Sauvegarde manuelle déclenchée par l\'utilisateur');
+            renderAuditTrail();
+            showToast('Toutes les données ont été sauvegardées avec succès');
+        }
+
+        function importFullBackupJSON(event) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    const currentCode = state.currentAuthCode;
+                    const currentView = state.activeView;
+                    state = { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...imported };
+                    state.currentAuthCode = currentCode;
+                    state.activeView = currentView;
+                    saveState(true, `Restauration d'une sauvegarde JSON (${file.name})`);
+                    refreshActiveViews();
+                    showToast('Sauvegarde restaurée et synchronisée !');
+                } catch (err) {
+                    showToast('Fichier de sauvegarde JSON invalide');
+                }
+            };
+            reader.readAsText(file);
         }
 
         if (bc) {
@@ -1062,7 +1284,7 @@
             else if (user.role === 'WORKER') state.activeView = 'worker-console';
             else state.activeView = 'client-space';
 
-            saveState();
+            saveState(true, `Connexion validée avec le code ${user.authCode}`);
             enterApplication();
             showToast(`Code ${user.authCode} validé — Vous êtes en ligne en temps réel`);
         }
@@ -1174,6 +1396,7 @@
             renderPayrollTable();
             renderDepartments();
             renderAccessMatrix();
+            renderAuditTrail();
             renderWorkerConsole();
             renderClientSpace();
         }
@@ -1380,7 +1603,7 @@
             state.activeLiveCall = null;
             state.monitoringTargetCallId = null;
             isMuted = false;
-            saveState();
+            saveState(true, `Appel VoIP ${call ? call.id : ''} clôturé et archivé ($0.00)`);
             refreshActiveViews();
             showToast('Appel clôturé et archivé avec enregistrement audio (0.00 $)');
         }
@@ -1941,6 +2164,73 @@
             document.getElementById('payment-modal').classList.remove('hidden');
         }
 
+        function openNewInvoiceModal() {
+            document.getElementById('invoice-modal').classList.remove('hidden');
+            updateInvoicePreviewTotal();
+        }
+
+        function updateInvoicePreviewTotal() {
+            const calls = Number(document.getElementById('inv-calls')?.value || 0);
+            const rate = Number(document.getElementById('inv-rate')?.value || 0);
+            const total = Math.round(calls * rate);
+            const preview = document.getElementById('inv-preview-total');
+            if (preview) preview.textContent = formatMoney(total);
+        }
+
+        function submitNewClientInvoice(e) {
+            e.preventDefault();
+            const name = document.getElementById('inv-client-name').value.trim();
+            const service = document.getElementById('inv-service').value.trim();
+            const calls = Number(document.getElementById('inv-calls').value || 0);
+            const rate = Number(document.getElementById('inv-rate').value || 0);
+            const amountUSD = Math.round(calls * rate);
+            if (!name || amountUSD <= 0) return;
+
+            const newId = 'CLI-' + String(state.clients.length + 1).padStart(2, '0');
+            state.clients.unshift({
+                id: newId,
+                name,
+                service,
+                callsCount: calls,
+                ratePerCallUSD: rate,
+                volume: `${calls.toLocaleString('en-US')} appels / mois`,
+                sla: '98.0% résolus',
+                amountUSD,
+                invoiceStatus: 'En attente'
+            });
+
+            saveState(true, `Facture ${newId} créée pour ${name} (${formatMoney(amountUSD)})`);
+            document.getElementById('invoice-modal').classList.add('hidden');
+            renderBillingAndTreasury();
+            renderClientSpace();
+            showToast(`Facture ${newId} créée pour ${name} (${formatMoney(amountUSD)})`);
+        }
+
+        function syncBillingFromCallLogs() {
+            const answeredCalls = state.callsLog.filter(c => c.status && c.status.includes('Répondu')).length;
+            if (state.clients.length > 0) {
+                const target = state.clients[0];
+                const bonusCalls = answeredCalls * 25;
+                target.callsCount += bonusCalls;
+                target.volume = `${target.callsCount.toLocaleString('en-US')} appels / mois`;
+                target.amountUSD = Math.round(target.callsCount * (target.ratePerCallUSD || 0.68));
+                saveState();
+                renderBillingAndTreasury();
+                renderClientSpace();
+                showToast(`Facturation actualisée selon ${answeredCalls} appels VoIP récents`);
+            }
+        }
+
+        function exportBillingCSV() {
+            const rows = [['Ref_Facture', 'Client_B2B', 'Prestation', 'Volume', 'Montant_USD', 'Statut']];
+            state.clients.forEach(c => {
+                rows.push([`FAC-${c.id}`, c.name, c.service, c.volume, c.amountUSD, c.invoiceStatus]);
+            });
+            const csv = rows.map(r => r.join(';')).join('\n');
+            downloadBlob(csv, 'WorldConnect_Facturation_B2B.csv', 'text/csv;charset=utf-8;');
+            showToast('Export Excel Facturation (.CSV) téléchargé');
+        }
+
         function submitTreasuryMovement(e) {
             e.preventDefault();
             const label = document.getElementById('pay-label').value.trim();
@@ -1959,7 +2249,7 @@
                 channel,
                 amountUSD: amount
             });
-            saveState();
+            saveState(true, `Encaissement de $${amount} enregistré sur ${channel} (${label})`);
             document.getElementById('payment-modal').classList.add('hidden');
             renderBillingAndTreasury();
             showToast(`Encaissement de $${amount} ajouté sur ${channel}`);
@@ -2093,7 +2383,7 @@
                 permissions: ['worker-console']
             });
 
-            saveState();
+            saveState(true, `Création du travailleur ${name} avec code ${code}`);
             document.getElementById('add-employee-modal').classList.add('hidden');
             refreshActiveViews();
             showToast(`Agent ${name} et code ${code} créés avec succès`);
@@ -2199,56 +2489,96 @@
             if (u) {
                 u.active = !u.active;
                 if (!u.active) u.onlineStatus = 'Hors ligne';
-                saveState();
+                saveState(true, `Modification du statut du code ${code} (${u.active ? 'Actif' : 'Suspendu'})`);
                 renderAccessMatrix();
                 showToast(`Statut du code ${code} mis à jour`);
             }
         }
 
-        function openNewCodeModal() {
-            openAddEmployeeModal();
+        function renderAuditTrail() {
+            const list = document.getElementById('audit-trail-list');
+            if (!list) return;
+            const logs = state.auditLogs || [];
+            list.innerHTML = logs.map(item => `
+                <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between gap-3 text-xs">
+                    <div class="min-w-0">
+                        <p class="font-bold text-slate-900 truncate">${item.action}</p>
+                        <p class="text-[11px] text-slate-500">Par : <span class="font-semibold text-indigo-700">${item.actor}</span></p>
+                    </div>
+                    <span class="font-mono text-[11px] font-bold text-slate-500 shrink-0">${item.time}</span>
+                </div>
+            `).join('');
         }
 
-        // ==========================================================
-        // CONSOLE TRAVAILLEUR & ESPACE CLIENT B2B
-        // ==========================================================
+        function openNewCodeModal() {
+            document.getElementById('new-code-modal').classList.remove('hidden');
+        }
+
+        function submitNewAccessCode(e) {
+            e.preventDefault();
+            const name = document.getElementById('acc-name').value.trim();
+            const code = document.getElementById('acc-code').value.trim().toUpperCase();
+            const pin = document.getElementById('acc-pin').value.trim();
+            const role = document.getElementById('acc-role').value;
+            const perms = role === 'MANAGER'
+                ? ['live-supervision', 'analytics', 'billing', 'payroll', 'departments', 'access']
+                : (role === 'CLIENT' ? ['client-space'] : ['worker-console']);
+
+            state.users.push({
+                authCode: code,
+                pin,
+                name,
+                role,
+                department: role === 'CLIENT' ? 'Partenaire B2B' : 'Call Center & Relation Client',
+                onlineStatus: 'Hors ligne',
+                sessionStart: null,
+                lastHeartbeat: 0,
+                active: true,
+                permissions: perms
+            });
+            saveState(true, `Création du code d'accès ${code} (${role})`);
+            document.getElementById('new-code-modal').classList.add('hidden');
+            renderAccessMatrix();
+            showToast(`Code ${code} créé et activé`);
+        }
+
         function renderWorkerConsole() {
             const me = getCurrentUser();
             if (!me) return;
-            const title = document.getElementById('worker-welcome-title');
-            const sub = document.getElementById('worker-dept-subtitle');
-            if (title) title.textContent = `Bonjour, ${me.name}`;
-            if (sub) sub.textContent = `Code : ${me.authCode} • ${me.department} • Statut : ${me.onlineStatus}`;
+            const wTitle = document.getElementById('worker-welcome-title');
+            const wSub = document.getElementById('worker-dept-subtitle');
+            if (wTitle) wTitle.textContent = `Bonjour, ${me.name}`;
+            if (wSub) wSub.textContent = `${me.department} • Matricule : ${me.authCode} • Statut : ${me.onlineStatus}`;
 
-            const peersBox = document.getElementById('worker-online-peers');
-            if (peersBox) {
+            const peersGrid = document.getElementById('worker-online-peers');
+            if (peersGrid) {
                 const peers = state.users.filter(u => u.authCode !== me.authCode && u.active);
-                peersBox.innerHTML = peers.map(p => {
-                    const isOnline = p.onlineStatus !== 'Hors ligne';
+                peersGrid.innerHTML = peers.map(p => {
+                    const online = p.onlineStatus !== 'Hors ligne';
                     return `
-                        <div class="p-3.5 rounded-2xl border ${isOnline ? 'border-emerald-200 bg-emerald-50/30' : 'border-slate-200 bg-slate-50'} flex items-center justify-between gap-2">
+                        <div class="p-3.5 rounded-2xl border ${online ? 'border-emerald-200 bg-emerald-50/30' : 'border-slate-200 bg-slate-50'} flex items-center justify-between gap-2 text-xs">
                             <div class="min-w-0">
-                                <p class="text-xs font-extrabold text-slate-900 truncate">${p.name}</p>
-                                <p class="text-[11px] ${isOnline ? 'text-emerald-700 font-bold' : 'text-slate-400'}">${p.onlineStatus}</p>
+                                <p class="font-extrabold text-slate-900 truncate">${p.name}</p>
+                                <p class="text-[11px] text-slate-500">${p.authCode} • ${online ? 'En ligne' : 'Hors ligne'}</p>
                             </div>
-                            <button onclick="initiateInteractiveCall('${p.authCode}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold px-3 py-1.5 rounded-xl shrink-0">
-                                Appeler ($0)
+                            <button onclick="initiateInteractiveCall('${p.authCode}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-xl shrink-0">
+                                Appeler
                             </button>
                         </div>
                     `;
                 }).join('');
             }
 
-            const salCards = document.getElementById('worker-salary-cards');
-            if (salCards) {
-                const emp = state.employees.find(e => e.authCode === me.authCode) || state.employees[0];
+            const emp = state.employees.find(e => e.authCode === me.authCode) || state.employees[0];
+            const salGrid = document.getElementById('worker-salary-breakdown');
+            if (salGrid && emp) {
                 const net = computeNetSalaryUSD(emp);
-                salCards.innerHTML = `
-                    <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200"><span class="text-[10px] font-bold text-slate-500 uppercase">Base</span><p class="font-display font-extrabold text-base mt-1">${formatMoney(emp.baseUSD)}</p></div>
-                    <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200"><span class="text-[10px] font-bold text-emerald-700 uppercase">Prime KPI</span><p class="font-display font-extrabold text-base text-emerald-800 mt-1">+${formatMoney(emp.kpiUSD)}</p></div>
-                    <div class="p-3.5 rounded-2xl bg-cyan-50 border border-cyan-200"><span class="text-[10px] font-bold text-cyan-700 uppercase">Bilingue</span><p class="font-display font-extrabold text-base text-cyan-800 mt-1">+${formatMoney(emp.bilingualUSD)}</p></div>
-                    <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200"><span class="text-[10px] font-bold text-rose-700 uppercase">Avance</span><p class="font-display font-extrabold text-base text-rose-800 mt-1">-${formatMoney(emp.advanceUSD)}</p></div>
-                    <div class="p-3.5 rounded-2xl bg-indigo-900 text-white col-span-2 sm:col-span-1"><span class="text-[10px] font-bold text-indigo-200 uppercase">Net à Payer</span><p class="font-display font-extrabold text-base text-emerald-300 mt-1">${formatMoney(net)}</p></div>
+                salGrid.innerHTML = `
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200"><p class="text-slate-500">Base</p><p class="font-extrabold text-sm mt-1">${formatMoney(emp.baseUSD)}</p></div>
+                    <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200"><p class="text-emerald-700">Prime KPI</p><p class="font-extrabold text-sm text-emerald-800 mt-1">+${formatMoney(emp.kpiUSD)}</p></div>
+                    <div class="p-3 rounded-2xl bg-cyan-50 border border-cyan-200"><p class="text-cyan-700">Bilingue FR/EN</p><p class="font-extrabold text-sm text-cyan-800 mt-1">+${formatMoney(emp.bilingualUSD)}</p></div>
+                    <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200"><p class="text-rose-700">Avances</p><p class="font-extrabold text-sm text-rose-700 mt-1">-${formatMoney(emp.advanceUSD)}</p></div>
+                    <div class="p-3 rounded-2xl bg-slate-900 text-white"><p class="text-slate-400">Net à Payer</p><p class="font-extrabold text-sm text-emerald-400 mt-1">${formatMoney(net)}</p></div>
                 `;
             }
         }
@@ -2257,42 +2587,45 @@
             const me = getCurrentUser();
             if (!me) return;
             state.requests.unshift({
-                id: 'REQ-' + Math.floor(10 + Math.random() * 90),
+                id: 'REQ-' + Math.floor(10 + Math.random() * 89),
                 from: `${me.name} (${me.authCode})`,
                 type: 'Avance sur salaire',
-                detail: 'Demande d\'avance de 40$ soumise depuis l\'espace agent',
+                detail: 'Demande d\'avance de 50$ soumise depuis le poste agent',
                 status: 'En attente',
                 date: new Date().toLocaleDateString('fr-FR')
             });
-            saveState();
-            showToast('Demande d\'avance envoyée à la Direction');
+            saveState(true, `Demande d'avance soumise par ${me.authCode}`);
+            showToast('Demande d\'avance transmise à la direction');
         }
 
         function printCurrentWorkerPayslip() {
             const me = getCurrentUser();
-            const emp = state.employees.find(e => me && e.authCode === me.authCode) || state.employees[0];
-            openPayslipModal(emp.id);
+            const emp = state.employees.find(e => e.authCode === me?.authCode) || state.employees[0];
+            if (emp) openPayslipModal(emp.id);
         }
 
         function renderClientSpace() {
             const me = getCurrentUser();
-            const title = document.getElementById('client-welcome-title');
-            if (title && me) title.textContent = `Portail Partenaire : ${me.name}`;
+            const cTitle = document.getElementById('client-welcome-title');
+            if (cTitle && me) cTitle.textContent = `Espace Partenaire — ${me.name}`;
 
             const grid = document.getElementById('client-campaigns-grid');
             if (!grid) return;
             grid.innerHTML = state.clients.map(c => `
-                <div class="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3 text-xs">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-extrabold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full">${c.name}</span>
-                        <span class="text-xs font-extrabold px-2.5 py-1 rounded-full ${c.invoiceStatus === 'Payée' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${c.invoiceStatus}</span>
+                        <h4 class="font-display text-base font-extrabold text-slate-900">${c.name}</h4>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold ${c.invoiceStatus === 'Payée' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${c.invoiceStatus}</span>
                     </div>
-                    <h4 class="font-display text-base font-extrabold text-slate-900">${c.service}</h4>
-                    <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 text-xs">
-                        <div><span class="text-slate-400 block text-[10px]">Volume</span><strong>${c.volume}</strong></div>
-                        <div><span class="text-slate-400 block text-[10px]">Qualité SLA</span><strong class="text-emerald-700">${c.sla}</strong></div>
-                        <div><span class="text-slate-400 block text-[10px]">Forfait</span><strong>${formatMoney(c.amountUSD)}</strong></div>
+                    <p class="text-slate-600">${c.service}</p>
+                    <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100">
+                        <div><p class="text-slate-400">Volume</p><p class="font-bold text-slate-900">${c.volume}</p></div>
+                        <div><p class="text-slate-400">SLA Qualité</p><p class="font-bold text-emerald-700">${c.sla}</p></div>
+                        <div><p class="text-slate-400">Montant</p><p class="font-bold text-indigo-700">${formatMoney(c.amountUSD)}</p></div>
                     </div>
+                    <button onclick="openClientInvoicePDF('${c.id}')" class="w-full bg-slate-900 hover:bg-indigo-600 text-white font-bold py-2.5 rounded-xl">
+                        Télécharger ma Facture PDF
+                    </button>
                 </div>
             `).join('');
         }
@@ -2365,5 +2698,11 @@
             }, 1000);
         };
     </script>
+
+    <!-- TOAST DE NOTIFICATION -->
+    <div id="toast" class="fixed bottom-20 lg:bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 text-xs font-bold flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="ph-fill ph-check-circle text-emerald-400 text-lg"></i>
+        <span id="toast-msg">Opération enregistrée</span>
+    </div>
 </body>
 </html>
