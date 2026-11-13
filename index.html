@@ -51,15 +51,15 @@
                     </div>
 
                     <h2 class="font-display text-2xl font-extrabold leading-tight mb-3">
-                        Authentification par Code & Appels VoIP 100 % Gratuits
+                        Espace Collaboratif Interne : Directeurs & Travailleurs
                     </h2>
                     <p class="text-xs text-indigo-200 leading-relaxed mb-6">
-                        Validez votre code personnel pour passer en ligne en temps réel, recevoir et émettre des appels gratuits (<strong class="text-emerald-300">$0.00/min</strong>) entre Directeurs, Travailleurs et Clients.
+                        Validez votre matricule interne pour passer en ligne en temps réel, échanger par messagerie et passer des appels VoIP gratuits (<strong class="text-emerald-300">$0.00/min</strong>) entre collègues et superviseurs.
                     </p>
 
                     <!-- Codes rapides pour tester immédiatement -->
                     <div class="space-y-2">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-cyan-300 mb-2">Codes d'accès rapides (Cliquez pour remplir) :</p>
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-cyan-300 mb-2">Codes internes (Cliquez pour remplir) :</p>
                         
                         <button type="button" onclick="fillAuthDemo('WC-MGR-001', '1234')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
                             <div>
@@ -85,12 +85,12 @@
                             <span class="text-[10px] font-bold bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded-md">Travailleur</span>
                         </button>
 
-                        <button type="button" onclick="fillAuthDemo('WC-CLI-501', '5555')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
+                        <button type="button" onclick="fillAuthDemo('WC-ACA-201', '3333')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
                             <div>
-                                <p class="text-xs font-bold text-white">Client B2B (Horizon Telecom)</p>
-                                <p class="text-[11px] text-indigo-200">Code : <span class="font-mono font-bold text-amber-300">WC-CLI-501</span> • PIN : <span class="font-mono">5555</span></p>
+                                <p class="text-xs font-bold text-white">Formatrice Academy (Grace L.)</p>
+                                <p class="text-[11px] text-indigo-200">Code : <span class="font-mono font-bold text-cyan-300">WC-ACA-201</span> • PIN : <span class="font-mono">3333</span></p>
                             </div>
-                            <span class="text-[10px] font-bold bg-amber-500/30 text-amber-200 px-2 py-0.5 rounded-md">Client</span>
+                            <span class="text-[10px] font-bold bg-cyan-500/30 text-cyan-200 px-2 py-0.5 rounded-md">Travailleur</span>
                         </button>
                     </div>
                 </div>
@@ -144,10 +144,9 @@
                     </form>
 
                     <div class="mt-6 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1">
-                        <p class="font-bold text-slate-800"><i class="ph-bold ph-info text-indigo-600 mr-1"></i> Fonctionnement en temps réel :</p>
-                        <p>• <strong>Travailleur</strong> : Passe automatiquement en ligne et peut recevoir/émettre des appels gratuits.</p>
-                        <p>• <strong>Directeur / Manager</strong> : Voit en direct tous les membres en ligne et gère la paie Call Center.</p>
-                        <p>• <strong>Client B2B</strong> : Peut appeler directement un agent ou un directeur en un clic ($0.00).</p>
+                        <p class="font-bold text-slate-800"><i class="ph-bold ph-info text-indigo-600 mr-1"></i> Fonctionnement Interne Temps Réel :</p>
+                        <p>• <strong>Travailleur</strong> : Passe en ligne, voit ses collègues connectés, discute en direct et passe des appels gratuits.</p>
+                        <p>• <strong>Directeur / Manager</strong> : Supervise l'équipe en direct, écoute/conseille les postes et gère le Payroll Call Center.</p>
                     </div>
                 </div>
             </div>
@@ -704,6 +703,26 @@
                         <div id="worker-online-peers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
                     </div>
 
+                    <!-- Messagerie Instantanée Interne entre Travailleurs & Directeurs -->
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <h3 class="font-display text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                    <i class="ph-bold ph-chats-circle text-indigo-600"></i> Canal de Discussion Interne (Travailleurs & Directeurs)
+                                </h3>
+                                <p class="text-xs text-slate-500">Coordination rapide entre départements (enregistrée automatiquement).</p>
+                            </div>
+                        </div>
+                        <div id="team-chat-messages" class="space-y-2 max-h-56 overflow-y-auto p-3 rounded-2xl bg-slate-50 border border-slate-200 mb-3"></div>
+                        <form onsubmit="sendTeamChatMessage(event)" class="flex gap-2 text-xs">
+                            <input type="text" id="team-chat-input" required placeholder="Écrire un message à l'équipe ou aux superviseurs..."
+                                class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5">
+                                <i class="ph-bold ph-paper-plane-right"></i> Envoyer
+                            </button>
+                        </form>
+                    </div>
+
                     <!-- Rémunération & Primes Call Center de l'Agent -->
                     <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -722,24 +741,6 @@
                         </div>
                         <div id="worker-salary-breakdown" class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs"></div>
                     </div>
-                </section>
-
-                <!-- ========================================================= -->
-                <!-- VUE 6 : ESPACE CLIENT B2B PARTENAIRE                      -->
-                <!-- ========================================================= -->
-                <section id="view-client-space" class="app-view hidden space-y-6">
-                    <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-cyan-950 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full">Portail Partenaire Externalisation B2B</span>
-                            <h2 id="client-welcome-title" class="font-display text-2xl font-extrabold mt-2">Espace Client B2B</h2>
-                            <p class="text-xs text-slate-300 mt-0.5">Suivi de campagne en temps réel & ligne directe gratuite vers le plateau WorldConnect.</p>
-                        </div>
-                        <button onclick="triggerACDClientCall()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs px-5 py-3.5 rounded-2xl shadow-lg flex items-center gap-2 self-start md:self-center">
-                            <i class="ph-bold ph-phone-call text-lg"></i> Appeler le Plateau Call Center (Routage Auto $0)
-                        </button>
-                    </div>
-
-                    <div id="client-campaigns-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </section>
             </main>
         </div>
@@ -807,7 +808,6 @@
                 <select id="acc-role" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
                     <option value="WORKER">Travailleur / Agent</option>
                     <option value="MANAGER">Directeur / Manager</option>
-                    <option value="CLIENT">Client B2B</option>
                 </select>
                 <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">Enregistrer le Code</button>
             </form>
@@ -1042,18 +1042,6 @@
                     lastHeartbeat: Date.now(),
                     active: true,
                     permissions: ['worker-console']
-                },
-                {
-                    authCode: 'WC-CLI-501',
-                    pin: '5555',
-                    name: 'Horizon Telecom RDC (Client B2B)',
-                    role: 'CLIENT',
-                    department: 'Partenaire Externalisation',
-                    onlineStatus: 'Hors ligne',
-                    sessionStart: null,
-                    lastHeartbeat: 0,
-                    active: true,
-                    permissions: ['client-space']
                 }
             ],
             departments: [
@@ -1070,8 +1058,12 @@
                 { id: 'EMP-04', authCode: 'WC-MGR-002', name: 'Patrick Ilunga', roleTitle: 'Superviseur Plateau Call Center', department: 'Call Center & Relation Client', baseUSD: 650, kpiUSD: 140, bilingualUSD: 50, attendanceUSD: 40, advanceUSD: 100, callsHandled: 230 }
             ],
             callsLog: [
-                { id: 'VOIP-8410', time: '11:42', caller: 'Horizon Telecom (WC-CLI-501)', campaign: 'Support B2B VIP', agentName: 'Sarah Kabongo', agentCode: 'WC-AGT-101', duration: '04:18', status: 'Répondu (0.00 $)', qaScore: 96, hasAudio: true, qualification: 'Demande de rapport SLA validée' },
-                { id: 'VOIP-8409', time: '10:55', caller: 'Patrick Ilunga (WC-MGR-002)', campaign: 'Briefing Équipe', agentName: 'Grace Lumbu', agentCode: 'WC-ACA-201', duration: '02:45', status: 'Répondu (0.00 $)', qaScore: 92, hasAudio: true, qualification: 'Planning cohorte Academy confirmé' }
+                { id: 'VOIP-8410', time: '11:42', caller: 'Amani Nsimba (WC-MGR-001) → Sarah Kabongo', campaign: 'Coordination Call Center', agentName: 'Sarah Kabongo', agentCode: 'WC-AGT-101', duration: '04:18', status: 'Répondu (0.00 $)', qaScore: 96, hasAudio: true, qualification: 'Briefing objectifs journaliers validé' },
+                { id: 'VOIP-8409', time: '10:55', caller: 'Patrick Ilunga (WC-MGR-002) → Grace Lumbu', campaign: 'Briefing Équipe Academy', agentName: 'Grace Lumbu', agentCode: 'WC-ACA-201', duration: '02:45', status: 'Répondu (0.00 $)', qaScore: 92, hasAudio: true, qualification: 'Planning cohorte Academy confirmé' }
+            ],
+            teamChat: [
+                { id: 'MSG-1', time: '11:30', sender: 'Patrick Ilunga (Directeur)', dept: 'Call Center', text: 'Bonjour à toute l\'équipe, n\'oubliez pas de valider votre présence en ligne.' },
+                { id: 'MSG-2', time: '11:32', sender: 'Sarah Kabongo (Travailleur)', dept: 'Call Center', text: 'Bien reçu superviseur ! Poste actif et disponible pour les appels.' }
             ],
             acdQueue: [
                 { id: 'Q-104', caller: 'Client Entreprise #408 (Ligne Bilingue FR/EN)', waitSec: 18, priority: 'Haute' },
@@ -1275,14 +1267,13 @@
             errBox.classList.add('hidden');
             user.onlineStatus = user.role === 'MANAGER'
                 ? 'Directeur En Ligne (Supervision Active)'
-                : (user.role === 'CLIENT' ? 'Client En Ligne (Portail B2B)' : 'En ligne - Disponible');
+                : 'En ligne - Disponible';
             user.sessionStart = Date.now();
             user.lastHeartbeat = Date.now();
             state.currentAuthCode = user.authCode;
 
             if (user.role === 'MANAGER') state.activeView = 'live-supervision';
-            else if (user.role === 'WORKER') state.activeView = 'worker-console';
-            else state.activeView = 'client-space';
+            else state.activeView = 'worker-console';
 
             saveState(true, `Connexion validée avec le code ${user.authCode}`);
             enterApplication();
@@ -1300,7 +1291,7 @@
             document.getElementById('sidebar-user-name').textContent = me.name;
             document.getElementById('sidebar-user-dept').textContent = me.department;
             document.getElementById('sidebar-role-badge').textContent =
-                me.role === 'MANAGER' ? 'Direction / Manager' : (me.role === 'CLIENT' ? 'Client B2B' : 'Travailleur');
+                me.role === 'MANAGER' ? 'Direction / Manager' : 'Travailleur';
 
             buildNavigationForRole(me);
             switchView(state.activeView);
@@ -1328,8 +1319,7 @@
                 { id: 'payroll', label: 'Payroll & Salaires', icon: 'ph-money' },
                 { id: 'departments', label: 'Départements (5)', icon: 'ph-buildings' },
                 { id: 'access', label: 'Codes & Accès', icon: 'ph-shield-check' },
-                { id: 'worker-console', label: 'Mon Poste Agent', icon: 'ph-headset' },
-                { id: 'client-space', label: 'Espace Client B2B', icon: 'ph-handshake' }
+                { id: 'worker-console', label: 'Mon Poste Travailleur', icon: 'ph-headset' }
             ];
 
             const allowed = allMenus.filter(m => me.permissions.includes(m.id));
@@ -1372,12 +1362,11 @@
             const titles = {
                 'live-supervision': 'Supervision Temps Réel, File ACD & Écoute Discrète',
                 'analytics': 'Tableau de Bord Analytique Call Center (DMT, SLA & Top Agents)',
-                'billing': 'Facturation Automatique Clients B2B & Trésorerie Multi-Canaux',
+                'billing': 'Comptabilité & Trésorerie Multi-Canaux',
                 'payroll': 'Payroll Call Center & Bulletins PDF',
                 'departments': 'Les 5 Départements WorldConnect',
                 'access': 'Codes d\'Authentification & Matrice RBAC',
-                'worker-console': 'Console Travailleur & Softphone VoIP',
-                'client-space': 'Portail Client B2B WorldConnect'
+                'worker-console': 'Espace Travailleur, Équipe En Ligne & VoIP Gratuit'
             };
             document.getElementById('header-page-title').textContent = titles[viewId] || 'WorldConnect';
             refreshActiveViews();
@@ -1398,7 +1387,6 @@
             renderAccessMatrix();
             renderAuditTrail();
             renderWorkerConsole();
-            renderClientSpace();
         }
 
         // ==========================================================
@@ -1437,14 +1425,13 @@
             const me = getCurrentUser();
             if (!me) return;
             const list = document.getElementById('dialer-recipients-list');
-            const others = state.users.filter(u => u.authCode !== me.authCode && u.active);
+            const others = state.users.filter(u => u.authCode !== me.authCode && u.active && (u.role === 'MANAGER' || u.role === 'WORKER'));
 
             list.innerHTML = others.map(u => {
                 const isOnline = u.onlineStatus && u.onlineStatus !== 'Hors ligne';
-                let roleBadge = 'bg-slate-100 text-slate-700';
-                let roleLabel = 'Travailleur';
-                if (u.role === 'MANAGER') { roleBadge = 'bg-indigo-100 text-indigo-800'; roleLabel = 'Directeur'; }
-                if (u.role === 'CLIENT') { roleBadge = 'bg-cyan-100 text-cyan-800'; roleLabel = 'Client B2B'; }
+                const isMgr = u.role === 'MANAGER';
+                const roleBadge = isMgr ? 'bg-indigo-100 text-indigo-800' : 'bg-emerald-100 text-emerald-800';
+                const roleLabel = isMgr ? 'Directeur' : 'Travailleur';
 
                 return `
                     <div class="p-3 rounded-2xl border ${isOnline ? 'border-emerald-200 bg-emerald-50/30' : 'border-slate-200 bg-slate-50'} flex items-center justify-between gap-3">
@@ -1595,7 +1582,7 @@
                     if (u && u.onlineStatus && u.onlineStatus.includes('En appel')) {
                         u.onlineStatus = u.role === 'MANAGER'
                             ? 'Directeur En Ligne (Supervision Active)'
-                            : (u.role === 'CLIENT' ? 'Client En Ligne (Portail B2B)' : 'En ligne - Disponible');
+                            : 'En ligne - Disponible';
                     }
                 });
             }
@@ -2202,7 +2189,6 @@
             saveState(true, `Facture ${newId} créée pour ${name} (${formatMoney(amountUSD)})`);
             document.getElementById('invoice-modal').classList.add('hidden');
             renderBillingAndTreasury();
-            renderClientSpace();
             showToast(`Facture ${newId} créée pour ${name} (${formatMoney(amountUSD)})`);
         }
 
@@ -2216,7 +2202,6 @@
                 target.amountUSD = Math.round(target.callsCount * (target.ratePerCallUSD || 0.68));
                 saveState();
                 renderBillingAndTreasury();
-                renderClientSpace();
                 showToast(`Facturation actualisée selon ${answeredCalls} appels VoIP récents`);
             }
         }
@@ -2522,14 +2507,14 @@
             const role = document.getElementById('acc-role').value;
             const perms = role === 'MANAGER'
                 ? ['live-supervision', 'analytics', 'billing', 'payroll', 'departments', 'access']
-                : (role === 'CLIENT' ? ['client-space'] : ['worker-console']);
+                : ['worker-console'];
 
             state.users.push({
                 authCode: code,
                 pin,
                 name,
                 role,
-                department: role === 'CLIENT' ? 'Partenaire B2B' : 'Call Center & Relation Client',
+                department: 'Call Center & Relation Client',
                 onlineStatus: 'Hors ligne',
                 sessionStart: null,
                 lastHeartbeat: 0,
@@ -2552,14 +2537,17 @@
 
             const peersGrid = document.getElementById('worker-online-peers');
             if (peersGrid) {
-                const peers = state.users.filter(u => u.authCode !== me.authCode && u.active);
+                const peers = state.users.filter(u => u.authCode !== me.authCode && u.active && (u.role === 'MANAGER' || u.role === 'WORKER'));
                 peersGrid.innerHTML = peers.map(p => {
                     const online = p.onlineStatus !== 'Hors ligne';
                     return `
                         <div class="p-3.5 rounded-2xl border ${online ? 'border-emerald-200 bg-emerald-50/30' : 'border-slate-200 bg-slate-50'} flex items-center justify-between gap-2 text-xs">
                             <div class="min-w-0">
-                                <p class="font-extrabold text-slate-900 truncate">${p.name}</p>
-                                <p class="text-[11px] text-slate-500">${p.authCode} • ${online ? 'En ligne' : 'Hors ligne'}</p>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full ${online ? 'bg-emerald-500 animate-ping' : 'bg-slate-300'}"></span>
+                                    <p class="font-extrabold text-slate-900 truncate">${p.name}</p>
+                                </div>
+                                <p class="text-[11px] text-slate-500 mt-0.5">${p.authCode} • ${online ? 'En ligne' : 'Hors ligne'}</p>
                             </div>
                             <button onclick="initiateInteractiveCall('${p.authCode}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-xl shrink-0">
                                 Appeler
@@ -2568,6 +2556,8 @@
                     `;
                 }).join('');
             }
+
+            renderTeamChat();
 
             const emp = state.employees.find(e => e.authCode === me.authCode) || state.employees[0];
             const salGrid = document.getElementById('worker-salary-breakdown');
@@ -2581,6 +2571,40 @@
                     <div class="p-3 rounded-2xl bg-slate-900 text-white"><p class="text-slate-400">Net à Payer</p><p class="font-extrabold text-sm text-emerald-400 mt-1">${formatMoney(net)}</p></div>
                 `;
             }
+        }
+
+        function renderTeamChat() {
+            const box = document.getElementById('team-chat-messages');
+            if (!box) return;
+            const msgs = state.teamChat || [];
+            box.innerHTML = msgs.map(m => `
+                <div class="p-2.5 rounded-xl bg-white border border-slate-200 text-xs">
+                    <div class="flex items-center justify-between mb-0.5">
+                        <span class="font-extrabold text-indigo-700">${m.sender} <span class="text-[10px] font-normal text-slate-400">• ${m.dept}</span></span>
+                        <span class="font-mono text-[10px] text-slate-400">${m.time}</span>
+                    </div>
+                    <p class="text-slate-800">${m.text}</p>
+                </div>
+            `).join('');
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function sendTeamChatMessage(e) {
+            e.preventDefault();
+            const me = getCurrentUser();
+            const inp = document.getElementById('team-chat-input');
+            if (!me || !inp || !inp.value.trim()) return;
+            if (!Array.isArray(state.teamChat)) state.teamChat = [];
+            state.teamChat.push({
+                id: 'MSG-' + Date.now(),
+                time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                sender: `${me.name} (${me.authCode})`,
+                dept: me.department,
+                text: inp.value.trim()
+            });
+            inp.value = '';
+            saveState(true, `Message interne envoyé par ${me.authCode}`);
+            renderTeamChat();
         }
 
         function requestWorkerAdvance() {
@@ -2602,32 +2626,6 @@
             const me = getCurrentUser();
             const emp = state.employees.find(e => e.authCode === me?.authCode) || state.employees[0];
             if (emp) openPayslipModal(emp.id);
-        }
-
-        function renderClientSpace() {
-            const me = getCurrentUser();
-            const cTitle = document.getElementById('client-welcome-title');
-            if (cTitle && me) cTitle.textContent = `Espace Partenaire — ${me.name}`;
-
-            const grid = document.getElementById('client-campaigns-grid');
-            if (!grid) return;
-            grid.innerHTML = state.clients.map(c => `
-                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3 text-xs">
-                    <div class="flex items-center justify-between">
-                        <h4 class="font-display text-base font-extrabold text-slate-900">${c.name}</h4>
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold ${c.invoiceStatus === 'Payée' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${c.invoiceStatus}</span>
-                    </div>
-                    <p class="text-slate-600">${c.service}</p>
-                    <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100">
-                        <div><p class="text-slate-400">Volume</p><p class="font-bold text-slate-900">${c.volume}</p></div>
-                        <div><p class="text-slate-400">SLA Qualité</p><p class="font-bold text-emerald-700">${c.sla}</p></div>
-                        <div><p class="text-slate-400">Montant</p><p class="font-bold text-indigo-700">${formatMoney(c.amountUSD)}</p></div>
-                    </div>
-                    <button onclick="openClientInvoicePDF('${c.id}')" class="w-full bg-slate-900 hover:bg-indigo-600 text-white font-bold py-2.5 rounded-xl">
-                        Télécharger ma Facture PDF
-                    </button>
-                </div>
-            `).join('');
         }
 
         // ==========================================================
