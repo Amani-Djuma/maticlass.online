@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -54,44 +55,21 @@
                         Espace Collaboratif Interne : Directeurs & Travailleurs
                     </h2>
                     <p class="text-xs text-indigo-200 leading-relaxed mb-6">
-                        Validez votre matricule interne pour passer en ligne en temps réel, échanger par messagerie et passer des appels VoIP gratuits (<strong class="text-emerald-300">$0.00/min</strong>) entre collègues et superviseurs.
+                        Accès strictement réservé au personnel habilité de WorldConnect. Saisissez votre matricule confidentiel pour activer votre poste VoIP gratuit (<strong class="text-emerald-300">$0.00/min</strong>) et accéder à vos outils.
                     </p>
 
-                    <!-- Codes rapides pour tester immédiatement -->
-                    <div class="space-y-2">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-cyan-300 mb-2">Codes internes (Cliquez pour remplir) :</p>
-                        
-                        <button type="button" onclick="fillAuthDemo('WC-MGR-001', '1234')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
-                            <div>
-                                <p class="text-xs font-bold text-white">Directeur Général (Supervision Live)</p>
-                                <p class="text-[11px] text-indigo-200">Code : <span class="font-mono font-bold text-cyan-300">WC-MGR-001</span> • PIN : <span class="font-mono">1234</span></p>
-                            </div>
-                            <span class="text-[10px] font-bold bg-indigo-500/40 text-indigo-100 px-2 py-0.5 rounded-md">Directeur</span>
-                        </button>
-
-                        <button type="button" onclick="fillAuthDemo('WC-AGT-101', '1111')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
-                            <div>
-                                <p class="text-xs font-bold text-white">Travailleur Call Center (Sarah K.)</p>
-                                <p class="text-[11px] text-indigo-200">Code : <span class="font-mono font-bold text-emerald-300">WC-AGT-101</span> • PIN : <span class="font-mono">1111</span></p>
-                            </div>
-                            <span class="text-[10px] font-bold bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded-md">Travailleur</span>
-                        </button>
-
-                        <button type="button" onclick="fillAuthDemo('WC-AGT-102', '2222')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
-                            <div>
-                                <p class="text-xs font-bold text-white">Travailleur Support IT (Jean-Marc M.)</p>
-                                <p class="text-[11px] text-indigo-200">Code : <span class="font-mono font-bold text-emerald-300">WC-AGT-102</span> • PIN : <span class="font-mono">2222</span></p>
-                            </div>
-                            <span class="text-[10px] font-bold bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded-md">Travailleur</span>
-                        </button>
-
-                        <button type="button" onclick="fillAuthDemo('WC-ACA-201', '3333')" class="w-full text-left p-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition flex items-center justify-between">
-                            <div>
-                                <p class="text-xs font-bold text-white">Formatrice Academy (Grace L.)</p>
-                                <p class="text-[11px] text-indigo-200">Code : <span class="font-mono font-bold text-cyan-300">WC-ACA-201</span> • PIN : <span class="font-mono">3333</span></p>
-                            </div>
-                            <span class="text-[10px] font-bold bg-cyan-500/30 text-cyan-200 px-2 py-0.5 rounded-md">Travailleur</span>
-                        </button>
+                    <!-- Zone de sécurité privée (aucun code affiché en clair) -->
+                    <div class="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2.5">
+                        <div class="flex items-center gap-2 text-cyan-300 text-xs font-extrabold uppercase tracking-wider">
+                            <i class="ph-fill ph-shield-check text-base"></i>
+                            <span>Accès Confidentiel Protégé</span>
+                        </div>
+                        <p class="text-[11px] text-indigo-100 leading-relaxed">
+                            Pour des raisons de sécurité, aucun identifiant ou code PIN n'est affiché publiquement sur cette page.
+                        </p>
+                        <p class="text-[11px] text-emerald-300 font-semibold flex items-center gap-1.5 pt-1">
+                            <i class="ph-fill ph-cloud-check text-sm"></i> Sauvegarde permanente des données activée
+                        </p>
                     </div>
                 </div>
 
@@ -106,47 +84,59 @@
                 <div class="max-w-md mx-auto w-full">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-4">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                        Passerelle VoIP Gratuite & Sécurisée WorldConnect
+                        Portail Entreprise, GED & Passerelle WebRTC WorldConnect
                     </div>
-                    <h3 class="font-display text-2xl font-extrabold text-slate-900">Connexion avec votre Code Personnel</h3>
+                    <h3 class="font-display text-2xl font-extrabold text-slate-900">Connexion Sécurisée Employé / Direction</h3>
                     <p class="text-xs text-slate-500 mt-1 mb-6">
-                        Entrez votre matricule attribué par l'administration WorldConnect pour activer votre poste.
+                        Entrez votre identifiant professionnel (ou matricule) et votre mot de passe sécurisé. Protection anti-bruteforce et expiration automatique de session actives.
                     </p>
 
                     <form onsubmit="authenticateWithCode(event)" class="space-y-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Code d'authentification personnel *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Identifiant Employé ou Adresse E-mail Pro *</label>
                             <div class="relative">
                                 <i class="ph-bold ph-identification-card text-slate-400 text-lg absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-                                <input type="text" id="auth-code-input" required placeholder="Ex: WC-AGT-101 ou WC-MGR-001"
-                                    class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-300 font-mono text-sm font-bold uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <input type="password" id="auth-code-input" required autocomplete="off" placeholder="Matricule ou e-mail professionnel"
+                                    class="w-full pl-11 pr-11 py-3 rounded-xl border border-slate-300 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <button type="button" onclick="toggleAuthFieldVisibility('auth-code-input', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 p-1" title="Afficher / Masquer">
+                                    <i class="ph-bold ph-eye text-lg"></i>
+                                </button>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Code PIN de sécurité *</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Mot de Passe / Code PIN Sécurisé *</label>
                             <div class="relative">
                                 <i class="ph-bold ph-lock-key text-slate-400 text-lg absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-                                <input type="password" id="auth-pin-input" required placeholder="••••"
-                                    class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-300 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <input type="password" id="auth-pin-input" required placeholder="••••••••"
+                                    class="w-full pl-11 pr-11 py-3 rounded-xl border border-slate-300 font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <button type="button" onclick="toggleAuthFieldVisibility('auth-pin-input', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 p-1" title="Afficher / Masquer">
+                                    <i class="ph-bold ph-eye text-lg"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <div id="auth-error-box" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2">
-                            <i class="ph-fill ph-warning-circle text-base shrink-0"></i>
-                            <span id="auth-error-msg">Code invalide ou révoqué.</span>
+                        <div id="auth-error-box" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-2">
+                            <i class="ph-fill ph-warning-circle text-base"></i>
+                            <span id="auth-error-msg">Identifiants invalides.</span>
                         </div>
 
                         <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-display font-bold py-3.5 rounded-xl shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2 text-sm">
-                            <i class="ph-bold ph-sign-in text-lg"></i>
-                            Valider mon Code & Passer en Ligne
+                            <i class="ph-bold ph-shield-check text-lg"></i>
+                            <span>Ouvrir ma Session Sécurisée</span>
                         </button>
                     </form>
 
-                    <div class="mt-6 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 space-y-1">
-                        <p class="font-bold text-slate-800"><i class="ph-bold ph-info text-indigo-600 mr-1"></i> Fonctionnement Interne Temps Réel :</p>
-                        <p>• <strong>Travailleur</strong> : Passe en ligne, voit ses collègues connectés, discute en direct et passe des appels gratuits.</p>
-                        <p>• <strong>Directeur / Manager</strong> : Supervise l'équipe en direct, écoute/conseille les postes et gère le Payroll Call Center.</p>
+                    <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                        <span><i class="ph-bold ph-lock text-indigo-600 mr-1"></i> Session CSRF & TLS</span>
+                        <button type="button" onclick="showToast('Contactez l\'administrateur IT (it.support@worldconnect.cd) pour réinitialiser votre accès.')" class="font-bold text-indigo-600 hover:underline">
+                            Mot de passe oublié ?
+                        </button>
+                    </div>
+                    <div class="mt-4">
+                        <button type="button" onclick="downloadFullProjectZip()" class="w-full bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 border border-slate-700">
+                            <i class="ph-bold ph-file-zip text-base"></i> Télécharger le Pack Complet LWS + VPS (.ZIP)
+                        </button>
                     </div>
                 </div>
             </div>
@@ -154,102 +144,92 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- ÉCRAN 2 : APPLICATION PRINCIPALE WORLDCONNECT                         -->
+    <!-- ÉCRAN 2 : APPLICATION PRINCIPALE (APRÈS AUTHENTIFICATION VALIDÉE)     -->
     <!-- ===================================================================== -->
-    <div id="app-shell" class="hidden min-h-screen flex flex-col lg:flex-row pb-16 lg:pb-0">
+    <div id="app-shell" class="hidden min-h-screen flex flex-col lg:flex-row pb-16 lg:pb-0 transition-colors duration-200">
         
         <!-- SIDEBAR -->
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-slate-950 text-slate-300 flex flex-col justify-between transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-200">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-slate-950 text-white flex flex-col justify-between transform -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 ease-in-out shrink-0">
             <div>
-                <div class="p-6 border-b border-slate-800/80 flex items-center justify-between">
+                <div class="h-16 px-6 flex items-center justify-between border-b border-slate-800">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center font-display font-extrabold text-white text-lg">
-                            WC
-                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center font-display font-extrabold text-white text-base">WC</div>
                         <div>
-                            <h1 class="font-display font-extrabold text-white text-base tracking-tight">WORLDCONNECT</h1>
-                            <span id="sidebar-role-badge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300">Rôle</span>
+                            <span class="font-display font-extrabold text-base tracking-tight block leading-none">WORLDCONNECT</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">ERP & Call Center Pro</span>
                         </div>
                     </div>
-                    <button onclick="toggleSidebar()" class="lg:hidden text-slate-400 hover:text-white p-1">
-                        <i class="ph-bold ph-x text-xl"></i>
-                    </button>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-slate-400 hover:text-white p-1.5"><i class="ph-bold ph-x text-xl"></i></button>
                 </div>
 
-                <!-- Carte Utilisateur Connecté + Code -->
-                <div class="p-4 mx-4 mt-4 rounded-2xl bg-slate-900 border border-slate-800">
+                <!-- Badge Utilisateur Authentifié -->
+                <div class="p-4 m-4 rounded-2xl bg-slate-900 border border-slate-800">
                     <div class="flex items-center justify-between mb-1">
-                        <span id="sidebar-auth-code" class="text-[11px] font-mono font-extrabold text-cyan-400">WC-000</span>
-                        <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> En ligne
-                        </span>
+                        <span id="sidebar-role-badge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300">Rôle</span>
+                        <span id="sidebar-auth-code" class="text-[11px] font-mono font-bold text-cyan-400">WC-000</span>
                     </div>
                     <p id="sidebar-user-name" class="text-xs font-bold text-white truncate">Utilisateur</p>
                     <p id="sidebar-user-dept" class="text-[11px] text-slate-400 truncate mt-0.5">Département</p>
+                    <div class="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px]">
+                        <span class="text-slate-400">Auto-déconnexion :</span>
+                        <span id="inactivity-timer-badge" class="font-mono font-bold text-amber-400">15:00</span>
+                    </div>
                 </div>
 
-                <!-- Navigation filtrée selon les permissions RBAC -->
-                <nav id="sidebar-nav" class="p-4 space-y-1.5 mt-2"></nav>
+                <nav id="sidebar-nav" class="px-3 space-y-1"></nav>
             </div>
 
-            <div class="p-4 border-t border-slate-800/80 space-y-2">
-                <div id="cloud-sync-indicator" class="px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-bold text-emerald-300 flex items-center justify-between">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sauvegarde Cloud</span>
-                    <span id="cloud-sync-time" class="font-mono text-[10px] text-emerald-200">Active</span>
-                </div>
-                <div class="grid grid-cols-2 gap-1.5">
-                    <button onclick="exportFullBackupJSON()" class="py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 flex items-center justify-center gap-1.5 border border-slate-800">
-                        <i class="ph-bold ph-download-simple text-cyan-400"></i> Exporter
+            <div class="p-4 border-t border-slate-800 space-y-2">
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between text-[11px]">
+                        <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sauvegarde Sync
+                        </span>
+                        <span id="cloud-sync-time" class="font-mono text-[10px] text-slate-400">Active</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <button onclick="exportFullBackupJSON()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold py-1.5 px-2 rounded-lg flex items-center justify-center gap-1">
+                            <i class="ph-bold ph-download-simple text-cyan-400"></i> Exporter
+                        </button>
+                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 cursor-pointer">
+                            <i class="ph-bold ph-upload-simple text-emerald-400"></i> Restaurer
+                            <input type="file" accept=".json" onchange="importFullBackupJSON(event)" class="hidden">
+                        </label>
+                    </div>
+                    <button onclick="downloadFullProjectZip()" class="w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-[11px] font-extrabold py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 shadow">
+                        <i class="ph-bold ph-file-zip text-sm"></i> Télécharger Pack Complet (.ZIP)
                     </button>
-                    <label class="cursor-pointer py-2 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 flex items-center justify-center gap-1.5 border border-slate-800">
-                        <i class="ph-bold ph-upload-simple text-emerald-400"></i> Restaurer
-                        <input type="file" accept=".json" onchange="importFullBackupJSON(event)" class="hidden">
-                    </label>
                 </div>
-                <button onclick="logoutUser()" class="w-full py-2.5 px-3 rounded-xl bg-rose-600/15 hover:bg-rose-600 text-rose-300 hover:text-white text-xs font-bold flex items-center justify-center gap-2 transition">
-                    <i class="ph-bold ph-sign-out text-base"></i> Déconnexion & Passer Hors Ligne
+                <button onclick="logoutUser()" class="w-full py-2 px-3 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 text-xs font-bold flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-sign-out"></i> Fermer la session
                 </button>
             </div>
         </aside>
 
-        <!-- ZONE PRINCIPALE -->
+        <!-- CONTENU PRINCIPAL -->
         <div class="flex-1 flex flex-col min-w-0">
-            <!-- HEADER RESPONSIVE -->
-            <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3 min-w-0">
-                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50">
-                        <i class="ph-bold ph-list text-xl"></i>
-                    </button>
-                    <div class="min-w-0">
-                        <h2 id="header-page-title" class="font-display font-extrabold text-base sm:text-lg text-slate-900 truncate">Tableau de Bord</h2>
-                        <p class="text-[11px] text-emerald-700 font-semibold hidden sm:block">
-                            <i class="ph-fill ph-phone-call mr-1"></i> Passerelle VoIP Interne 100 % Gratuite ($0.00/min) • Synchronisation Temps Réel
-                        </p>
-                    </div>
+            <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-20 gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-slate-100 text-slate-700"><i class="ph-bold ph-list text-xl"></i></button>
+                    <h2 id="header-page-title" class="font-display text-sm sm:text-lg font-extrabold text-slate-900 truncate">Tableau de Bord WorldConnect</h2>
                 </div>
 
-                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    <!-- Bouton Appel Rapide Universel -->
-                    <button onclick="openUniversalDialerModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-xl text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition">
-                        <i class="ph-bold ph-phone-call text-sm"></i>
-                        <span class="hidden sm:inline">Appeler en Direct ($0.00)</span>
-                        <span class="sm:hidden">Appeler</span>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="toggleDarkMode()" id="dark-mode-toggle" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Basculer Mode Clair / Sombre">
+                        <i class="ph-bold ph-moon text-base"></i>
                     </button>
 
-                    <!-- Compteur Présence Temps Réel -->
-                    <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <button onclick="openUniversalDialerModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold px-3 py-2 rounded-xl shadow-sm flex items-center gap-1.5">
+                        <i class="ph-bold ph-phone-call text-sm"></i>
+                        <span class="hidden sm:inline">Softphone WebRTC</span>
+                    </button>
+
+                    <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
                         <span id="header-online-count">0 en ligne</span>
                     </div>
 
-                    <!-- Badge Sauvegarde Cloud En Direct -->
-                    <div id="header-cloud-badge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800" title="Toutes les actions sont enregistrées automatiquement">
-                        <i class="ph-fill ph-cloud-check text-emerald-600 text-sm"></i>
-                        <span id="header-cloud-status">Sauvegardé</span>
-                    </div>
-
-                    <!-- Sélecteur Multi-Devises -->
-                    <select id="currency-select" onchange="changeCurrency(this.value)" class="bg-slate-100 border border-slate-200 rounded-xl px-2.5 py-2 text-xs font-extrabold text-slate-800 focus:outline-none">
+                    <select id="currency-selector" onchange="changeCurrency(this.value)" class="bg-slate-100 border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs font-bold text-slate-800">
                         <option value="USD">USD ($)</option>
                         <option value="CDF">CDF (FC)</option>
                         <option value="EUR">EUR (€)</option>
@@ -257,226 +237,221 @@
                 </div>
             </header>
 
-            <!-- BANDEAU ÉCOUTE DISCRÈTE / CHUCHOTEMENT MANAGER (QUALITY MONITORING) -->
-            <div id="manager-whisper-banner" class="hidden mx-4 sm:mx-8 mt-4 z-30 p-4 rounded-2xl bg-gradient-to-r from-amber-950 via-slate-900 to-indigo-950 text-white border-2 border-amber-400/70 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/40 flex items-center justify-center text-xl shrink-0">
-                        <i class="ph-bold ph-ear"></i>
-                    </div>
-                    <div>
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">Quality Monitoring • Écoute Discrète & Chuchotement Direction</span>
-                        <p id="whisper-target-label" class="font-display text-sm font-extrabold">Supervision silencieuse active</p>
-                    </div>
-                </div>
-                <div class="flex flex-1 max-w-md items-center gap-2">
-                    <input type="text" id="whisper-message-input" placeholder="Chuchoter un conseil à l'agent (invisible pour le client)..."
-                        class="flex-1 bg-white/10 border border-amber-400/40 rounded-xl px-3 py-2 text-xs text-white placeholder-amber-200/70 focus:outline-none">
-                    <button onclick="sendWhisperInstruction()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shrink-0">
-                        Chuchoter
-                    </button>
-                    <button onclick="stopManagerMonitoring()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-3 py-2 rounded-xl shrink-0">
-                        Quitter
-                    </button>
-                </div>
-            </div>
-
-            <!-- BANDEAU SOFTPHONE INTERACTIF UNIVERSEL EN TEMPS RÉEL (MANAGER / TRAVAILLEUR / CLIENT) -->
-            <div id="global-live-call-banner" class="hidden mx-4 sm:mx-8 mt-4 z-30">
-                <!-- État A : Appel Sortant en attente de réponse -->
-                <div id="global-call-outgoing" class="hidden p-4 sm:p-5 rounded-2xl bg-slate-900 text-white border-2 border-indigo-500 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-11 h-11 rounded-2xl bg-indigo-600 flex items-center justify-center text-xl animate-pulse shrink-0">
-                            <i class="ph-bold ph-phone-outgoing"></i>
-                        </div>
+            <!-- BANDEAU D'APPEL INTERACTIF WEBRTC / SIGNALISATION EN TEMPS RÉEL -->
+            <div id="global-live-call-banner" class="hidden bg-indigo-950 text-white px-4 sm:px-6 py-3.5 border-b border-indigo-800 shadow-xl">
+                <!-- État 1 : Appel sortant -->
+                <div id="global-call-outgoing" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-amber-400 animate-ping"></span>
                         <div>
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-300">Appel VoIP Gratuit Sortant ($0.00/min) • Sonnerie en cours...</span>
-                            <p id="global-out-target" class="font-display text-base font-extrabold">Appel vers...</p>
-                            <p class="text-[11px] text-slate-400">En attente que le destinataire décroche sur son espace</p>
+                            <p class="text-xs font-extrabold text-amber-300 uppercase">Signalisation WebRTC sortante...</p>
+                            <p id="global-out-target" class="text-sm font-bold">Appel vers ...</p>
                         </div>
                     </div>
-                    <button onclick="hangupGlobalCall('Appel annulé par l\'appelant')" class="w-full sm:w-auto bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl flex items-center justify-center gap-1.5">
-                        <i class="ph-bold ph-phone-disconnect text-base"></i> Annuler l'appel
+                    <button onclick="hangupGlobalCall('Appel annulé avant décrochage')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-4 py-2 rounded-xl self-start sm:self-center">
+                        Annuler l'appel
                     </button>
                 </div>
 
-                <!-- État B : Appel Entrant qui sonne chez le Manager, Travailleur ou Client -->
-                <div id="global-call-ringing" class="hidden ringing-card p-5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white shadow-2xl border-2 border-emerald-300 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl animate-bounce shrink-0">
-                            <i class="ph-bold ph-phone-incoming"></i>
+                <!-- État 2 : Appel entrant -->
+                <div id="global-call-ringing" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 ringing-card rounded-2xl p-2 bg-emerald-950/70 border border-emerald-500/40">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center animate-bounce">
+                            <i class="ph-fill ph-phone-incoming text-xl"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] font-extrabold uppercase tracking-widest bg-black/25 px-2.5 py-0.5 rounded-full">📞 Appel VoIP Gratuit Entrant ($0.00/min)</span>
-                            <p id="global-ring-caller" class="font-display text-lg font-extrabold mt-1">Appelant inconnu</p>
-                            <p id="global-ring-topic" class="text-xs text-emerald-100">Ligne directe interactive WorldConnect</p>
+                            <p class="text-[11px] font-extrabold text-emerald-300 uppercase">Appel Audio Entrant</p>
+                            <p id="global-ring-caller" class="text-sm font-extrabold">Correspondant</p>
+                            <p id="global-ring-topic" class="text-[11px] text-indigo-200">Ligne interne</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2.5 w-full sm:w-auto">
-                        <button onclick="acceptGlobalIncomingCall()" class="flex-1 sm:flex-initial bg-white text-emerald-900 hover:bg-emerald-50 font-extrabold text-xs px-5 py-3 rounded-xl shadow-lg flex items-center justify-center gap-1.5">
-                            <i class="ph-bold ph-phone-call text-base"></i> Décrocher
+                    <div class="flex items-center gap-2">
+                        <button onclick="acceptGlobalIncomingCall()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold px-4 py-2.5 rounded-xl flex items-center gap-1.5">
+                            <i class="ph-fill ph-phone-call"></i> Accepter
                         </button>
-                        <button onclick="hangupGlobalCall('Appel refusé par le destinataire')" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-4 py-3 rounded-xl">
+                        <button onclick="hangupGlobalCall('Appel refusé')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl">
                             Refuser
                         </button>
                     </div>
                 </div>
 
-                <!-- État C : Communication Interactive Active (Micro + Vumètre + Qualification) -->
-                <div id="global-call-connected" class="hidden p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white border-2 border-emerald-400/60 shadow-2xl space-y-4">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-indigo-800/80 pb-3.5">
-                        <div class="flex items-center gap-3.5">
-                            <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-400/40 flex items-center justify-center text-xl shrink-0">
-                                <i class="ph-bold ph-waveform"></i>
-                            </div>
-                            <div>
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <span class="text-[10px] font-extrabold uppercase text-emerald-400">● Communication VoIP Interactive Active • 0.00 $</span>
-                                    <span id="global-mic-status-badge" class="text-[10px] font-bold bg-white/10 text-indigo-200 px-2 py-0.5 rounded-full">Audio HD Actif</span>
-                                </div>
-                                <p id="global-conn-peer" class="font-display text-base font-extrabold mt-0.5">En ligne avec...</p>
-                            </div>
+                <!-- État 3 : Communication active (Accepter/Refuser, Attente, Micro, Haut-parleur, Fin) -->
+                <div id="global-call-connected" class="hidden flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-end gap-0.5 h-6 px-2 py-1 rounded-lg bg-indigo-900">
+                            <span id="vu-bar-1" class="w-1 bg-emerald-400 rounded-full h-2 transition-all"></span>
+                            <span id="vu-bar-2" class="w-1 bg-emerald-400 rounded-full h-4 transition-all"></span>
+                            <span id="vu-bar-3" class="w-1 bg-cyan-400 rounded-full h-5 transition-all"></span>
+                            <span id="vu-bar-4" class="w-1 bg-emerald-400 rounded-full h-3 transition-all"></span>
+                            <span id="vu-bar-5" class="w-1 bg-emerald-400 rounded-full h-2 transition-all"></span>
                         </div>
-
-                        <div class="flex flex-wrap items-center gap-2.5">
-                            <div class="flex items-end gap-1 h-7 px-3 py-1.5 bg-indigo-900/80 rounded-xl border border-indigo-700/60" title="Signal audio temps réel">
-                                <span id="vu-bar-1" class="w-1 bg-emerald-400 rounded-full transition-all duration-100" style="height: 35%"></span>
-                                <span id="vu-bar-2" class="w-1 bg-emerald-400 rounded-full transition-all duration-100" style="height: 75%"></span>
-                                <span id="vu-bar-3" class="w-1 bg-emerald-400 rounded-full transition-all duration-100" style="height: 50%"></span>
-                                <span id="vu-bar-4" class="w-1 bg-emerald-400 rounded-full transition-all duration-100" style="height: 90%"></span>
-                                <span id="vu-bar-5" class="w-1 bg-emerald-400 rounded-full transition-all duration-100" style="height: 45%"></span>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span id="global-conn-peer" class="text-sm font-extrabold">En communication</span>
+                                <span id="global-call-timer" class="font-mono text-xs font-extrabold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">00:00</span>
+                                <span id="global-mic-status-badge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-cyan-200">Initialisation audio WebRTC...</span>
                             </div>
-
-                            <button type="button" onclick="toggleGlobalMute()" id="global-mute-btn" class="bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5">
-                                <i class="ph-bold ph-microphone"></i> <span id="global-mute-text">Micro actif</span>
-                            </button>
-
-                            <span id="global-call-timer" class="font-mono text-base font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-3.5 py-1.5 rounded-xl">00:00</span>
+                            <p id="agent-whisper-alert" class="hidden text-xs font-extrabold text-amber-300 mt-1 bg-amber-500/20 px-2.5 py-1 rounded-lg border border-amber-400/40">
+                                <i class="ph-fill ph-ear mr-1"></i> <span id="agent-whisper-text"></span>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 text-xs">
-                        <input type="text" id="global-call-note" placeholder="Note / Compte-rendu rapide de l'échange (enregistré automatiquement)..."
-                            class="flex-1 bg-indigo-900/70 border border-indigo-700 rounded-xl px-3.5 py-2.5 text-white placeholder-indigo-300 focus:outline-none focus:border-emerald-400">
-                        <button onclick="hangupGlobalCall()" class="bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg flex items-center justify-center gap-1.5 shrink-0">
-                            <i class="ph-bold ph-phone-disconnect text-base"></i> Raccrocher & Sauvegarder ($0.00)
+                    <div class="flex flex-wrap items-center gap-2">
+                        <input type="text" id="global-call-note" placeholder="Qualification / note d'appel..." class="px-3 py-1.5 rounded-xl bg-indigo-900 border border-indigo-700 text-xs text-white placeholder-indigo-300 focus:outline-none">
+                        <button onclick="toggleGlobalHold()" id="global-hold-btn" class="bg-amber-600/80 hover:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1">
+                            <i class="ph-bold ph-pause"></i> <span id="global-hold-text">Attente</span>
                         </button>
-                    </div>
-                    <div id="agent-whisper-alert" class="hidden p-2.5 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-200 text-xs font-bold flex items-center gap-2">
-                        <i class="ph-fill ph-sparkle text-amber-300"></i>
-                        <span id="agent-whisper-text">Conseil Direction : ...</span>
+                        <button onclick="toggleGlobalMute()" id="global-mute-btn" class="bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1">
+                            <i class="ph-bold ph-microphone"></i> <span id="global-mute-text">Micro</span>
+                        </button>
+                        <button onclick="toggleSpeakerOutput()" id="global-speaker-btn" class="bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1">
+                            <i class="ph-bold ph-speaker-high"></i> <span id="global-speaker-text">Haut-parleur</span>
+                        </button>
+                        <button onclick="hangupGlobalCall()" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold px-4 py-2 rounded-xl flex items-center gap-1.5">
+                            <i class="ph-fill ph-phone-disconnect"></i> Raccrocher
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- CONTENEUR DES VUES -->
-            <main class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-6">
+            <!-- BANDEAU ÉCOUTE DISCRÈTE & CHUCHOTEMENT -->
+            <div id="manager-whisper-banner" class="hidden bg-amber-950 text-amber-100 px-4 sm:px-6 py-2.5 border-b border-amber-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-extrabold uppercase text-[10px]">Écoute Discrète Active</span>
+                    <span id="whisper-target-label" class="font-bold">Supervision audio silencieuse en cours</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="text" id="whisper-message-input" placeholder="Chuchoter une consigne à l'agent..." class="px-3 py-1.5 rounded-lg bg-amber-900/80 border border-amber-700 text-white placeholder-amber-300 text-xs focus:outline-none">
+                    <button onclick="sendWhisperInstruction()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg">Chuchoter</button>
+                    <button onclick="stopManagerMonitoring()" class="bg-slate-800 text-slate-200 font-bold px-2.5 py-1.5 rounded-lg">Quitter</button>
+                </div>
+            </div>
+
+            <main class="flex-1 p-4 sm:p-6 max-w-7xl w-full mx-auto space-y-6">
 
                 <!-- ========================================================= -->
-                <!-- VUE 1 : SUPERVISION LIVE, FILE ACD & PRÉSENCE TEMPS RÉEL  -->
+                <!-- VUE 1 : SUPERVISION MANAGER (QUI EST ONLINE & APPELS)     -->
                 <!-- ========================================================= -->
-                <section id="view-live-supervision" class="app-view hidden space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <span class="text-xs font-bold text-slate-500 uppercase">Directeurs En Ligne</span>
-                            <p id="kpi-online-managers" class="font-display text-2xl font-extrabold text-indigo-700 mt-1">0</p>
-                            <span class="text-[11px] text-emerald-600 font-semibold">Supervision & Écoute active</span>
+                <section id="view-live-supervision" class="app-view space-y-6">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-[11px] font-bold text-slate-500 uppercase">Directeurs / Managers</span>
+                            <p id="kpi-online-managers" class="font-display text-2xl font-extrabold text-indigo-600 mt-1">0</p>
+                            <span class="text-[11px] text-emerald-600 font-semibold">Sessions actives</span>
                         </div>
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <span class="text-xs font-bold text-slate-500 uppercase">Travailleurs En Ligne</span>
+                        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-[11px] font-bold text-slate-500 uppercase">Agents / Employés</span>
                             <p id="kpi-online-workers" class="font-display text-2xl font-extrabold text-emerald-600 mt-1">0</p>
-                            <span class="text-[11px] text-slate-500 font-semibold">Routage ACD prêt</span>
+                            <span class="text-[11px] text-emerald-600 font-semibold">Disponibles sur plateau</span>
                         </div>
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <span class="text-xs font-bold text-slate-500 uppercase">Appels Traités (Jour)</span>
+                        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-[11px] font-bold text-slate-500 uppercase">Appels Enregistrés</span>
                             <p id="kpi-calls-count" class="font-display text-2xl font-extrabold text-slate-900 mt-1">0</p>
-                            <span class="text-[11px] text-emerald-600 font-bold">Coût VoIP : 0.00 $</span>
+                            <span class="text-[11px] text-indigo-600 font-semibold">Journal Call Center</span>
                         </div>
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                            <span class="text-xs font-bold text-slate-500 uppercase">Masse Salariale Mensuelle</span>
+                        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="text-[11px] font-bold text-slate-500 uppercase">Masse Salariale</span>
                             <p id="kpi-total-payroll" class="font-display text-2xl font-extrabold text-slate-900 mt-1">$0</p>
-                            <span class="text-[11px] text-indigo-600 font-semibold">5 Départements WorldConnect</span>
+                            <span class="text-[11px] text-slate-500 font-semibold">Paie mensuelle estimée</span>
                         </div>
                     </div>
 
-                    <!-- File d'Attente Intelligente ACD & Appel en Cours (Monitoring) -->
+                    <!-- Architecture Hybride LWS / WebRTC Info Banner -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs border border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <i class="ph-fill ph-broadcast text-cyan-400 text-2xl shrink-0"></i>
+                            <div>
+                                <p class="font-extrabold text-white">Statut Moteur Télécoms WebRTC / WebSocket & Pack Déploiement LWS</p>
+                                <p id="webrtc-server-status-label" class="text-slate-300 mt-0.5">
+                                    Téléchargez le pack complet (Frontend HTML + Backend PHP + SQL MySQL + Serveur VoIP VPS + Guide) prêt à déployer.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="downloadFullProjectZip()" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shrink-0 shadow">
+                            <i class="ph-bold ph-file-zip text-base"></i> Télécharger Tout (.ZIP)
+                        </button>
+                    </div>
+
+                    <!-- File d'attente ACD & Écoute Discrète -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
                         <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-sm p-5">
-                            <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center justify-between gap-2 mb-3">
                                 <div>
                                     <h3 class="font-display text-base font-extrabold text-slate-900 flex items-center gap-2">
-                                        <i class="ph-bold ph-git-fork text-indigo-600"></i> File d'Attente Intelligente (ACD)
+                                        <i class="ph-bold ph-git-branch text-indigo-600"></i> Distribution Automatique des Appels (File ACD)
                                     </h3>
-                                    <p class="text-[11px] text-slate-500">Distribution automatique vers l'agent libre depuis le plus longtemps.</p>
+                                    <p class="text-xs text-slate-500">Routage vers l'agent disponible depuis le plus longtemps.</p>
                                 </div>
-                                <button onclick="routeNextQueueCall()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
-                                    Router Prochain Appel
+                                <button onclick="routeNextQueueCall()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shrink-0">
+                                    Router l'appel suivant
                                 </button>
                             </div>
                             <div id="acd-queue-list" class="space-y-2"></div>
                         </div>
 
-                        <div class="lg:col-span-5 bg-slate-950 text-white rounded-3xl border border-slate-800 shadow-sm p-5 flex flex-col justify-between">
+                        <div class="lg:col-span-5 bg-slate-900 text-white rounded-3xl p-5 flex flex-col justify-between">
                             <div>
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">Quality Monitoring en Direct</span>
-                                <h3 class="font-display text-base font-extrabold mt-1">Écoute Discrète & Enregistrement</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">Supervisez silencieusement l'appel en cours sans interrompre le client.</p>
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300">Quality Monitoring</span>
+                                <h3 class="font-display text-base font-extrabold mt-2">Écoute Discrète & Chuchotement</h3>
+                                <p class="text-xs text-slate-300 mt-1">Supervisez discrètement une communication active ou réécoutez les archives.</p>
                             </div>
-                            <div id="live-call-monitor-box" class="mt-4 p-3.5 rounded-2xl bg-slate-900 border border-slate-800 text-xs"></div>
+                            <div id="live-call-monitor-box" class="mt-4 p-3.5 rounded-2xl bg-white/10 border border-white/10 text-xs"></div>
                         </div>
                     </div>
 
-                    <!-- Présence Temps Réel Directeurs & Travailleurs -->
+                    <!-- Présence Temps Réel -->
                     <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5">
                             <div>
                                 <h3 class="font-display text-lg font-extrabold text-slate-900 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                                    Membres Connectés en Temps Réel (Directeurs & Travailleurs)
+                                    Effectifs Connectés en Temps Réel
                                 </h3>
-                                <p class="text-xs text-slate-500">Synchronisation automatique entre onglets et sessions actives.</p>
+                                <p class="text-xs text-slate-500">Suivi instantané des présences par département et statut d'occupation.</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-2">
                                 <button onclick="setPresenceFilter('ALL')" id="filter-btn-ALL" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white">Tous</button>
-                                <button onclick="setPresenceFilter('MANAGER')" id="filter-btn-MANAGER" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Directeurs</button>
-                                <button onclick="setPresenceFilter('WORKER')" id="filter-btn-WORKER" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Travailleurs</button>
-                                <button onclick="toggleSimulatedPresence()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100">
-                                    Tester Connexion Live
-                                </button>
+                                <button onclick="setPresenceFilter('MANAGER')" id="filter-btn-MANAGER" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Direction / Managers</button>
+                                <button onclick="setPresenceFilter('WORKER')" id="filter-btn-WORKER" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700">Agents / Employés</button>
                             </div>
                         </div>
 
                         <div id="live-presence-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
                     </div>
 
-                    <!-- Journal des Appels Reçus en Direct -->
+                    <!-- Journal des Appels -->
                     <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                             <div>
-                                <h3 class="font-display text-lg font-extrabold text-slate-900">Journal des Appels VoIP Gratuits ($0.00)</h3>
-                                <p class="text-xs text-slate-500">Historique en direct des communications entrantes, sortantes et internes.</p>
+                                <h3 class="font-display text-lg font-extrabold text-slate-900">Journal des Appels & Historique Call Center</h3>
+                                <p class="text-xs text-slate-500">Appels entrants, sortants, manqués et qualifications.</p>
                             </div>
-                            <button onclick="simulateIncomingCallToMe()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 self-start">
-                                <i class="ph-bold ph-phone-incoming"></i> Recevoir un Appel Test
-                            </button>
+                            <div class="flex gap-2">
+                                <button onclick="exportCallsCSV()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-file-xls"></i> Exporter Appels (.CSV)
+                                </button>
+                                <button onclick="simulateIncomingCallToMe()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-phone-incoming"></i> Tester Sonnerie Entrante
+                                </button>
+                            </div>
                         </div>
 
-                        <!-- Version Desktop -->
                         <div class="hidden md:block overflow-x-auto">
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="border-b border-slate-200 text-[11px] font-extrabold uppercase text-slate-500">
                                         <th class="py-3 px-3">Heure</th>
                                         <th class="py-3 px-3">Correspondants</th>
-                                        <th class="py-3 px-3">Ligne / Campagne</th>
+                                        <th class="py-3 px-3">Campagne / Ligne</th>
                                         <th class="py-3 px-3">Durée</th>
-                                        <th class="py-3 px-3">Statut / Coût</th>
-                                        <th class="py-3 px-3">Qualité & Audio</th>
+                                        <th class="py-3 px-3">Statut</th>
+                                        <th class="py-3 px-3">Qualité & Qualification</th>
                                     </tr>
                                 </thead>
                                 <tbody id="calls-log-tbody" class="divide-y divide-slate-100 text-xs"></tbody>
                             </table>
                         </div>
-                        <!-- Version Mobile Cartes -->
                         <div id="calls-log-mobile" class="md:hidden space-y-3"></div>
                     </div>
                 </section>
@@ -633,6 +608,44 @@
                 </section>
 
                 <!-- ========================================================= -->
+                <!-- VUE 2B : GESTION DOCUMENTAIRE (GED) & ARCHIVES            -->
+                <!-- ========================================================= -->
+                <section id="view-documents" class="app-view hidden space-y-6">
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 class="font-display text-lg font-extrabold text-slate-900">Gestion Documentaire (GED) — Contrats, Factures & Rapports</h3>
+                                <p class="text-xs text-slate-500">Classement centralisé par département, employé et période (PDF, Word, Excel).</p>
+                            </div>
+                            <button onclick="openAddDocumentModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 self-start">
+                                <i class="ph-bold ph-file-plus"></i> Archiver un Document
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                            <select id="ged-filter-dept" onchange="renderDocumentsGED()" class="px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                                <option value="ALL">Tous les départements</option>
+                                <option value="Call Center & Relation Client">Call Center & Relation Client</option>
+                                <option value="WorldConnect Academy">WorldConnect Academy</option>
+                                <option value="Administration & Finances">Administration & Finances</option>
+                                <option value="IT, Développement & Systèmes">IT, Développement & Systèmes</option>
+                                <option value="Commercial, Marketing & Partenariats">Commercial, Marketing & Partenariats</option>
+                            </select>
+                            <select id="ged-filter-type" onchange="renderDocumentsGED()" class="px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                                <option value="ALL">Tous les types (PDF, Word, Excel)</option>
+                                <option value="Contrat">Contrat de travail</option>
+                                <option value="Facture">Facture / Finance</option>
+                                <option value="Rapport">Rapport d'activité</option>
+                                <option value="Fiche de paie">Fiche de paie</option>
+                            </select>
+                            <input type="text" id="ged-search" oninput="renderDocumentsGED()" placeholder="Rechercher par titre ou employé..." class="px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                        </div>
+
+                        <div id="ged-documents-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
                 <!-- VUE 3 : LES 5 DÉPARTEMENTS DE WORLDCONNECT                -->
                 <!-- ========================================================= -->
                 <section id="view-departments" class="app-view hidden space-y-6">
@@ -683,63 +696,118 @@
                 <section id="view-worker-console" class="app-view hidden space-y-6">
                     <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-emerald-950 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <span class="text-[11px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full">Poste Agent Call Center • VoIP Gratuit</span>
-                            <h2 id="worker-welcome-title" class="font-display text-2xl font-extrabold mt-2">Bienvenue</h2>
-                            <p id="worker-dept-subtitle" class="text-xs text-slate-300 mt-0.5">Département</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2.5">
-                            <button onclick="simulateIncomingCallToMe()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2">
-                                <i class="ph-bold ph-phone-incoming text-base"></i> Simuler un Appel Entrant
-                            </button>
-                            <button onclick="openUniversalDialerModal()" class="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-4 py-3 rounded-2xl flex items-center gap-2">
-                                <i class="ph-bold ph-phone-outgoing text-base"></i> Appeler un Collègue / Directeur
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Collègues & Directeurs en ligne -->
-                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
-                        <h3 class="font-display text-base font-extrabold text-slate-900 mb-3">Directeurs & Collègues en Ligne (Appel Gratuit $0.00)</h3>
-                        <div id="worker-online-peers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-                    </div>
-
-                    <!-- Messagerie Instantanée Interne entre Travailleurs & Directeurs -->
-                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
-                        <div class="flex items-center justify-between mb-3">
-                            <div>
-                                <h3 class="font-display text-base font-extrabold text-slate-900 flex items-center gap-2">
-                                    <i class="ph-bold ph-chats-circle text-indigo-600"></i> Canal de Discussion Interne (Travailleurs & Directeurs)
-                                </h3>
-                                <p class="text-xs text-slate-500">Coordination rapide entre départements (enregistrée automatiquement).</p>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold">Poste Opérationnel Actif</span>
+                                <select id="worker-presence-selector" onchange="changeMyPresenceStatus(this.value)" class="bg-slate-800 border border-slate-700 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    <option value="En ligne - Disponible">🟢 Disponible</option>
+                                    <option value="Occupé - En traitement">🟠 Occupé</option>
+                                    <option value="Absent - Pause">🟡 Absent / Pause</option>
+                                </select>
                             </div>
+                            <h3 id="worker-welcome-title" class="font-display text-2xl font-extrabold mt-2">Bienvenue</h3>
+                            <p id="worker-dept-subtitle" class="text-xs text-indigo-200 mt-1">Département & Matricule</p>
                         </div>
-                        <div id="team-chat-messages" class="space-y-2 max-h-56 overflow-y-auto p-3 rounded-2xl bg-slate-50 border border-slate-200 mb-3"></div>
-                        <form onsubmit="sendTeamChatMessage(event)" class="flex gap-2 text-xs">
-                            <input type="text" id="team-chat-input" required placeholder="Écrire un message à l'équipe ou aux superviseurs..."
-                                class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5">
-                                <i class="ph-bold ph-paper-plane-right"></i> Envoyer
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="openUniversalDialerModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold px-4 py-3 rounded-xl flex items-center gap-1.5">
+                                <i class="ph-bold ph-phone-call"></i> Appeler un Collègue / Manager
                             </button>
-                        </form>
+                            <button onclick="simulateIncomingCallToMe()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-3 rounded-xl">
+                                Tester Sonnerie Entrante
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Rémunération & Primes Call Center de l'Agent -->
+                    <!-- Collègues & Directeurs en ligne + Messagerie Interne -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-6 bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
+                            <h4 class="font-display text-base font-extrabold text-slate-900 mb-1">Annuaire Interne & Collègues Connectés</h4>
+                            <p class="text-xs text-slate-500 mb-4">Cliquez sur Appeler pour établir une liaison audio interne.</p>
+                            <div id="worker-online-peers" class="space-y-2.5 max-h-72 overflow-y-auto"></div>
+                        </div>
+
+                        <div class="lg:col-span-6 bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-display text-base font-extrabold text-slate-900 mb-1">Canal de Communication Interne</h4>
+                                <p class="text-xs text-slate-500 mb-3">Échanges rapides entre départements et supervision.</p>
+                                <div id="team-chat-messages" class="space-y-2 max-h-52 overflow-y-auto p-3 rounded-2xl bg-slate-50 border border-slate-200 mb-3"></div>
+                            </div>
+                            <form onsubmit="sendTeamChatMessage(event)" class="flex gap-2">
+                                <input type="text" id="team-chat-input" required placeholder="Écrire un message aux collègues / managers..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl">Envoyer</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Rémunération & Fiche de Paie -->
                     <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                             <div>
-                                <h3 class="font-display text-base font-extrabold text-slate-900">Ma Fiche de Paie & Primes Call Center</h3>
-                                <p class="text-xs text-slate-500">Détail de vos primes de performance, bilinguisme et assiduité.</p>
+                                <h4 class="font-display text-base font-extrabold text-slate-900">Ma Fiche de Paie & Primes Call Center</h4>
+                                <p class="text-xs text-slate-500">Détail de vos rémunérations, primes et demandes RH.</p>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="requestWorkerAdvance()" class="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
-                                    Demander une Avance
-                                </button>
-                                <button onclick="printCurrentWorkerPayslip()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5">
-                                    <i class="ph-bold ph-file-pdf"></i> Bulletin PDF
-                                </button>
+                                <button onclick="requestWorkerAdvance()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-3.5 py-2 rounded-xl">Demander une Avance</button>
+                                <button onclick="printCurrentWorkerPayslip()" class="bg-slate-900 text-white text-xs font-bold px-3.5 py-2 rounded-xl">Mon Bulletin PDF</button>
                             </div>
                         </div>
-                        <div id="worker-salary-breakdown" class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs"></div>
+                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs" id="worker-salary-breakdown"></div>
+                    </div>
+                </section>
+
+                <!-- ========================================================= -->
+                <!-- VUE 6 : WEBMAIL LWS INCRUSTÉ & MESSAGERIE PRO SOCIÉTÉ     -->
+                <!-- ========================================================= -->
+                <section id="view-webmail" class="app-view hidden space-y-6">
+                    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-5">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                            <div>
+                                <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-[11px] font-extrabold mb-1">
+                                    <i class="ph-fill ph-envelope-simple"></i> Hébergement LWS • Messagerie Professionnelle
+                                </div>
+                                <h3 class="font-display text-lg font-extrabold text-slate-900">Webmail LWS Intégré & Boîtes E-mails WorldConnect</h3>
+                                <p class="text-xs text-slate-500">Consultez vos e-mails professionnels LWS directement ici ou basculez entre les boîtes de la société.</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <input type="url" id="lws-webmail-url-input" placeholder="https://webmail.votre-domaine.com"
+                                    class="px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono font-semibold w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <button onclick="updateLwsWebmailUrl()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl">
+                                    Charger Webmail
+                                </button>
+                                <a id="lws-external-link" href="https://webmail.lws.fr" target="_blank" rel="noopener noreferrer"
+                                    class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5">
+                                    <i class="ph-bold ph-arrow-square-out"></i> Ouvrir Plein Écran
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Boîtes e-mails professionnelles attribuées -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2.5">
+                                <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Comptes E-mails de la Société & Collaborateurs</h4>
+                                <button onclick="switchView('access')" class="text-xs font-bold text-indigo-600 hover:underline">+ Modifier ou créer un e-mail</button>
+                            </div>
+                            <div id="company-mailboxes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+                        </div>
+
+                        <!-- Cadre Webmail LWS Incrusté -->
+                        <div class="rounded-2xl border-2 border-slate-200 overflow-hidden bg-slate-100">
+                            <div class="bg-slate-900 text-slate-300 px-4 py-2 text-[11px] flex items-center justify-between">
+                                <span class="flex items-center gap-2 font-mono">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                    <span id="lws-current-frame-label">https://webmail.lws.fr</span>
+                                </span>
+                                <span class="text-slate-400 hidden sm:inline">Roundcube / LWS Webmail SSL</span>
+                            </div>
+                            <div class="relative w-full h-[540px] bg-white">
+                                <iframe id="lws-webmail-iframe" src="https://webmail.lws.fr" class="w-full h-full border-0" title="Webmail LWS WorldConnect"></iframe>
+                            </div>
+                            <div class="p-3 bg-amber-50 border-t border-amber-200 text-[11px] text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span><i class="ph-bold ph-info mr-1"></i> Si votre navigateur bloque l'affichage intégré par sécurité LWS, utilisez le bouton d'ouverture directe.</span>
+                                <a id="lws-fallback-btn" href="https://webmail.lws.fr" target="_blank" rel="noopener noreferrer" class="font-extrabold underline text-indigo-700 shrink-0">
+                                    Accéder directement à ma boîte LWS →
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </main>
@@ -809,7 +877,86 @@
                     <option value="WORKER">Travailleur / Agent</option>
                     <option value="MANAGER">Directeur / Manager</option>
                 </select>
-                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">Enregistrer le Code</button>
+                <input type="email" id="acc-email" required placeholder="E-mail Pro (ex: agent@worldconnect.cd)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">Enregistrer le Code & E-mail</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale Édition Complète Contrôle d'Accès & E-mail d'un Membre -->
+    <div id="edit-user-access-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Contrôle d'Accès & E-mail du Membre</h3>
+                <button onclick="document.getElementById('edit-user-access-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <form onsubmit="submitEditUserAccess(event)" class="space-y-3 text-xs">
+                <input type="hidden" id="edit-acc-code">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Nom Complet</label>
+                        <input type="text" id="edit-acc-name" required class="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Code PIN</label>
+                        <input type="text" id="edit-acc-pin" required class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono font-bold">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">E-mail Professionnel LWS</label>
+                        <input type="email" id="edit-acc-email" required class="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Rôle Plateforme</label>
+                        <select id="edit-acc-role" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold">
+                            <option value="WORKER">Travailleur / Agent</option>
+                            <option value="MANAGER">Directeur / Manager</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5">Permissions des Modules (Cochez les accès autorisés) :</label>
+                    <div id="edit-acc-perms-grid" class="grid grid-cols-2 gap-2 p-3 rounded-2xl bg-slate-50 border border-slate-200"></div>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl">
+                    Enregistrer les Droits & l'E-mail
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale Archiver un Document GED -->
+    <div id="add-document-modal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-display text-lg font-extrabold text-slate-900">Archiver un Document (GED)</h3>
+                <button onclick="document.getElementById('add-document-modal').classList.add('hidden')" class="text-slate-400"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            <form onsubmit="submitNewGedDocument(event)" class="space-y-3 text-xs">
+                <input type="text" id="ged-doc-title" required placeholder="Titre du document (ex: Contrat CDI - Sarah Kabongo)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="ged-doc-type" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                        <option value="Contrat">Contrat</option>
+                        <option value="Facture">Facture</option>
+                        <option value="Rapport">Rapport</option>
+                        <option value="Fiche de paie">Fiche de paie</option>
+                    </select>
+                    <select id="ged-doc-format" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                        <option value="PDF">PDF (.pdf)</option>
+                        <option value="Word">Word (.doc)</option>
+                        <option value="Excel">Excel (.csv)</option>
+                    </select>
+                </div>
+                <select id="ged-doc-dept" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                    <option value="Call Center & Relation Client">Call Center & Relation Client</option>
+                    <option value="WorldConnect Academy">WorldConnect Academy</option>
+                    <option value="Administration & Finances">Administration & Finances</option>
+                    <option value="IT, Développement & Systèmes">IT, Développement & Systèmes</option>
+                    <option value="Commercial, Marketing & Partenariats">Commercial, Marketing & Partenariats</option>
+                </select>
+                <input type="text" id="ged-doc-period" required value="Novembre 2026" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-semibold">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl">Enregistrer dans la GED</button>
             </form>
         </div>
     </div>
@@ -986,64 +1133,91 @@
                 {
                     authCode: 'WC-MGR-001',
                     pin: '1234',
-                    name: 'Amani Nsimba (Directeur Général)',
-                    role: 'MANAGER',
+                    name: 'Amani Nsimba',
+                    role: 'SUPER_ADMIN',
+                    roleLabel: 'Super Administrateur',
                     department: 'Administration & Finances',
                     onlineStatus: 'Hors ligne',
                     sessionStart: null,
                     lastHeartbeat: 0,
                     active: true,
-                    permissions: ['live-supervision', 'analytics', 'billing', 'payroll', 'departments', 'access']
+                    email: 'direction@worldconnect.cd',
+                    permissions: ['live-supervision', 'webmail', 'analytics', 'billing', 'payroll', 'documents', 'departments', 'access', 'worker-console']
                 },
                 {
                     authCode: 'WC-MGR-002',
                     pin: '2026',
-                    name: 'Patrick Ilunga (Superviseur Call Center)',
-                    role: 'MANAGER',
+                    name: 'Patrick Ilunga',
+                    role: 'TEAM_LEADER',
+                    roleLabel: 'Team Leader / Superviseur',
                     department: 'Call Center & Relation Client',
                     onlineStatus: 'Directeur En Ligne (Supervision Active)',
                     sessionStart: Date.now() - 1840000,
                     lastHeartbeat: Date.now(),
                     active: true,
-                    permissions: ['live-supervision', 'analytics', 'payroll', 'departments']
+                    email: 'supervision@worldconnect.cd',
+                    permissions: ['live-supervision', 'webmail', 'analytics', 'payroll', 'documents', 'departments']
                 },
                 {
                     authCode: 'WC-AGT-101',
                     pin: '1111',
-                    name: 'Sarah Kabongo (Agent Bilingue FR/EN)',
-                    role: 'WORKER',
+                    name: 'Sarah Kabongo',
+                    role: 'AGENT',
+                    roleLabel: 'Agent Call Center',
                     department: 'Call Center & Relation Client',
                     onlineStatus: 'En ligne - Disponible',
                     sessionStart: Date.now() - 920000,
                     lastHeartbeat: Date.now(),
                     active: true,
-                    permissions: ['worker-console']
+                    email: 'sarah.kabongo@worldconnect.cd',
+                    permissions: ['worker-console', 'webmail', 'documents']
                 },
                 {
                     authCode: 'WC-AGT-102',
                     pin: '2222',
-                    name: 'Jean-Marc Mukendi (Support Technique)',
-                    role: 'WORKER',
+                    name: 'Jean-Marc Mukendi',
+                    role: 'IT_ADMIN',
+                    roleLabel: 'IT Administrator',
                     department: 'IT, Développement & Systèmes',
                     onlineStatus: 'Hors ligne',
                     sessionStart: null,
                     lastHeartbeat: 0,
                     active: true,
-                    permissions: ['worker-console']
+                    email: 'it.support@worldconnect.cd',
+                    permissions: ['live-supervision', 'webmail', 'access', 'documents', 'worker-console']
                 },
                 {
                     authCode: 'WC-ACA-201',
                     pin: '3333',
-                    name: 'Grace Lumbu (Formatrice Academy)',
-                    role: 'WORKER',
+                    name: 'Grace Lumbu',
+                    role: 'HR_ADMIN',
+                    roleLabel: 'HR Administrator / Academy',
                     department: 'WorldConnect Academy',
                     onlineStatus: 'En ligne - Disponible',
                     sessionStart: Date.now() - 540000,
                     lastHeartbeat: Date.now(),
                     active: true,
-                    permissions: ['worker-console']
+                    email: 'academy@worldconnect.cd',
+                    permissions: ['worker-console', 'payroll', 'documents', 'departments', 'webmail']
                 }
             ],
+            documentsGED: [
+                { id: 'DOC-01', title: 'Contrat CDI — Sarah Kabongo (Agent Bilingue)', type: 'Contrat', format: 'PDF', department: 'Call Center & Relation Client', period: 'Novembre 2026' },
+                { id: 'DOC-02', title: 'Rapport Mensuel Performance Call Center', type: 'Rapport', format: 'Excel', department: 'Call Center & Relation Client', period: 'Novembre 2026' },
+                { id: 'DOC-03', title: 'Facture Prestation Externalisation Horizon Telecom', type: 'Facture', format: 'PDF', department: 'Administration & Finances', period: 'Novembre 2026' },
+                { id: 'DOC-04', title: 'Grille Salariale & Primes KPI Q4', type: 'Fiche de paie', format: 'Word', department: 'Administration & Finances', period: 'Novembre 2026' }
+            ],
+            companyProfile: {
+                legalName: 'WORLDCONNECT SARL',
+                slogan: 'Centre d\'Appels VoIP Gratuit, Academy & Solutions B2B',
+                primaryEmail: 'contact@worldconnect.cd',
+                billingEmail: 'finance@worldconnect.cd',
+                hrEmail: 'rh@worldconnect.cd',
+                phone: '+243 81 000 0000',
+                address: 'Boulevard du 30 Juin, Gombe, Kinshasa, RDC',
+                rccm: 'CD/KNG/RCCM/24-B-00412',
+                webmailUrl: 'https://webmail.lws.fr'
+            },
             departments: [
                 { id: 'DEP-1', name: 'Call Center & Relation Client', head: 'Patrick Ilunga', staffCount: 24, budgetUSD: 11200, desc: 'Réception d\'appels entrants, télévente, support client multicanal.' },
                 { id: 'DEP-2', name: 'WorldConnect Academy', head: 'Grace Lumbu', staffCount: 6, budgetUSD: 3400, desc: 'Formation linguistique, coaching téléphonique et certification.' },
@@ -1099,7 +1273,41 @@
         let audioMeterInterval = null;
         let localMicStream = null;
         let isMuted = false;
+        let isOnHold = false;
+        let isSpeakerLoud = true;
+        let isDarkMode = false;
+        let inactivitySecondsLeft = 900; // 15 minutes
+        let failedLoginAttempts = 0;
+        let lockoutUntil = 0;
         let kpiChartInstance = null;
+
+        const MANAGER_ROLES = ['SUPER_ADMIN', 'DIRECTEUR', 'MANAGER', 'TEAM_LEADER', 'IT_ADMIN', 'HR_ADMIN', 'FINANCE_ADMIN'];
+        function isManagerRole(role) {
+            return MANAGER_ROLES.includes(role);
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            const shell = document.getElementById('app-shell');
+            const btn = document.getElementById('dark-mode-toggle');
+            if (isDarkMode) {
+                document.body.classList.add('bg-slate-950', 'text-slate-100');
+                if (shell) shell.classList.add('bg-slate-950');
+                if (btn) btn.innerHTML = '<i class="ph-bold ph-sun text-base text-amber-400"></i>';
+            } else {
+                document.body.classList.remove('bg-slate-950', 'text-slate-100');
+                if (shell) shell.classList.remove('bg-slate-950');
+                if (btn) btn.innerHTML = '<i class="ph-bold ph-moon text-base"></i>';
+            }
+            showToast(isDarkMode ? 'Mode sombre activé' : 'Mode clair activé');
+        }
+
+        function resetInactivityTimer() {
+            inactivitySecondsLeft = 900;
+        }
+        ['mousemove', 'keydown', 'click', 'touchstart'].forEach(evt => {
+            window.addEventListener(evt, resetInactivityTimer, { passive: true });
+        });
 
         function loadState() {
             try {
@@ -1107,6 +1315,16 @@
                 if (raw) {
                     const parsed = JSON.parse(raw);
                     state = { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...parsed };
+                    // Garantir que les comptes principaux existent toujours même après une ancienne sauvegarde
+                    if (!Array.isArray(state.users) || state.users.length === 0) {
+                        state.users = JSON.parse(JSON.stringify(DEFAULT_STATE.users));
+                    } else {
+                        DEFAULT_STATE.users.forEach(defUser => {
+                            if (!state.users.some(u => u.authCode && u.authCode.toUpperCase() === defUser.authCode)) {
+                                state.users.push(JSON.parse(JSON.stringify(defUser)));
+                            }
+                        });
+                    }
                 }
             } catch (e) {
                 state = JSON.parse(JSON.stringify(DEFAULT_STATE));
@@ -1240,6 +1458,17 @@
         // ==========================================================
         // AUTHENTIFICATION PAR CODE PERSONNEL
         // ==========================================================
+        function toggleAuthFieldVisibility(inputId, btn) {
+            const inp = document.getElementById(inputId);
+            if (!inp) return;
+            const isHidden = inp.type === 'password';
+            inp.type = isHidden ? 'text' : 'password';
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.className = isHidden ? 'ph-bold ph-eye-slash text-lg' : 'ph-bold ph-eye text-lg';
+            }
+        }
+
         function fillAuthDemo(code, pin) {
             document.getElementById('auth-code-input').value = code;
             document.getElementById('auth-pin-input').value = pin;
@@ -1247,37 +1476,62 @@
 
         function authenticateWithCode(e) {
             e.preventDefault();
-            const code = document.getElementById('auth-code-input').value.trim().toUpperCase();
-            const pin = document.getElementById('auth-pin-input').value.trim();
+            if (Date.now() < lockoutUntil) {
+                const waitSec = Math.ceil((lockoutUntil - Date.now()) / 1000);
+                document.getElementById('auth-error-msg').textContent = `Trop de tentatives. Réessayez dans ${waitSec}s.`;
+                document.getElementById('auth-error-box').classList.remove('hidden');
+                return;
+            }
+            if (!state.users || state.users.length === 0) {
+                loadState();
+            }
+            const rawIdentifier = document.getElementById('auth-code-input').value.trim();
+            const codeUpper = rawIdentifier.replace(/\s+/g, '').toUpperCase();
+            const emailLower = rawIdentifier.toLowerCase();
+            const pin = document.getElementById('auth-pin-input').value.replace(/\s+/g, '');
             const errBox = document.getElementById('auth-error-box');
             const errMsg = document.getElementById('auth-error-msg');
 
-            const user = state.users.find(u => u.authCode.toUpperCase() === code && u.pin === pin);
+            const user = state.users.find(u =>
+                (((u.authCode || '').replace(/\s+/g, '').toUpperCase() === codeUpper) ||
+                ((u.email || '').toLowerCase() === emailLower)) &&
+                String(u.pin).trim() === pin
+            );
             if (!user) {
-                errMsg.textContent = 'Code personnel ou PIN incorrect. Vérifiez votre matricule WorldConnect.';
+                failedLoginAttempts++;
+                if (failedLoginAttempts >= 5) {
+                    lockoutUntil = Date.now() + 60000;
+                    failedLoginAttempts = 0;
+                }
+                errMsg.textContent = 'Identifiant ou mot de passe incorrect. Tentative journalisée.';
                 errBox.classList.remove('hidden');
                 return;
             }
             if (!user.active) {
-                errMsg.textContent = 'Ce code d\'accès a été suspendu par la direction.';
+                errMsg.textContent = 'Ce compte a été désactivé par l\'administrateur.';
                 errBox.classList.remove('hidden');
                 return;
             }
 
+            failedLoginAttempts = 0;
+            resetInactivityTimer();
             errBox.classList.add('hidden');
-            user.onlineStatus = user.role === 'MANAGER'
-                ? 'Directeur En Ligne (Supervision Active)'
+            user.onlineStatus = isManagerRole(user.role)
+                ? 'Directeur / Manager En Ligne'
                 : 'En ligne - Disponible';
             user.sessionStart = Date.now();
             user.lastHeartbeat = Date.now();
             state.currentAuthCode = user.authCode;
 
-            if (user.role === 'MANAGER') state.activeView = 'live-supervision';
-            else state.activeView = 'worker-console';
+            if (isManagerRole(user.role) && user.permissions.includes('live-supervision')) {
+                state.activeView = 'live-supervision';
+            } else {
+                state.activeView = 'worker-console';
+            }
 
-            saveState(true, `Connexion validée avec le code ${user.authCode}`);
+            saveState(true, `Connexion sécurisée validée (${user.authCode} — ${user.roleLabel || user.role})`);
             enterApplication();
-            showToast(`Code ${user.authCode} validé — Vous êtes en ligne en temps réel`);
+            showToast(`Bienvenue ${user.name} (${user.roleLabel || user.role})`);
         }
 
         function enterApplication() {
@@ -1290,8 +1544,7 @@
             document.getElementById('sidebar-auth-code').textContent = me.authCode;
             document.getElementById('sidebar-user-name').textContent = me.name;
             document.getElementById('sidebar-user-dept').textContent = me.department;
-            document.getElementById('sidebar-role-badge').textContent =
-                me.role === 'MANAGER' ? 'Direction / Manager' : 'Travailleur';
+            document.getElementById('sidebar-role-badge').textContent = me.roleLabel || me.role;
 
             buildNavigationForRole(me);
             switchView(state.activeView);
@@ -1314,12 +1567,14 @@
         function buildNavigationForRole(me) {
             const allMenus = [
                 { id: 'live-supervision', label: 'Supervision & ACD', icon: 'ph-broadcast' },
+                { id: 'webmail', label: 'Webmail LWS & Mails', icon: 'ph-envelope-simple' },
                 { id: 'analytics', label: 'Analytics & KPI', icon: 'ph-chart-line-up' },
-                { id: 'billing', label: 'Facturation & Caisse', icon: 'ph-wallet' },
-                { id: 'payroll', label: 'Payroll & Salaires', icon: 'ph-money' },
+                { id: 'billing', label: 'Finances & Caisse', icon: 'ph-wallet' },
+                { id: 'payroll', label: 'Employés & Payroll', icon: 'ph-money' },
+                { id: 'documents', label: 'Documents (GED)', icon: 'ph-folder-open' },
                 { id: 'departments', label: 'Départements (5)', icon: 'ph-buildings' },
-                { id: 'access', label: 'Codes & Accès', icon: 'ph-shield-check' },
-                { id: 'worker-console', label: 'Mon Poste Travailleur', icon: 'ph-headset' }
+                { id: 'access', label: 'Sécurité & Rôles', icon: 'ph-shield-check' },
+                { id: 'worker-console', label: 'Mon Poste Agent', icon: 'ph-headset' }
             ];
 
             const allowed = allMenus.filter(m => me.permissions.includes(m.id));
@@ -1361,12 +1616,14 @@
 
             const titles = {
                 'live-supervision': 'Supervision Temps Réel, File ACD & Écoute Discrète',
-                'analytics': 'Tableau de Bord Analytique Call Center (DMT, SLA & Top Agents)',
-                'billing': 'Comptabilité & Trésorerie Multi-Canaux',
-                'payroll': 'Payroll Call Center & Bulletins PDF',
-                'departments': 'Les 5 Départements WorldConnect',
-                'access': 'Codes d\'Authentification & Matrice RBAC',
-                'worker-console': 'Espace Travailleur, Équipe En Ligne & VoIP Gratuit'
+                'webmail': 'Messagerie Professionnelle LWS Webmail & Annuaire',
+                'analytics': 'Statistiques Call Center (DMT, SLA & Performance)',
+                'billing': 'Finances, Recettes, Dépenses & Trésorerie',
+                'payroll': 'Gestion des Employés, Salaires & Bulletins PDF',
+                'documents': 'Gestion Documentaire (GED) — Contrats, Factures & Rapports',
+                'departments': 'Organisation par Département WorldConnect',
+                'access': 'Authentification, 9 Rôles & Paramètres Société',
+                'worker-console': 'Poste Agent, Annuaire Interne & Softphone WebRTC'
             };
             document.getElementById('header-page-title').textContent = titles[viewId] || 'WorldConnect';
             refreshActiveViews();
@@ -1380,9 +1637,11 @@
         function refreshActiveViews() {
             syncGlobalCallBanner();
             renderManagerLiveSupervision();
+            renderWebmailView();
             renderAnalyticsView();
             renderBillingAndTreasury();
             renderPayrollTable();
+            renderDocumentsGED();
             renderDepartments();
             renderAccessMatrix();
             renderAuditTrail();
@@ -1536,12 +1795,129 @@
             }
             const btn = document.getElementById('global-mute-btn');
             const txt = document.getElementById('global-mute-text');
-            if (txt) txt.textContent = isMuted ? 'Micro coupé' : 'Micro actif';
+            if (txt) txt.textContent = isMuted ? 'Micro coupé' : 'Micro';
             if (btn) {
                 btn.className = isMuted
-                    ? 'bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5'
-                    : 'bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5';
+                    ? 'bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1'
+                    : 'bg-indigo-800 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1';
             }
+        }
+
+        function toggleGlobalHold() {
+            isOnHold = !isOnHold;
+            if (localMicStream) {
+                localMicStream.getAudioTracks().forEach(t => t.enabled = !isOnHold && !isMuted);
+            }
+            const btn = document.getElementById('global-hold-btn');
+            const txt = document.getElementById('global-hold-text');
+            if (txt) txt.textContent = isOnHold ? 'En attente' : 'Attente';
+            if (btn) {
+                btn.className = isOnHold
+                    ? 'bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-2 rounded-xl flex items-center gap-1 animate-pulse'
+                    : 'bg-amber-600/80 hover:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1';
+            }
+            showToast(isOnHold ? 'Correspondant mis en attente' : 'Communication reprise');
+        }
+
+        function toggleSpeakerOutput() {
+            isSpeakerLoud = !isSpeakerLoud;
+            const txt = document.getElementById('global-speaker-text');
+            if (txt) txt.textContent = isSpeakerLoud ? 'Haut-parleur' : 'Écouteur';
+            showToast(isSpeakerLoud ? 'Sortie audio : Haut-parleur actif' : 'Sortie audio : Mode combiné');
+        }
+
+        function exportCallsCSV() {
+            const rows = [['Heure', 'Correspondants', 'Campagne', 'Duree', 'Statut', 'Score_QA', 'Qualification']];
+            state.callsLog.forEach(c => {
+                rows.push([c.time, c.caller, c.campaign, c.duration, c.status, c.qaScore || 95, c.qualification]);
+            });
+            const csv = rows.map(r => r.join(';')).join('\n');
+            downloadBlob(csv, 'WorldConnect_Historique_Appels.csv', 'text/csv;charset=utf-8;');
+            showToast('Historique des appels exporté (.CSV)');
+        }
+
+        function renderDocumentsGED() {
+            const grid = document.getElementById('ged-documents-grid');
+            if (!grid) return;
+            const deptFilter = document.getElementById('ged-filter-dept')?.value || 'ALL';
+            const typeFilter = document.getElementById('ged-filter-type')?.value || 'ALL';
+            const query = (document.getElementById('ged-search')?.value || '').toLowerCase();
+
+            const docs = (state.documentsGED || []).filter(d => {
+                const matchDept = deptFilter === 'ALL' || d.department === deptFilter;
+                const matchType = typeFilter === 'ALL' || d.type === typeFilter;
+                const matchText = !query || d.title.toLowerCase().includes(query) || d.period.toLowerCase().includes(query);
+                return matchDept && matchType && matchText;
+            });
+
+            grid.innerHTML = docs.map(d => {
+                const badgeColor = d.format === 'PDF' ? 'bg-rose-100 text-rose-800' : (d.format === 'Excel' ? 'bg-emerald-100 text-emerald-800' : 'bg-indigo-100 text-indigo-800');
+                return `
+                    <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between gap-3 text-xs">
+                        <div>
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${badgeColor}">${d.format} • ${d.type}</span>
+                                <span class="text-[11px] font-mono text-slate-500">${d.period}</span>
+                            </div>
+                            <h4 class="font-extrabold text-slate-900 text-sm mt-2">${d.title}</h4>
+                            <p class="text-[11px] text-slate-500 mt-1">${d.department}</p>
+                        </div>
+                        <button onclick="downloadGedDocument('${d.id}')" class="w-full bg-slate-900 hover:bg-indigo-600 text-white font-bold py-2 rounded-xl flex items-center justify-center gap-1.5">
+                            <i class="ph-bold ph-download-simple"></i> Télécharger (${d.format})
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openAddDocumentModal() {
+            document.getElementById('add-document-modal').classList.remove('hidden');
+        }
+
+        function submitNewGedDocument(e) {
+            e.preventDefault();
+            const title = document.getElementById('ged-doc-title').value.trim();
+            const type = document.getElementById('ged-doc-type').value;
+            const format = document.getElementById('ged-doc-format').value;
+            const department = document.getElementById('ged-doc-dept').value;
+            const period = document.getElementById('ged-doc-period').value.trim();
+
+            if (!Array.isArray(state.documentsGED)) state.documentsGED = [];
+            state.documentsGED.unshift({
+                id: 'DOC-' + Math.floor(10 + Math.random() * 89),
+                title,
+                type,
+                format,
+                department,
+                period
+            });
+            saveState(true, `Archivage document GED : ${title} (${format})`);
+            document.getElementById('add-document-modal').classList.add('hidden');
+            renderDocumentsGED();
+            showToast('Document archivé dans la GED');
+        }
+
+        function downloadGedDocument(docId) {
+            const d = (state.documentsGED || []).find(x => x.id === docId);
+            if (!d) return;
+            if (d.format === 'Excel') {
+                downloadBlob(`Reference;Titre;Type;Departement;Periode\n${d.id};${d.title};${d.type};${d.department};${d.period}`, `${d.id}.csv`, 'text/csv;charset=utf-8;');
+            } else if (d.format === 'Word') {
+                downloadBlob(`<html><head><meta charset="utf-8"></head><body><h1>${d.title}</h1><p>Département : ${d.department} | Période : ${d.period}</p></body></html>`, `${d.id}.doc`, 'application/msword');
+            } else {
+                const area = document.getElementById('printable-area');
+                area.innerHTML = `<div class="p-6"><h2 class="font-display text-xl font-extrabold">${d.title}</h2><p class="text-xs text-slate-500 mt-1">Département : ${d.department} • Période : ${d.period}</p><hr class="my-4"><p class="text-xs">Document officiel archivé dans la GED WorldConnect SARL (${d.id}).</p></div>`;
+                document.getElementById('payslip-modal').classList.remove('hidden');
+            }
+        }
+
+        function changeMyPresenceStatus(newStatus) {
+            const me = getCurrentUser();
+            if (!me) return;
+            me.onlineStatus = newStatus;
+            saveState(true, `Changement de statut de présence (${newStatus})`);
+            refreshActiveViews();
+            showToast(`Statut mis à jour : ${newStatus}`);
         }
 
         function hangupGlobalCall(customReason) {
@@ -1867,17 +2243,15 @@
                 const filtered = staff.filter(u => presenceRoleFilter === 'ALL' || u.role === presenceRoleFilter);
                 grid.innerHTML = filtered.map(u => {
                     const isOnline = u.onlineStatus !== 'Hors ligne';
-                    const isMgr = u.role === 'MANAGER';
+                    const isMgr = isManagerRole(u.role);
                     return `
                         <div class="p-4 rounded-2xl border ${isOnline ? 'border-emerald-200 bg-emerald-50/25' : 'border-slate-200 bg-slate-50/70'} flex flex-col justify-between gap-3">
                             <div class="flex items-start justify-between gap-2">
                                 <div>
                                     <div class="flex items-center gap-1.5">
                                         <span class="w-2.5 h-2.5 rounded-full ${isOnline ? 'bg-emerald-500 animate-ping' : 'bg-slate-300'}"></span>
-                                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md ${isMgr ? 'bg-indigo-100 text-indigo-800' : 'bg-cyan-100 text-cyan-800'}">
-                                            ${isMgr ? 'Directeur' : 'Travailleur'}
-                                        </span>
-                                        <span class="text-[11px] font-mono font-bold text-slate-500">${u.authCode}</span>
+                                        <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full ${isMgr ? 'bg-indigo-100 text-indigo-800' : 'bg-emerald-100 text-emerald-800'}">${u.roleLabel || u.role}</span>
+                                        <span class="font-mono text-[11px] font-bold text-slate-500">${u.authCode}</span>
                                     </div>
                                     <p class="text-sm font-extrabold text-slate-900 mt-1.5">${u.name}</p>
                                     <p class="text-[11px] text-slate-500">${u.department}</p>
@@ -2449,24 +2823,221 @@
         function renderAccessMatrix() {
             const container = document.getElementById('access-matrix-container');
             if (!container) return;
-            container.innerHTML = state.users.map(u => `
+            const cp = state.companyProfile || DEFAULT_STATE.companyProfile;
+
+            const companyFormHtml = `
+                <div class="p-5 rounded-2xl border-2 border-indigo-100 bg-indigo-50/40 mb-5 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h4 class="font-display text-base font-extrabold text-slate-900 flex items-center gap-2">
+                                <i class="ph-bold ph-buildings text-indigo-600"></i> Identité, E-mails Officiels & Serveur Webmail LWS de la Société
+                            </h4>
+                            <p class="text-[11px] text-slate-500">Modifiez ici les e-mails de la société, le lien Webmail LWS et les taux de change.</p>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 self-start">Sauvegarde Auto</span>
+                    </div>
+                    <form onsubmit="saveCompanySettings(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Nom de la Société</label>
+                            <input type="text" id="cp-legal-name" value="${cp.legalName}" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-bold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">E-mail Principal Société (LWS)</label>
+                            <input type="email" id="cp-primary-email" value="${cp.primaryEmail}" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">E-mail Facturation & Finances</label>
+                            <input type="email" id="cp-billing-email" value="${cp.billingEmail}" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">E-mail Ressources Humaines</label>
+                            <input type="email" id="cp-hr-email" value="${cp.hrEmail}" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">URL Webmail LWS (Roundcube / Domaine)</label>
+                            <input type="url" id="cp-webmail-url" value="${cp.webmailUrl}" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Téléphone & Adresse Kinshasa</label>
+                            <input type="text" id="cp-address" value="${cp.address}" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                        </div>
+                        <div class="sm:col-span-2 lg:col-span-3 flex justify-end pt-1">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2.5 rounded-xl shadow-sm flex items-center gap-1.5">
+                                <i class="ph-bold ph-floppy-disk"></i> Enregistrer les Paramètres & E-mails Société
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <h4 class="font-display text-sm font-extrabold text-slate-900 mb-2">Contrôle d'Accès Individuel, Codes & Adresses E-mail des Membres</h4>
+            `;
+
+            const usersHtml = state.users.map(u => `
                 <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                     <div>
-                        <div class="flex items-center gap-2">
+                        <div class="flex flex-wrap items-center gap-2">
                             <span class="font-mono font-extrabold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">${u.authCode}</span>
                             <span class="text-[11px] text-slate-500">PIN: <strong class="font-mono">${u.pin}</strong></span>
+                            <span class="text-[11px] font-semibold text-cyan-800 bg-cyan-50 px-2 py-0.5 rounded">${u.email || 'non-defini@worldconnect.cd'}</span>
                             <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold ${u.active ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
                                 ${u.active ? 'Code Actif' : 'Révoqué'}
                             </span>
                         </div>
                         <p class="font-bold text-slate-900 mt-1">${u.name} — <span class="text-slate-500">${u.department}</span></p>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Accès autorisés : <strong class="text-slate-700">${u.permissions.join(', ')}</strong></p>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Modules autorisés : <strong class="text-slate-700">${u.permissions.join(', ')}</strong></p>
                     </div>
-                    <button onclick="toggleUserCodeActive('${u.authCode}')" class="px-3.5 py-2 rounded-xl font-bold ${u.active ? 'bg-rose-100 text-rose-700 hover:bg-rose-200' : 'bg-emerald-600 text-white'} self-start sm:self-center">
-                        ${u.active ? 'Suspendre le Code' : 'Réactiver le Code'}
-                    </button>
+                    <div class="flex flex-wrap items-center gap-2 self-start sm:self-center">
+                        <button onclick="openEditUserAccessModal('${u.authCode}')" class="px-3 py-2 rounded-xl font-bold bg-indigo-600 text-white hover:bg-indigo-700">
+                            Modifier Accès & Mail
+                        </button>
+                        <button onclick="toggleUserCodeActive('${u.authCode}')" class="px-3 py-2 rounded-xl font-bold ${u.active ? 'bg-rose-100 text-rose-700 hover:bg-rose-200' : 'bg-emerald-600 text-white'}">
+                            ${u.active ? 'Suspendre' : 'Activer'}
+                        </button>
+                    </div>
                 </div>
             `).join('');
+
+            container.innerHTML = companyFormHtml + usersHtml;
+        }
+
+        function saveCompanySettings(e) {
+            e.preventDefault();
+            if (!state.companyProfile) state.companyProfile = { ...DEFAULT_STATE.companyProfile };
+            state.companyProfile.legalName = document.getElementById('cp-legal-name').value.trim();
+            state.companyProfile.primaryEmail = document.getElementById('cp-primary-email').value.trim();
+            state.companyProfile.billingEmail = document.getElementById('cp-billing-email').value.trim();
+            state.companyProfile.hrEmail = document.getElementById('cp-hr-email').value.trim();
+            state.companyProfile.webmailUrl = document.getElementById('cp-webmail-url').value.trim();
+            state.companyProfile.address = document.getElementById('cp-address').value.trim();
+            saveState(true, `Mise à jour des coordonnées et e-mails de la société (${state.companyProfile.primaryEmail})`);
+            renderWebmailView();
+            showToast('Paramètres et e-mails de la société sauvegardés');
+        }
+
+        const ALL_AVAILABLE_MODULES = [
+            { id: 'live-supervision', label: 'Supervision Live & ACD' },
+            { id: 'webmail', label: 'Webmail LWS & E-mails' },
+            { id: 'analytics', label: 'Analytics & KPI' },
+            { id: 'billing', label: 'Facturation & Caisse' },
+            { id: 'payroll', label: 'Payroll & Salaires' },
+            { id: 'departments', label: 'Départements (5)' },
+            { id: 'access', label: 'Contrôle Société & Codes' },
+            { id: 'worker-console', label: 'Poste Travailleur' }
+        ];
+
+        function openEditUserAccessModal(code) {
+            const u = state.users.find(x => x.authCode === code);
+            if (!u) return;
+            document.getElementById('edit-acc-code').value = u.authCode;
+            document.getElementById('edit-acc-name').value = u.name;
+            document.getElementById('edit-acc-pin').value = u.pin;
+            document.getElementById('edit-acc-email').value = u.email || '';
+            document.getElementById('edit-acc-role').value = u.role;
+
+            const grid = document.getElementById('edit-acc-perms-grid');
+            grid.innerHTML = ALL_AVAILABLE_MODULES.map(m => {
+                const checked = u.permissions.includes(m.id) ? 'checked' : '';
+                return `
+                    <label class="flex items-center gap-2 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer hover:bg-indigo-50/50">
+                        <input type="checkbox" name="edit-perm-item" value="${m.id}" ${checked} class="rounded text-indigo-600">
+                        <span class="font-semibold text-slate-800">${m.label}</span>
+                    </label>
+                `;
+            }).join('');
+
+            document.getElementById('edit-user-access-modal').classList.remove('hidden');
+        }
+
+        function submitEditUserAccess(e) {
+            e.preventDefault();
+            const code = document.getElementById('edit-acc-code').value;
+            const u = state.users.find(x => x.authCode === code);
+            if (!u) return;
+
+            u.name = document.getElementById('edit-acc-name').value.trim();
+            u.pin = document.getElementById('edit-acc-pin').value.trim();
+            u.email = document.getElementById('edit-acc-email').value.trim();
+            u.role = document.getElementById('edit-acc-role').value;
+
+            const selectedPerms = Array.from(document.querySelectorAll('input[name="edit-perm-item"]:checked')).map(cb => cb.value);
+            u.permissions = selectedPerms.length > 0 ? selectedPerms : ['worker-console'];
+
+            saveState(true, `Mise à jour des accès et de l'e-mail (${u.email}) pour ${u.authCode}`);
+            document.getElementById('edit-user-access-modal').classList.add('hidden');
+
+            const me = getCurrentUser();
+            if (me && me.authCode === u.authCode) {
+                buildNavigationForRole(u);
+            }
+            refreshActiveViews();
+            showToast(`Droits d'accès et e-mail de ${u.name} mis à jour`);
+        }
+
+        function renderWebmailView() {
+            const cp = state.companyProfile || DEFAULT_STATE.companyProfile;
+            const url = cp.webmailUrl || 'https://webmail.lws.fr';
+
+            const inp = document.getElementById('lws-webmail-url-input');
+            const ext = document.getElementById('lws-external-link');
+            const fb = document.getElementById('lws-fallback-btn');
+            const lbl = document.getElementById('lws-current-frame-label');
+            const frame = document.getElementById('lws-webmail-iframe');
+
+            if (inp && !inp.value) inp.value = url;
+            if (ext) ext.href = url;
+            if (fb) fb.href = url;
+            if (lbl) lbl.textContent = url;
+            if (frame && frame.getAttribute('data-loaded-url') !== url) {
+                frame.src = url;
+                frame.setAttribute('data-loaded-url', url);
+            }
+
+            const mbGrid = document.getElementById('company-mailboxes-grid');
+            if (mbGrid) {
+                const boxes = [
+                    { label: 'Direction Générale', email: cp.primaryEmail, tag: 'Principal LWS' },
+                    { label: 'Facturation & Finances', email: cp.billingEmail, tag: 'Comptabilité' },
+                    { label: 'Ressources Humaines', email: cp.hrEmail, tag: 'Payroll' },
+                    ...state.users.slice(0, 3).map(u => ({
+                        label: u.name.split('(')[0].trim(),
+                        email: u.email || 'agent@worldconnect.cd',
+                        tag: u.authCode
+                    }))
+                ];
+                mbGrid.innerHTML = boxes.map(b => `
+                    <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col justify-between gap-1.5 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-900 truncate">${b.label}</span>
+                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700">${b.tag}</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 pt-1">
+                            <span class="font-mono text-[11px] text-slate-600 truncate">${b.email}</span>
+                            <button onclick="copyEmailAddress('${b.email}')" class="text-indigo-600 hover:text-indigo-800 font-bold shrink-0" title="Copier l'adresse">
+                                <i class="ph-bold ph-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateLwsWebmailUrl() {
+            const inp = document.getElementById('lws-webmail-url-input');
+            if (!inp || !inp.value.trim()) return;
+            if (!state.companyProfile) state.companyProfile = { ...DEFAULT_STATE.companyProfile };
+            state.companyProfile.webmailUrl = inp.value.trim();
+            saveState(true, `URL Webmail LWS modifiée (${state.companyProfile.webmailUrl})`);
+            renderWebmailView();
+            showToast('Adresse Webmail LWS mise à jour');
+        }
+
+        function copyEmailAddress(email) {
+            const temp = document.createElement('input');
+            temp.value = email;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(`Adresse copiée : ${email}`);
         }
 
         function toggleUserCodeActive(code) {
@@ -2505,15 +3076,17 @@
             const code = document.getElementById('acc-code').value.trim().toUpperCase();
             const pin = document.getElementById('acc-pin').value.trim();
             const role = document.getElementById('acc-role').value;
+            const email = document.getElementById('acc-email')?.value.trim() || `${code.toLowerCase()}@worldconnect.cd`;
             const perms = role === 'MANAGER'
-                ? ['live-supervision', 'analytics', 'billing', 'payroll', 'departments', 'access']
-                : ['worker-console'];
+                ? ['live-supervision', 'webmail', 'analytics', 'billing', 'payroll', 'departments', 'access']
+                : ['worker-console', 'webmail'];
 
             state.users.push({
                 authCode: code,
                 pin,
                 name,
                 role,
+                email,
                 department: 'Call Center & Relation Client',
                 onlineStatus: 'Hors ligne',
                 sessionStart: null,
@@ -2521,10 +3094,10 @@
                 active: true,
                 permissions: perms
             });
-            saveState(true, `Création du code d'accès ${code} (${role})`);
+            saveState(true, `Création du code d'accès ${code} (${role}) et e-mail ${email}`);
             document.getElementById('new-code-modal').classList.add('hidden');
             renderAccessMatrix();
-            showToast(`Code ${code} créé et activé`);
+            showToast(`Code ${code} et e-mail ${email} créés`);
         }
 
         function renderWorkerConsole() {
@@ -2656,6 +3229,273 @@
             showToast('Sauvegarde complète JSON exportée');
         }
 
+        async function downloadFullProjectZip() {
+            if (typeof JSZip === 'undefined') {
+                showToast('Bibliothèque ZIP en cours de chargement, réessayez dans 2 secondes.');
+                return;
+            }
+            showToast('Génération de l\'archive WorldConnect_Full_Stack.zip...');
+            const zip = new JSZip();
+
+            // 1. Frontend complet (capture du document HTML courant)
+            const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+            zip.file('index.html', fullHtml);
+
+            // 2. Schéma MySQL d'installation
+            const sqlContent = `-- Base de données WorldConnect ERP & Call Center Pro
+CREATE DATABASE IF NOT EXISTS worldconnect_erp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE worldconnect_erp;
+
+CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(20) UNIQUE NOT NULL,
+    name VARCHAR(120) NOT NULL,
+    head_name VARCHAR(120),
+    monthly_budget DECIMAL(12,2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_code VARCHAR(30) UNIQUE NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(150) NOT NULL,
+    role ENUM('SUPER_ADMIN','DIRECTEUR','MANAGER','TEAM_LEADER','IT_ADMIN','HR_ADMIN','FINANCE_ADMIN','AGENT','EMPLOYE') NOT NULL DEFAULT 'EMPLOYE',
+    department_id INT,
+    hire_date DATE,
+    contract_type VARCHAR(50) DEFAULT 'CDI',
+    base_salary_usd DECIMAL(10,2) DEFAULT 0.00,
+    presence_status ENUM('DISPONIBLE','OCCUPE','ABSENT','HORS_LIGNE') DEFAULT 'HORS_LIGNE',
+    is_active TINYINT(1) DEFAULT 1,
+    failed_attempts INT DEFAULT 0,
+    locked_until DATETIME NULL,
+    last_login_at DATETIME NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL
+);
+
+CREATE TABLE call_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    call_uuid VARCHAR(64) UNIQUE NOT NULL,
+    caller_id INT NOT NULL,
+    callee_id INT NOT NULL,
+    direction ENUM('ENTRANT','SORTANT','INTERNE') DEFAULT 'INTERNE',
+    status ENUM('REPONDU','MANQUE','REFUSE') NOT NULL,
+    duration_seconds INT DEFAULT 0,
+    recording_path VARCHAR(255) NULL,
+    qa_score TINYINT UNSIGNED NULL,
+    qualification TEXT,
+    started_at DATETIME NOT NULL,
+    ended_at DATETIME NULL,
+    FOREIGN KEY (caller_id) REFERENCES users(id),
+    FOREIGN KEY (callee_id) REFERENCES users(id)
+);
+
+CREATE TABLE payroll_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    period_month VARCHAR(7) NOT NULL,
+    base_salary DECIMAL(10,2) NOT NULL,
+    kpi_bonus DECIMAL(10,2) DEFAULT 0.00,
+    bilingual_bonus DECIMAL(10,2) DEFAULT 0.00,
+    attendance_bonus DECIMAL(10,2) DEFAULT 0.00,
+    advance_deduction DECIMAL(10,2) DEFAULT 0.00,
+    net_paid DECIMAL(10,2) NOT NULL,
+    payment_status ENUM('BROUILLON','VALIDE','PAYE') DEFAULT 'BROUILLON',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE documents_ged (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    doc_type ENUM('CONTRAT','FACTURE','RAPPORT','FICHE_PAIE','ADMIN') NOT NULL,
+    file_format ENUM('PDF','WORD','EXCEL') NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    department_id INT NULL,
+    employee_id INT NULL,
+    period_label VARCHAR(50),
+    uploaded_by INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL,
+    FOREIGN KEY (employee_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (uploaded_by) REFERENCES users(id)
+);
+
+CREATE TABLE audit_logs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    action_type VARCHAR(80) NOT NULL,
+    details TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO departments (code, name, head_name, monthly_budget) VALUES
+('DEP-CC', 'Call Center & Relation Client', 'Patrick Ilunga', 11200.00),
+('DEP-AC', 'WorldConnect Academy', 'Grace Lumbu', 3400.00),
+('DEP-AF', 'Administration & Finances', 'Amani Nsimba', 2900.00),
+('DEP-IT', 'IT, Développement & Systèmes', 'Jean-Marc Mukendi', 4100.00),
+('DEP-CM', 'Commercial, Marketing & Partenariats', 'Clarisse Kalala', 3800.00);
+`;
+            zip.file('database/install_worldconnect.sql', sqlContent);
+
+            // 3. Backend PHP sécurisé
+            const phpContent = `<?php
+declare(strict_types=1);
+session_start([
+    'cookie_httponly' => true,
+    'cookie_secure'   => true,
+    'cookie_samesite' => 'Strict'
+]);
+header('Content-Type: application/json; charset=utf-8');
+
+$dsn  = 'mysql:host=localhost;dbname=worldconnect_erp;charset=utf8mb4';
+$user = 'DB_USER_LWS';
+$pass = 'DB_PASSWORD_LWS';
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Erreur de connexion à la base de données.']);
+    exit;
+}
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+$action = $_GET['action'] ?? '';
+if ($action === 'csrf') {
+    echo json_encode(['csrf_token' => $_SESSION['csrf_token']]);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'login') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $csrf  = $input['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $csrf)) {
+        http_response_code(403);
+        echo json_encode(['error' => 'Jeton CSRF invalide.']);
+        exit;
+    }
+
+    $identifier = trim((string)($input['identifier'] ?? ''));
+    $password   = (string)($input['password'] ?? '');
+    $ip         = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE (employee_code = :id OR email = :id) LIMIT 1');
+    $stmt->execute([':id' => $identifier]);
+    $u = $stmt->fetch();
+
+    if (!$u || (int)$u['is_active'] !== 1 || !password_verify($password, $u['password_hash'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Identifiants invalides.']);
+        exit;
+    }
+
+    session_regenerate_id(true);
+    $_SESSION['user_id']       = (int)$u['id'];
+    $_SESSION['role']          = $u['role'];
+    $_SESSION['last_activity'] = time();
+
+    $pdo->prepare("UPDATE users SET failed_attempts = 0, locked_until = NULL, presence_status = 'DISPONIBLE', last_login_at = NOW() WHERE id = ?")
+        ->execute([$u['id']]);
+    $pdo->prepare('INSERT INTO audit_logs (user_id, ip_address, action_type, details) VALUES (?, ?, ?, ?)')
+        ->execute([$u['id'], $ip, 'LOGIN_SUCCESS', 'Connexion réussie']);
+
+    unset($u['password_hash']);
+    echo json_encode(['status' => 'ok', 'user' => $u]);
+    exit;
+}
+
+if (php_sapi_name() === 'cli' && ($argv[1] ?? '') === 'init-admin') {
+    $hash = password_hash($argv[2] ?? 'ChangeMe@2026!', PASSWORD_BCRYPT, ['cost' => 12]);
+    $stmt = $pdo->prepare("INSERT IGNORE INTO users (employee_code, email, password_hash, full_name, role, department_id) VALUES ('WC-MGR-001', 'direction@worldconnect.cd', ?, 'Amani Nsimba', 'SUPER_ADMIN', 3)");
+    $stmt->execute([$hash]);
+    echo "Super Administrateur initialisé.\\n";
+}
+`;
+            zip.file('api/auth_api.php', phpContent);
+
+            // 4. Serveur VoIP WebRTC Node.js (VPS)
+            const wsContent = `const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8443 });
+const connectedPeers = new Map();
+
+function broadcastPresence() {
+    const onlineList = Array.from(connectedPeers.entries()).map(([code, info]) => ({
+        employeeCode: code,
+        fullName: info.fullName,
+        role: info.role,
+        status: info.status
+    }));
+    const payload = JSON.stringify({ type: 'PRESENCE_UPDATE', peers: onlineList });
+    for (const [, client] of connectedPeers) {
+        if (client.ws.readyState === WebSocket.OPEN) client.ws.send(payload);
+    }
+}
+
+wss.on('connection', (ws) => {
+    let registeredCode = null;
+    ws.on('message', (raw) => {
+        try {
+            const msg = JSON.parse(raw);
+            if (msg.type === 'REGISTER') {
+                registeredCode = msg.employeeCode;
+                connectedPeers.set(registeredCode, { ws, fullName: msg.fullName, role: msg.role, status: 'DISPONIBLE' });
+                broadcastPresence();
+                return;
+            }
+            if (['WEBRTC_OFFER', 'WEBRTC_ANSWER', 'ICE_CANDIDATE', 'CALL_REJECT', 'CALL_HANGUP'].includes(msg.type)) {
+                const target = connectedPeers.get(msg.targetCode);
+                if (target && target.ws.readyState === WebSocket.OPEN) {
+                    target.ws.send(JSON.stringify({ ...msg, fromCode: registeredCode }));
+                }
+            }
+        } catch (err) {
+            console.error('Erreur WebSocket:', err.message);
+        }
+    });
+    ws.on('close', () => {
+        if (registeredCode) {
+            connectedPeers.delete(registeredCode);
+            broadcastPresence();
+        }
+    });
+});
+console.log('Serveur de signalisation WebRTC WorldConnect actif sur le port 8443');
+`;
+            zip.file('voip-vps/signaling_server.js', wsContent);
+            zip.file('voip-vps/package.json', JSON.stringify({
+                name: 'worldconnect-webrtc-signaling',
+                version: '1.0.0',
+                main: 'signaling_server.js',
+                scripts: { start: 'node signaling_server.js' },
+                dependencies: { ws: '^8.18.0' }
+            }, null, 2));
+
+            // 5. Sauvegarde JSON courante & Guide d'installation
+            zip.file('backup/worldconnect_data_snapshot.json', JSON.stringify(state, null, 2));
+            zip.file('README_INSTALLATION_LWS_VPS.md', `# Guide d'Installation WorldConnect Pro (LWS + VPS VoIP)\n\n## 1. Déploiement sur Hébergement LWS\n1. Importez \`database/install_worldconnect.sql\` dans phpMyAdmin.\n2. Téléversez \`index.html\` et le dossier \`api/auth_api.php\` à la racine de votre espace Web LWS (\`htdocs/\`).\n3. Renseignez vos identifiants MySQL LWS dans \`api/auth_api.php\`.\n4. Créez le Super Administrateur initial via SSH ou tâche Cron : \`php api/auth_api.php init-admin VotreMotDePasseFort\`.\n\n## 2. Déploiement des Appels Audio Réels (VPS)\n1. Sur votre VPS Linux (Ubuntu/Debian), installez Node.js et Coturn (\`apt install nodejs npm coturn\`).\n2. Copiez le dossier \`voip-vps/\` et lancez \`npm install && node signaling_server.js\` avec PM2.\n`);
+
+            const blob = await zip.generateAsync({ type: 'blob' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'WorldConnect_Pro_Complet_LWS_VPS.zip';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Archive WorldConnect_Pro_Complet_LWS_VPS.zip téléchargée !');
+        }
+
         function downloadBlob(content, filename, mimeType) {
             const blob = new Blob([content], { type: mimeType });
             const url = URL.createObjectURL(blob);
@@ -2693,6 +3533,20 @@
                     const start = Number(el.getAttribute('data-start'));
                     if (start) el.textContent = formatSessionDuration(start);
                 });
+
+                if (state.currentAuthCode) {
+                    inactivitySecondsLeft--;
+                    const tBadge = document.getElementById('inactivity-timer-badge');
+                    if (tBadge) {
+                        const m = String(Math.max(0, Math.floor(inactivitySecondsLeft / 60))).padStart(2, '0');
+                        const s = String(Math.max(0, inactivitySecondsLeft % 60)).padStart(2, '0');
+                        tBadge.textContent = `${m}:${s}`;
+                    }
+                    if (inactivitySecondsLeft <= 0) {
+                        logoutUser();
+                        showToast('Session expirée automatiquement après 15 minutes d\'inactivité');
+                    }
+                }
             }, 1000);
         };
     </script>
